@@ -1,0 +1,182 @@
+
+<link rel="stylesheet" href="export/css/app.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap4.min.css">
+
+<style>
+.composantesTable-content {
+	padding: 0px 8px 0 8px !important;
+}
+
+.btn-secondary {
+	color: #fff;
+	background-color: #C30F08;
+	border-color: #C30F08;
+	background-color: #C30F08;
+}
+
+.capitalise .dt-buttons button {
+	font: 14px 'DIN Alternate', 'Open sans', helvetica, sans-serif;
+	background-color: #C30F08;
+	border: none;
+	padding: 0 20px 0 20px;
+	height: 30px;
+}
+
+.btn-group > .btn:first-child {
+    margin-left: 185px !important;
+    margin-top: -46px !important;
+}
+
+section.main {
+    margin-top: -20px !important;
+}
+
+.composantesTable-content .dataTables_wrapper div.dataTables_length label select {
+    margin: 0 10px;
+    font-size: 14px;
+    height: 32px;
+}
+
+</style>
+
+<section class="main">
+	<div class="composantesTable-content">
+		<!-- DataTales -->
+		<div class="container-table">
+			<table id="example" class="composantes-table">
+				<thead>
+					<tr class="red">
+						<th class="td-large"><sapn
+								th:utext="#{capitalisation.thematique}"></sapn></th>
+						<th class="td-large"><sapn
+								th:utext="#{capitalisation.presentaion_activiter}"></sapn></th>
+						<th class="td-large"><sapn
+								th:utext="#{capitalisation.objectif}"></sapn></th>
+						<th class="td-large"><sapn
+								th:utext="#{capitalisatoin.situation_avant }"></sapn></th>
+						<th class="td-large"><sapn
+								th:utext="#{capitalisation.situation_actuele}"></sapn></th>
+						<th class="td-large"><sapn
+								th:utext="#{capitalisation.intervention_directement}"></sapn></th>
+						<th class="td-large"><sapn
+								th:utext="#{capitalisation.intervention_indirectement}"></sapn></th>
+						<th class="td-large"><sapn
+								th:utext="#{capitalisation.lecon_positif}"></sapn></th>
+						<th class="td-large"><sapn
+								th:utext="#{capitalisation.lecon_negatif}"></sapn></th>
+						<th class="td-large"><sapn
+								th:utext="#{capitalisation.recommandation}"></sapn></th>
+						<th class="center"><sapn th:utext="#{actions.titre}"></sapn></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="capitalisation: ${capitalisationList}">
+						<td th:text="${capitalisation.capitalisation_theme}"></td>
+						<td th:text="${capitalisation.capitalisation_activite}"></td>
+						<td th:text="${capitalisation.capitalisation_objectif}"></td>
+						<td th:text="${capitalisation.capitalisation_situationavant}"></td>
+						<td th:text="${capitalisation.capitalisation_situationactuelle}"></td>
+						<td th:text="${capitalisation.capitalisation_directement}"></td>
+						<td th:text="${capitalisation.capitalisation_indirectement}"></td>
+						<td th:text="${capitalisation.capitalisation_positif}"></td>
+						<td th:text="${capitalisation.capitalisation_negatif}"></td>
+						<td th:text="${capitalisation.capitalisation_recommandation}"></td>
+						<td class="center td-action"><span
+							th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+								<a class="edit" href="#"
+								th:href="@{'/editCapitalisation/'+ ${capitalisation.id}}"></a>
+						</span> <span
+							th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+								<a class="delete" href="#"
+								th:onclick="'javascript:confirmDeleteCapitalisation(\''+ ${capitalisation.id} +'\');'"></a>
+						</span></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="alert alert-danger text-center"
+				th:if="${listErrorMessage}" th:text="${listErrorMessage}">
+				<span th:utext="#{message.error}"></span>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script src="export/js/lib.js" th:src="@{export/js/lib.js}"></script>
+<script th:src="@{export/js/app.js}"></script>
+<script type="text/javascript" th:src="@{/export/js/pooper.min.js}"></script>
+
+<!-- <script type="text/javascript" th:src="@{/export/js/jquery.fancybox.js}"></script> -->
+<script type="text/javascript" th:src="@{/export/js/bootstrap.min.js}"></script>
+<script th:src="@{export/js/jquery.ba-throttle-debounce.min.js}"></script>
+<!-- <script type="text/javascript" th:src="@{export/js/stickyTable.js}"></script> -->
+
+<script th:src="@{export/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{export/js/dataTables.bootstrap4.min.js}"></script>
+<script th:src="@{export/js/dataTables.buttons.min.js}"></script>
+<script th:src="@{export/js/buttons.bootstrap4.min.js}"></script>
+<script type="text/javascript" th:src="@{export/js/tableHeadFixer.js}"></script>
+<script th:src="@{export/js/jszip.min.js}"></script>
+<script th:src="@{export/js/pdfmake.min.js}"></script>
+<script th:src="@{export/js/vfs_fonts.js}"></script>
+<script th:src="@{export/js/buttons.html5.min.js}"></script>
+<script th:src="@{export/js/buttons.print.min.js}"></script>
+<script th:src="@{export/js/buttons.colVis.min.js}"></script>
+<script type="text/javascript" th:src="@{/export/js/giz.js}"></script>
+
+<script type="text/javascript">
+	function confirmDeleteCapitalisation(id) {
+		$('#deleteModalCapitalisation').modal('show');
+		$("#capitalisationIdHiddenInput").val(id);
+	}
+
+	function deleteCapitalisation() {
+		var id = $("#capitalisationIdHiddenInput").val();
+		window.location = "deleteCapitalisation/" + id;
+	}
+</script>
+
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+
+				$("#example").tableHeadFixer({
+					"left" : 2
+				});
+
+				var today = new Date();
+				var date = today.getFullYear() + '-' + (today.getMonth() + 1)
+						+ '-' + today.getDate();
+				var time = today.getHours() + ":" + today.getMinutes() + ":"
+						+ today.getSeconds();
+				var dateTime = date + ' ' + time;
+
+				var table = $('#example').DataTable({
+					lengthChange : true,
+					ordering : false,
+
+					buttons : [ {
+						extend : 'excelHtml5',
+						text : 'Export',
+						title : 'Tableau de capitalisation' + ' ' + dateTime,
+						titleAttr : 'Export',
+					} ]
+				});
+
+				table.buttons().container().appendTo(
+						'#example_wrapper .col-md-6:eq(0)');
+
+			});
+
+	table.buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
+
+	$(".header-language .dropdown-menu a").click(function() {
+		$(".header-language .btn").text($(this).text());
+		$(".header-language .btn").val($(this).text());
+	});
+</script>
+

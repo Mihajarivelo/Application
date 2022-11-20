@@ -1,0 +1,142 @@
+
+<!--searchbox-->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css"
+	rel="stylesheet" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+<style type="text/css">
+.select2-container .select2-selection--single {
+	height: 34px !important;
+}
+
+.select2-container--default .select2-selection--single {
+	border: 1px solid #ccc !important;
+}
+</style>
+<!--searchbox-->
+
+<div
+	th:with="disableFields=!${editMode} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+
+	<form class="form edit-user-form" role="form" autocomplete="off"
+		th:object="${rapportForm}"
+		th:action="${editMode} ?@{/editRapportperiodique} :@{/rapportForm}"
+		method="post">
+		<!--Es necesario para poder pasar la validacion del Model-->
+		<input class="form-control" type=hidden th:field="${rapportForm.id}"
+			th:if="${editMode}">
+
+		<div class="form-row">
+			<label class="cust-input">
+				<p th:text="#{rapport.indicateur}"></p>
+				<div class="custom-select">
+					<select class="form-control select2" size="3"
+						th:field="${rapportForm.indicateur}"
+						th:disabled="${disableFields}">
+						<option th:each="indicateur :${indicateurs}"
+							th:value="${indicateur.indicateur_id}"
+							th:text="${indicateur.indicateur_nom}"></option>
+					</select>
+					<div class="alert-danger"
+						th:if="${#fields.hasErrors('indicateur')}"
+						th:errors="*{indicateur}"><span th:utext="#{message.name_error}"></span></div>
+				</div>
+			</label> <label class="cust-input">
+				<p th:text="#{rapport.type_revenu}"></p>
+				<div class="custom-select">
+					<select class="form-control select2"
+						th:field="${rapportForm.rapportperiodique_type}"
+						th:disabled="${disableFields}">
+						<option value=""></option>
+						<option value="Type 1">Type 1</option>
+						<option value="Type 2">Type 2</option>
+						<option value="Type 3">Type 3</option>
+					</select>
+					<div class="alert-danger"
+						th:if="${#fields.hasErrors('rapportperiodique_type')}"
+						th:errors="*{rapportperiodique_type}"><span th:utext="#{message.name_error}"></span></div>
+				</div>
+			</label>
+		</div>
+
+		<div class="form-row">
+			<label class="cust-input">
+				<p th:text="#{rapport.libell_type}"></p>
+				<div class="custom-select">
+					<select class="form-control select2"
+						th:field="${rapportForm.rapportperiodique_typelib}"
+						th:disabled="${disableFields}">
+						<option value=""></option>
+						<option value="Revenu moyen"><span th:text="#{rapport.select_revenu}"></span></option>
+						<option value="Part vanille dans le revenu"><span th:text="#{rapport.select_partvanille}"></span></option>
+						<option
+							value="Parts de la diversification dans le revenu: agricole"><span th:text="#{rapport.select_partagricole}"></span></option>
+						<option
+							value="Parts de la diversification dans le revenu: non agricole"><span th:text="#{rapport.select_partnonagricole}"></span></option>
+						<option value="Durée de la période de soudure"><span th:text="#{rapport.select_duree}"></span></option>
+						<option value="Réhabilitation"><span th:text="#{rapport.rehabilitatoin}"></span></option>
+						<option value="Salaire"><span th:text="#{rapport.salaire}"></span></option>
+						<option value="Fournitures"><span th:text="#{rapport.fourniture}"></span></option>
+						<option value="M7">M7</option>
+						<option value="M12">M12</option>
+					</select>
+					<div class="alert-danger"
+						th:if="${#fields.hasErrors('rapportperiodique_typelib')}"
+						th:errors="*{rapportperiodique_typelib}"><span th:utext="#{message.name_error}"></span></div>
+				</div>
+			</label> <label class="cust-input">
+				<p th:text="#{rapport.date_situation}"></p>
+				<div class="input-group date">
+					<input type="text" class="ginput" style="height: 35px !important;"
+						id="datepicker" placeholder="Date de rapport périodique"
+						th:field="${rapportForm.rapportperiodique_situation}"
+						th:disabled="${disableFields}" required="required" />
+					<div class="alert-danger"
+						th:if="${#fields.hasErrors('rapportperiodique_situation')}"
+						th:errors="*{rapportperiodique_situation}"><span th:utext="#{message.name_error}"></span></div>
+				</div>
+			</label>
+		</div>
+
+		<div class="form-row">
+			<label class="cust-input">
+				<p th:text="#{rapport.valeur_situation}"></p> <input class="ginput" type="number"
+				name="number" step="any" style="height: 35px !important;"
+				th:value="0" th:field="${rapportForm.rapportperiodique_valeur}"
+				th:disabled="${disableFields}" placeholder="Valeur de situation" required="required" />
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('rapportperiodique_valeur')}"
+					th:errors="*{rapportperiodique_valeur}"><span th:utext="#{message.name_error}"></span></div>
+			</label> <label class="cust-input">
+				<p th:text="#{commentaire.commentaire}"></p> <textarea class="form-control"
+					style="width: 300px; height: 80px;" type="text"
+					th:field="${rapportForm.rapportperiodique_comm}"
+					th:disabled="${disableFields}"
+					placeholder="Commentaire de rapport périodique"></textarea>
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('rapportperiodique_comm')}"
+					th:errors="*{rapportperiodique_comm}"><span th:utext="#{message.name_error}"></span></div>
+			</label>
+		</div>
+
+		<div class="form-group row">
+			<div class="col-lg-12 text-center">
+				<a class="btn btn-secondary"
+					style="background-color: #000000 !important; width: 80px; height: 40px; margin-right: 8px; text-align: center; font-size: 16px; border-radius: 4px;"
+					th:href="@{'/rapportForm/cancel'}" th:text="#{button.annuler}"></a> <input type="submit"
+					class="gbtn" value="Save Changes"
+					th:value="${editMode}?#{button.save_change}:#{button.create}">
+			</div>
+		</div>
+		<div class="alert alert-danger text-center"
+			th:if="${formErrorMessage}" th:text="${formErrorMessage}"><span th:utext="#{message.error}"></span></div>
+		<div class="alert alert-success text-center d-none" id="formSuccess"
+			th:if="${editMode}"><span th:text="#{message.success}"></span></div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$('.select2').select2();
+</script>

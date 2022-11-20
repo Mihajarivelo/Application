@@ -1,0 +1,141 @@
+
+<!--searchbox-->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css"
+	rel="stylesheet" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+<style type="text/css">
+.select2-container .select2-selection--single {
+	height: 40px !important;
+	width: 295px !important;
+	padding: 0 16px;
+	margin-top: 8px !important;
+}
+
+.select2-selection .select2-selection--single {
+	width: 295px !important;
+}
+
+.select2-container--default .select2-selection--single {
+	border: 1px solid #ccc !important;
+	/* border-radius: 0px !important;  */
+	margin-left: -15px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    margin-top: 10px !important;
+    margin-left: -25px !important;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    padding-left: 0px !important;
+    margin-top: 6px !important;
+}
+.select2-container--open .select2-dropdown {
+    left: -15px !important;
+}
+
+</style>
+<!--searchbox-->
+
+<div
+	th:with="disableFields=!${editMode} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+
+	<form class="form edit-user-form" role="form" autocomplete="off"
+		th:object="${userForm}"
+		th:action="${editMode} ?@{/editUser} :@{/userForm}" method="post">
+		<!--Es necesario para poder pasar la validacion del Model-->
+		<input class="form-control" type=hidden th:field="${userForm.id}"
+			th:if="${editMode}"> <input class="form-control" type=hidden
+			name="password" value="xxxx" th:if="${editMode}">
+		<!--quita el comentario si quieres mantener la validacion @NotBlank del campo confirmPassword
+		 <input class="form-control" type=hidden name="confirmPassword" value="xxxx" th:if="${editMode}">
+	 -->
+
+		<div class="form-row">
+			<label class="cust-input">
+				<p th:utext="#{user.nom}"></p> <input class="ginput" type="text"
+				th:field="${userForm.firstName}" th:disabled="${disableFields}">
+				<div class="alert-danger" th:if="${#fields.hasErrors('firstName')}"
+					th:errors="*{firstName}" th:utext="#{message.name_error}"></div>
+			</label> <label class="cust-input">
+				<p th:utext="#{user.prenom}"></p> <input class="ginput" type="text"
+				th:field="${userForm.lastName}" th:disabled="${disableFields}">
+				<div class="alert-danger" th:if="${#fields.hasErrors('lastName')}"
+					th:errors="*{lastName}" th:utext="#{message.name_error}"></div>
+			</label>
+		</div>
+		<div class="form-row">
+			<label class="cust-input">
+				<p th:utext="#{user.mail}"></p>
+				<div class="">
+					<input class="ginput" type="email" th:field="${userForm.username}"
+						th:disabled="${disableFields}">
+					<div class="alert-danger" th:if="${#fields.hasErrors('username')}"
+						th:errors="*{username}" th:utext="#{message.name_error}"></div>
+				</div>
+			</label>
+			<!--  
+			<label class="cust-input">
+				<p th:text="Roles"></p>
+				<div class="custom-select" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+					<span class="customSelect-val ginput default" th:text="Roles" id="role"></span>
+					<select class="" th:field="${userForm.roles}" 
+						th:disabled="${disableFields}">
+						<option th:each="role :${roles}" th:value="${role.id}"
+							th:text="${role.name}"></option>
+					</select>
+				</div>
+			</label>
+			-->
+
+			<div class="cust-input">
+				<label th:text="Roles" class=""></label>
+				<div class="col-lg-9"
+					th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+					<select class="form-control select2" size="3" style="left: -15px;width: 295px;"
+						th:field="${userForm.roles}" th:disabled="${disableFields}">
+						<option th:each="role :${roles}" th:value="${role.id}"
+							th:text="${role.name}"></option>
+					</select>
+					<div class="alert-danger" th:if="${#fields.hasErrors('roles')}"
+						th:errors="*{roles}" th:utext="#{message.name_error}"></div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="form-row" th:if="${editMode==null or editMode==false}">
+			<label class="cust-input">
+				<p class="" th:utext="#{user.pwd}"></p> <input class="ginput" type="password"
+				th:field="${userForm.password}" th:disabled="${disableFields}">
+				<div class="alert-danger" th:if="${#fields.hasErrors('password')}"
+					th:errors="*{password}" th:utext="#{message.name_error}"></div>
+			</label> <label class="cust-input">
+				<p class="" th:utext="#{button.confirm}"></p> <input class="ginput" type="password"
+				th:field="${userForm.confirmPassword}"
+				th:disabled="${disableFields}">
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('confirmPassword')}"
+					th:errors="*{confirmPassword}" th:utext="#{message.name_error}"></div>
+			</label>
+		</div>
+		<div class="btn-row btn-submit">
+			<a class="" th:href="@{'/userForm/cancel'}" th:utext="#{button.annuler}"></a>
+			<button type="button" class="gbtn light" data-toggle="modal"
+				th:if="${editMode}" data-target="#changePasswordModal" th:utext="#{user.change_pwd}"></button>
+			<input type="submit" class="gbtn" value="Save Changes"
+				th:value="${editMode}?#{button.save_change}:#{button.create}">
+		</div>
+		<div class="alert alert-danger text-center"
+			th:if="${formErrorMessage}" th:text="${formErrorMessage}" th:utext="#{message.error}"></div>
+		<div class="alert alert-success text-center d-none" id="formSuccess"
+			th:if="${editMode}" th:utext="#{message.success}"></div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$('.select2').select2();
+</script>

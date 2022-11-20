@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<link rel="shortcut icon" type="image/png" th:href="@{/images/favicon.png}"/>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Vanilla Periodic MonitoringTools</title>
+
+<!--JQUERY-->
+<script src="static/vendors/jQuery/jquery-3.4.1.min.js"
+	th:src="@{/vendors/jQuery/jquery-3.4.1.min.js}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+
+<!-- Los iconos tipo Solid de Fontawesome-->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+<script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+<!-- Nuestro css-->
+<link rel="stylesheet" type="text/css" href="static/css/user-form.css"
+	th:href="@{/css/user-form.css}" />
+<link rel="stylesheet" href="static/css/fonts.css" type="text/css"
+	th:href="@{/css/fonts.css}" />
+<link rel="stylesheet" href="static/css/giz.css" type="text/css"
+	th:href="@{/css/giz.css}" />
+
+<!-- DATA TABLE -->
+<script type="text/javascript"
+	th:src="@{/vendors/jQuery/jquery-3.4.1.min.js}"></script>
+<script
+	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+<script type="text/javascript" th:src="@{export/js/giz.js}"></script>
+<!--JQUERY-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+
+<!-- Los iconos tipo Solid de Fontawesome-->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+<script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+<!-- Nuestro css-->
+<link rel="stylesheet" type="text/css" href="static/css/user-form.css"
+	th:href="@{/css/user-form.css}">
+
+<!-- Datepicker -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.standalone.min.css"
+	rel="stylesheet" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+<!-- Datepicker -->
+
+<!-- DATA TABLE -->
+<script
+	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css"
+	rel="stylesheet" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+<style type="text/css">
+.select2-container .select2-selection--single {
+	height: 34px !important;
+}
+
+.select2-container--default .select2-selection--single {
+	border: 1px solid #ccc !important;
+}
+</style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#datepicker').datepicker({
+			format : 'yyyy-mm-dd',
+			"autoclose" : true,
+			language : 'en'
+		})//.datepicker("setDate", 'now')
+		;
+	});
+</script>
+</head>
+<body class="add-success">
+	<header class="header" th:include=@{header-global.html}> </header>
+	<div class="container">
+		<section class="main">
+			<div class="card">
+				<div class="card-body">
+					<h2 class="page-title" th:utext="#{crud124.modiftitre}"></h2>
+					<div>
+						<form class="add-success-form" method="POST"
+							th:action="@{/saveModificationSensibilise}">
+							<input th:field="*{beneficierpgm.id}" type="hidden"> <input
+								th:field="*{beneficierpgm.personne_id}" type="hidden">
+							<div class="form-row">
+								<label class="cust-input">
+									<p th:utext="#{crud.nom}"></p> <input class="ginput" type="text"
+									th:field="*{personne.personne_nom}" required>
+								</label> <label class="cust-input">
+									<p th:utext="#{crud.genre}"></p>
+									<div class="input-group date">
+										<select class="form-control select2"
+											th:field="*{personne.personne_genre}"
+											style="height: 40px !important;">
+											<option th:value="'H'" th:utext="#{crud.homme}"></option>
+											<option th:value="'F'" th:utext="#{crud.femme}"></option>
+										</select>
+									</div>
+								</label>
+							</div>
+							<div class="form-row">
+								<label class="cust-input">
+									<p th:utext="#{crud122.total_modul}"></p> <input
+									th:field="*{beneficierpgm.beneficierpgm_valeur}" class="ginput"
+									type="text" required>
+								</label> <label class="cust-input">
+									<p th:utext="#{crud122.date_sensibilisatoin}"></p>
+									<div id="datetimepicker" class="input-append date">
+										<input id="datepicker" class="ginput" type="text"
+											th:field="*{beneficierpgm.beneficierpgm_date}" required></input>
+										<span class="add-on"> <i data-time-icon="icon-time"
+											data-date-icon="icon-calendar"></i>
+										</span>
+									</div>
+								</label>
+							</div>
+							<div class="form-row">
+								<label class="cust-input">
+									<p th:utext="#{crud.annee_nais}"></p> <input
+									th:field="*{personne.personne_anneenaiss}" class="ginput"
+									type="text">
+								</label> <label class="cust-input">
+									<p th:utext="#{crud.code_village}"></p>
+									<div class="input-group date">
+										<select class="form-control select2"
+											th:field="*{personne.code_fkt}"
+											style="height: 40px !important;">
+											<option th:value="null">-- <span th:utext="#{crud.select_village}"></span> --</option>
+											<option th:each="v : ${village}" th:value="${v.code_fkt}"
+												th:text="${v.village_nom}"></option>
+										</select>
+									</div>
+								</label>
+							</div>
+							<div class="form-row">
+								<label class="cust-input">
+									<p th:utext="#{crud.group}"></p> <input
+									th:field="*{beneficierpgm.beneficierpgm_groupemod}"
+									class="ginput" type="text"> <br>
+								</label>
+							</div>
+							<div class="col text-center">
+								<button type="submit" class="gbtn" th:utext="#{actions.editer}"></button>
+							</div>
+								
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer class="site-footer" th:include="@{footer.html}"></footer>
+					
+</body>
+<html>

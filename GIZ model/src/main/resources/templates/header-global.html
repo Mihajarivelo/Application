@@ -1,0 +1,57 @@
+<div class="header-page">
+	<div class="header-col">
+		<label class="menu-burger"> <input class="check-toggle check-modal-menu" type="checkbox" id="check_modal_menu"
+				style="top: 120px;">
+			<div class="gmodal">
+				<div class="gmodal-popup">
+					<!-- <label class="gmodal-close" for="check_modal_menu">Fermer</label> -->
+					<h2 class="page-title" th:utext="#{header.navigation}"></h2>
+					<ul class="nav-principal">
+						<li><a th:href="@{/formUpload}" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:utext="#{header.alimentation_data}"></a></li>
+						<li><a th:href="@{/sensibilise}" th:utext="#{header.edition_data}"></a></li>
+						<li><a th:href="@{/tableau-indicateur}" th:utext="#{header.composante_projet}"></a></li>
+						<li><a th:href="@{/beneficiary-table}" th:utext="#{header.table_beneficiaire}"></a></li>
+						<li><a th:href="@{/listSuccess}" th:utext="#{header.succes_story}"></a></li>
+						<li><a
+							href="http://34.77.83.37:8088/login/?usr=admin-giz&pwd=B544p^L2].qbA&host=34.77.83.37&port=8088&dash_id=1"
+							target="_blank" th:utext="#{header.requete}"></a></li>
+						<li><a th:href="@{/galerie}" th:utext="#{header.galerie_image}"></a></li>
+						<li><a th:href="@{/capitalisationForm}" th:utext="#{header.capitalisatoin}"></a></li>
+					</ul>
+				</div>
+			</div>
+		</label>
+		<h1 class="site-name">
+			<a
+				style="color: #C30F08 !important; font-weight: bold !important; text-decoration: none !important;"
+				th:href="@{/home}">Vanilla periodic <br />monitoring tools
+			</a>
+		</h1>
+	</div>
+	<div class="header-col right">
+		<span class="account-name"> <span
+			th:text="${#authentication.getPrincipal().getUsername()}"></span>
+		</span>
+		<div class="dropdown">
+			<button class="account-picture dropdown-toggle" type="button" id="about-us" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				
+			</button>
+			<div class="user-list dropdown-menu" aria-labelledby="about-us">
+				<li class="dropdown-item" href="#"><a class="nav-user" href="#" th:href="@{/userForm}" th:utext="#{header.compte}"></a></li>
+				<li class="dropdown-item" href="#"><a class="nav-setting" href="#" th:href="@{/accueilForm}" th:utext="#{header.parametre}"></a></li>
+				<li class="dropdown-item" href="#"><a class="nav-exit" href="#" th:href="@{/logout}" th:utext="#{header.deconnexion}"></a></li>
+			</div>
+		</div>
+		<div class="dropdown header-language">
+		  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="background: none !important; margin-right: 10px !important;" th:utext="#{header.langue}">
+		  </button>
+		  <div style="top: 15px !important;">
+		  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); ">
+		    <a class="dropdown-item" th:href="@{?lang=fr}" th:utext="#{header.francai}"></a>
+		    <a class="dropdown-item" th:href="@{?lang=en}" th:utext="#{header.anglais}"></a>
+		  </div>
+		  </div>
+		</div>
+		<!--  -->
+	</div>
+</div>

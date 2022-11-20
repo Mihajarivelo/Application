@@ -1,0 +1,451 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<link rel="shortcut icon" type="image/png"
+	th:href="@{/images/favicon.png}" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Vanilla Periodic MonitoringTools</title>
+
+<!-- STYLES -->
+
+<link rel="stylesheet" th:href="@{/export/css/app.css}">
+<link rel="stylesheet" th:href="@{/export/css/bootstrap.min.css}">
+<link rel="stylesheet"
+	th:href="@{/export/css/dataTables.bootstrap4.min.css}">
+<link rel="stylesheet"
+	th:href="@{/export/css/buttons.bootstrap4.min.css}">
+<link rel="stylesheet" th:href="@{/export/css/jquery-stickytable.css}">
+<!-- Nuestro css-->
+<link rel="stylesheet" type="text/css" href="static/css/user-form.css"
+	th:href="@{/css/user-form.css}" />
+<link rel="stylesheet" href="static/css/fonts.css" type="text/css"
+	th:href="@{/css/fonts.css}" />
+<link rel="stylesheet" href="static/css/giz.css" type="text/css"
+	th:href="@{/css/giz.css}" />
+<script type="text/javascript"
+	th:src="@{/vendors/jQuery/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{export/js/giz.js}"></script>
+
+</head>
+
+<body class="beneficiary-table">
+	<header class="header" th:include=@{header-global.html}> </header>
+	<section class="main">
+		<div class="composantesTable-content">
+			<header class="composantesTable-header justify-between">
+				<h2 class="page-title">Table des bénéficiaires</h2>
+				<div class="top-btn text-center">
+					<a class="btn gbtn" th:href="@{suivithemecoopForm}" role="button"
+						th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+						+ Coopératives strengthening</a>
+				</div>
+			</header>
+			<div class="container-table">
+				<div id="ejemplo_wrapper"
+					class="dataTables_wrapper dt-bootstrap4 no-footer">
+					<table id="ejemplo" class="composantes-table">
+						<thead>
+							<tr class="red">
+								<th style="width: 85px;">Component</th>
+								<th style="width: 545px;">Intervention area</th>
+								<th style="width: 30px;" class="center">Boys</th>
+								<th style="width: 30px;" class="center">Girls</th>
+								<th style="width: 27px;" class="center">Men</th>
+								<th style="width: 47px;" class="center">Women</th>
+								<th style="width: 47px;" class="center">View</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr>
+								<td>Component 1</td>
+								<td>Farmer Business Schools</td>
+								<td class="center"></td>
+								<td class="center"></td>
+								<td class="center" th:each="beneficierpgm: ${listFBSMen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center" th:each="beneficierpgm: ${listFBSWomen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center td-action"><a class="view"
+									th:href="@{/liste-ben-fbs}"></a></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td>Coopératives strengthening 1b</td>
+								<td class="center"></td>
+								<td class="center"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listCooperativesStrengtheninMen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listCooperativesStrengtheningWomen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center td-action"><a class="view"
+									th:href="@{/suivithemecoopForm}"></a></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td>Risk diversification, entrepreneurship - ASA</td>
+								<td class="center"></td>
+								<td class="center"></td>
+								<td class="center" th:each="beneficierpgm: ${listASAMen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center" th:each="beneficierpgm: ${listASAWomen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center td-action"><a class="view"
+									th:href="@{/liste-asa}"></a></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td>Risk diversification, entrepreneurship - Livestock
+									trainers</td>
+								<td class="center"></td>
+								<td class="center"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listFormateursElevageMen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listFormateursElevageWomen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center td-action"><a class="view"
+									th:href="@{/liste-frm-elevage}"></a></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td>Risk diversification, entrepreneurship - People trained
+									in good farming practices</td>
+								<td class="center"></td>
+								<td class="center"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listBeneficiairesFormationPetitElevageMen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listBeneficiairesFormationPetitElevageWomen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center td-action"><a class="view"
+									th:href="@{/liste-ben-frm-elevage}"></a></td>
+							</tr>
+
+							<tr>
+								<td>Component 2</td>
+								<td>Educational services - Children at Primary Public
+									Schools</td>
+								<td class="center"
+									th:each="beneficierpgm: ${listChildrenPrimaryPublicSchoolsBoys}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listChildrenPrimaryPublicSchoolsGirls}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"></td>
+								<td class="center"></td>
+								<td class="center td-action"><a class="view"
+									th:href="@{/liste-eleve-epp}"></a></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td>Educational services - Youth in MFR</td>
+								<td class="center" th:each="beneficierpgm: ${listJeunesMFRBoys}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center" th:each="beneficierpgm: ${listJeunesMFRGirl}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"></td>
+								<td class="center"></td>
+								<td class="center td-action"><a class="view"
+									th:href="@{/liste-mfr}"></a></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td>Educational services - Teachers trained on kit mad'ere</td>
+								<td class="center"></td>
+								<td class="center"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listEnseignantsFormesMen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listEnseignantsFormesWomen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center td-action"><a class="view"
+									th:href="@{/liste-enseignants}"></a></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td>Healthcare and WASH</td>
+								<td class="center"
+									th:each="beneficierpgm: ${listHealthcareWASHBoys}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listHealthcareWASHGirls}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listHealthcareWASHMen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listHealthcareWASHWomen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center td-action"><a class="view"
+									th:href="@{/liste-jeunes-m12}"></a></td>
+							</tr>
+
+							<tr class="grey-dark">
+								<td></td>
+								<td class=""><b>Total</b></td>
+								<td class="center" th:each="beneficierpgm: ${listTotalBoys}"><b
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></b></td>
+								<td class="center" th:each="beneficierpgm: ${listTotalGirls}"><b
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></b></td>
+
+								<td class="center" th:each="beneficierpgm: ${listTotalMen}"><b
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></b></td>
+								<td class="center" th:each="beneficierpgm: ${listTotalWomen}"><b
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></b></td>
+								<td></td>
+							</tr>
+
+							<tr>
+								<td>Component 3</td>
+								<td>Extending healthcare insurance to the poorest
+									households</td>
+								<td class="center"
+									th:each="beneficierpgm: ${listHealthcareWASHBoysM7}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listHealthcareWASHGirlsM7}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listHealthcareWASHMenM7}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listHealthcareWASHWomenM7}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center td-action"><a class="view"
+									th:href="@{/liste-jeunes-m7}"></a></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td>Improved access to fair savings and credit</td>
+								<td class="center"></td>
+								<td class="center"></td>
+								<td class="center"></td>
+								<td class="center"></td>
+								<td></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td>VSLAs</td>
+								<td class="center"></td>
+								<td class="center"></td>
+								<td class="center" th:each="beneficierpgm: ${listVSLAsMen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center" th:each="beneficierpgm: ${listVSLAsWomen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center td-action"><a class="view"
+									th:href="@{/liste-vsla}"></a></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td>Providing poorest families with small livelihoods
+									grants</td>
+								<td class="center"></td>
+								<td class="center"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listLivelihoodsGrantsMen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listLivelihoodsGrantsWomen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center td-action"><a class="view"
+									th:href="@{/liste-ben-grants}"></a></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td>Improving health, nutrition and hygiene behaviours in
+									all 36 villages</td>
+								<td class="center"
+									th:each="beneficierpgm: ${listIndividusSensibilisesBoys}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listIndividusSensibilisesGirls}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listIndividusSensibilisesMen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listIndividusSensibilisesWomen}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center td-action"><a class="view"
+									th:href="@{/liste-menages-sensibilises}"></a></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td>Setting up Youth Committees</td>
+								<td class="center"
+									th:each="beneficierpgm: ${listSettingCommitteesBoys}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listSettingCommitteesGirls}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"></td>
+								<td class="center"></td>
+								<td class="center td-action"><a class="view"
+									th:href="@{/liste-committees}"></a></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td>Providing literacy, numeracy and life skills training -
+									People participating in the literacy program</td>
+								<td class="center"
+									th:each="beneficierpgm: ${listLifeSkillsTrainingBoys}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center"
+									th:each="beneficierpgm: ${listLifeSkillsTrainingGirls}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td></td>
+								<td></td>
+								<td class="center td-action"><a class="view"
+									th:href="@{/beneficiaire-village}"></a></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td>Providing literacy, numeracy and life skills training -
+									Pathway</td>
+								<td class="center" th:each="beneficierpgm: ${listPathwayBoys}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td class="center" th:each="beneficierpgm: ${listPathwayGirls}"
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></td>
+								<td></td>
+								<td></td>
+								<td class="center td-action"><a class="view"
+									th:href="@{/beneficiaire-village}"></a></td>
+							</tr>
+
+							<tr class="grey-dark">
+								<td></td>
+								<td class=""><b>Total</b></td>
+								<td class="center" th:each="beneficierpgm: ${listTotal2Boys}"><b
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></b></td>
+								<td class="center" th:each="beneficierpgm: ${listTotal2Girls}"><b
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></b></td>
+
+								<td class="center" th:each="beneficierpgm: ${listTotal2Men}"><b
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></b></td>
+								<td class="center" th:each="beneficierpgm: ${listTotal2Women}"><b
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></b></td>
+								<td></td>
+							</tr>
+
+							<!-- TOTAL 3 -->
+							<tr style="background-color: #C30F08; color: #fff;">
+								<td></td>
+								<td><b>Without double counting</b></td>
+								<td class="center" th:each="beneficierpgm: ${listTotal3Boys}"><b
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></b></td>
+								<td class="center" th:each="beneficierpgm: ${listTotal3Girls}"><b
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></b></td>
+								<td class="center" th:each="beneficierpgm: ${listTotal3Men}"><b
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></b></td>
+								<td class="center" th:each="beneficierpgm: ${listTotal3Women}"><b
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></b></td>
+								<td></td>
+							</tr>
+
+							<!-- TOTAL 4 Mixte -->
+							<tr style="background-color: #C30F08; color: #fff;">
+								<td></td>
+								<td><b>Total Without double counting</b></td>
+								<td class="center" th:each="beneficierpgm: ${listTotal4Mixte}"><b
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></b></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+
+							<!-- TOTAL 5 Menages -->
+							<tr style="background-color: #C30F08; color: #fff;">
+								<td></td>
+								<td><b>Total ménages</b></td>
+								<td class="center" th:each="beneficierpgm: ${listTOTAL5Menages}"><b
+									th:text="${beneficierpgm.nbreBeneficiairesLong}"></b></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td>Liste des bénéficiaires par village du Projet Fandriaka</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td class="center td-action"><a class="view"
+									th:href="@{/beneficiaire-village}"></a></td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+				<!-- <table id="ejemplo" class="table header-fixed composantes-table" style="display: none;"></table> -->
+			</div>
+		</div>
+	</section>
+
+	<footer class="site-footer" th:include="@{footer.html}"></footer>
+
+	<script th:src="@{export/js/apptabben.js}"></script>
+	<script th:src="@{/export/js/pooper.min.js}"></script>
+	<script th:src="@{export/js/bootstrap.min.js}"></script>
+	<script th:src="@{export/js/jquery.dataTables.min.js}"></script>
+	<script th:src="@{export/js/dataTables.bootstrap4.min.js}"></script>
+	<script th:src="@{export/js/dataTables.buttons.min.js}"></script>
+	<script th:src="@{export/js/buttons.bootstrap4.min.js}"></script>
+	<script th:src="@{export/js/jszip.min.js}"></script>
+	<script th:src="@{export/js/pdfmake.min.js}"></script>
+	<script th:src="@{export/js/vfs_fonts.js}"></script>
+	<script th:src="@{export/js/buttons.html5.min.js}"></script>
+	<script th:src="@{export/js/buttons.print.min.js}"></script>
+	<script th:src="@{export/js/buttons.colVis.min.js}"></script>
+	<script th:src="@{export/js/jquery.ba-throttle-debounce.min.js}"></script>
+	<script type="text/javascript" th:src="@{/export/js/stickyTable.js}"></script>
+</body>
+<script>
+	$('#ejemplo').stickyTable({
+		overflowy : true
+	});
+
+	// var tableOffset = $(".composantes-table").offset().top;
+	// var $header = $(".composantes-table > thead").clone();
+	// var $fixedHeader = $(".header-fixed").append($header);
+
+	// $(window).bind("scroll", function () {
+	// 	var offset = $(this).scrollTop();
+
+	// 	if (offset >= tableOffset && $fixedHeader.is(":hidden")) {
+	// 		$fixedHeader.show();
+	// 	} else if (offset < tableOffset) {
+	// 		$fixedHeader.hide();
+	// 	}
+	// });
+</script>
+
+</html>

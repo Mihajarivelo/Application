@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="shortcut icon" type="image/png" th:href="@{/images/favicon.png}"/>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Vanilla Periodic MonitoringTools</title>
+
+	<!--JQUERY-->
+
+
+	<link rel="stylesheet" type="text/css" th:href="@{/css/user-form.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/fonts.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/giz.css}" />
+
+	<link rel="stylesheet" th:href="@{/export/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/export/css/dataTables.bootstrap4.min.css}">
+	<script type="text/javascript" th:src="@{/vendors/jQuery/jquery-3.4.1.min.js}"></script>
+
+</head>
+
+<body class="accueil-form">
+	<header class="header" th:include=@{header-global.html}> </header>
+	<section class="main">
+		<div class="container">
+			<div class="main-section" id="myTab" role="tablist">
+				<header>
+					<ul class="nav nav-tabs justify-content-end btn-row">
+						<li class="nav-item gbtn"><a class="nav-link" th:classappend=" ${accueilTab}" id="list-tab"
+								data-toggle="tab" href="#list" role="tab" aria-controls="list"
+								aria-selected="false" th:utext="#{accueil.text_welcome}"></a></li>
+						<li class="nav-item gbtn"><a class="nav-link" th:classappend=" ${formaccueilTab}" id="form-tab"
+								data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true" th:utext="#{accueil.form_text_welcome}"></a></li>
+					</ul>
+				</header>
+				<section class="">
+					<div class="tab-content" id="myTabContent">
+						<div class="tab-pane fade show" th:classappend=" ${accueilTab}" id="list" role="tabpanel"
+							aria-labelledby="list-tab">
+							<div class="card">
+
+								<div class="card-body">
+									<div th:include="accueil-form/accueil-list.html" th:remove="tag"></div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade show" th:classappend=" ${formaccueilTab}" id="form" role="tabpanel"
+							aria-labelledby="form-tab">
+							<div class="card">
+
+								<div class="card-body">
+									<div class="mx-auto col-sm-9">
+										<div th:include="accueil-form/accueil-form.html" th:remove="tag"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</section>
+	<div th:include="accueil-form/confirm-delete-dialog.html" th:remove="tag"></div>
+	<footer class="site-footer" th:include="@{footer.html}"> </footer>
+
+	<script type="text/javascript" th:src="@{export/js/pooper.min.js}"></script>
+	<script type="text/javascript" th:src="@{/export/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/export/js/giz.js}"></script>
+	<script th:src="@{/export/js/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/export/js/dataTables.bootstrap4.min.js}"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			//Asegurate que el id que le diste a la tabla sea igual al texto despues del simbolo #
+			$('#welcomeList').DataTable();
+		});
+	</script>
+</body>
+
+</html>

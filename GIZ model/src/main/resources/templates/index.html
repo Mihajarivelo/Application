@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="shortcut icon" type="image/png" th:href="@{/images/favicon.png}"/>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Vanilla Periodic MonitoringTools</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Nuestro css-->
+	<link rel="stylesheet" type="text/css" href="static/css/index.css" th:href="@{/css/index.css}">
+	<link rel="stylesheet" type="text/css" href="static/css/giz.css" th:href="@{/css/giz.css}">
+	<link rel="stylesheet" type="text/css" href="static/css/fonts.css" th:href="@{/css/fonts.css}">
+
+</head>
+
+<body class="glogin-body">
+	<header class="header">
+		<div class="header-login">
+			<ul class="headerLogin-affiliate">
+				<li><img alt="" src="static/images/Germano-malgache.png" th:src="@{/images/Germano-malgache.png}" />
+				</li>
+				<li><img alt="" src="static/images/giz-logo.png" th:src="@{/images/giz-logo.png}" /></li>
+				<li><img alt="" src="static/images/logo.png" th:src="@{/images/logo.png}" /></li>
+				<li><img alt="" src="static/images/Logo_Unilever.png" th:src="@{/images/Logo_Unilever.png}" /></li>
+				<li><img alt="" src="static/images/SCI.png" th:src="@{/images/SCI.png}" /></li>
+			</ul>
+		</div>
+	</header>
+	<section class="main formLogin">
+		<div class="glogin">
+			<h2>Vanilla periodic <br />monitoring tools</h2>
+			<form class="glogin" th:action="@{/login}" method="post">
+				<label class="glogin-label" id="user-group">
+					<strong>Utilisateur</strong>
+					<input type="email" class="ginput" placeholder="adresse e-mail valide" name="username"
+						required="required" />
+				</label>
+				<label class="glogin-label" id="contrasena-group">
+					<strong>Mot de passe</strong>
+					<input type="password" class="ginput" placeholder="password" name="password" required="required" />
+				</label>
+				<div class="btn-row">
+					<a th:href="@{/contact}">Mot de passe oublié</a>
+					<button class="gbtn" type="submit">Se connecter</button>
+				</div>
+			</form>
+			<div class="error">
+				<p class="error-msg" th:if="${param.error}">adresse e-mail ou mot de passe non valide...</p>
+				<p class="error-msg" th:if="${param.logout}">vous êtes déconnecté</p>
+			</div>
+		</div>
+	</section>
+
+	<!--script-->
+
+	<script src="vendors/jQuery/jquery-3.4.1.min.js" th:src="@{/vendors/jQuery/jquery-3.4.1.min.js}"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+	<script type="text/javascript" th:src="@{export/js/giz.js}"></script>
+
+</body>
+
+</html>

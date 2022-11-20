@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="shortcut icon" type="image/png" th:href="@{/images/favicon.png}"/>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Vanilla Periodic MonitoringTools</title>
+
+	<!-- Bootstrap and CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="static/css/index.css" th:href="@{/css/index.css}">
+	<link rel="stylesheet" type="text/css" href="static/css/giz.css" th:href="@{/css/giz.css}">
+	<link rel="stylesheet" type="text/css" href="static/css/fonts/fonts.css" th:href="@{/css/fonts/fonts.css}">
+
+
+	<!-- <style>
+div.ex1 {
+	width: 300px;
+	margin: auto;
+} -->
+	</style>
+
+</head>
+
+<body class="add-success">
+	<header class="header" th:include=@{header-global.html}>
+	</header>
+	<div class="container">
+		<section class="main">
+			<div class="card">
+				<div class="card-body">
+					<h2 class="page-title" th:utext="#{success.buton_ajout}"></h2>
+					<div>
+						<form class="add-success-form" method="POST" th:action="@{/modifier}"
+							enctype="multipart/form-data">
+							<input th:field="*{SuccessStories.id}" class="form-control form-control-sm" type="text"
+								hidden>
+							<div class="form-row">
+								<label class="cust-input">
+									<p th:utext="#{success.nom}"></p>
+									<input th:field="*{SuccessStories.proprietaire}" class="ginput" type="text"
+										required>
+								</label>
+								<label class="cust-input">
+									<p th:utext="#{success.district}"></p>
+									<!-- <input class="ginput" type="text" id="lastName" name="lastName" value=""> -->
+									<!-- <input th:name="district" class="ginput" type="text" required> -->
+									<input th:field="*{SuccessStories.district}" class="ginput" type="text" required>
+								</label>
+							</div>
+							<div class="form-row">
+								<label class="cust-input">
+									<p th:utext="#{success.commune}"></p>
+									<!-- <input th:name="commune" class="ginput" type="text" required> -->
+									<input th:field="*{SuccessStories.commune}" class="ginput" type="text" required>
+								</label>
+								<label class="cust-input">
+									<p th:utext="#{success.village}"></p>
+									<!-- <input th:name="village" class="ginput" type="text" required> -->
+									<input th:field="*{SuccessStories.village}" class="ginput" type="text" required>
+								</label>
+							</div>
+							<div class="form-row">
+								<label class="cust-input">
+									<p th:utext="#{success.thematique}"></p>
+									<!-- <input th:name="thematique" class="ginput" type="text" required> -->
+									<input th:field="*{SuccessStories.thematique}" class="ginput" type="text" required>
+								</label>
+							</div>
+							<div class="form-row">
+								<div class="custom-file cust-input">
+									<input type="file" th:name="file" class="custom-file-input" id="customFile">
+									<label class="custom-file-label" for="customFile" th:utext="#{message.choix_fich}"></label>
+								</div>
+							</div>
+							<span th:if="${message == 1}" th:utext="#{success.save}"></span>
+
+
+
+							<!-- <label>Nom</label> <input th:field="*{SuccessStories.proprietaire}"
+								class="form-control form-control-sm" type="text" required> -->
+
+							<!-- <label>District</label> <input th:field="*{SuccessStories.district}"
+								class="form-control form-control-sm" type="text" required> -->
+
+							<!-- <label>Commune</label>
+							<input th:field="*{SuccessStories.commune}" class="form-control form-control-sm" type="text"
+								required>
+							<label>Village</label> <input th:field="*{SuccessStories.village}"
+								class="form-control form-control-sm" type="text" required> -->
+							<!-- <label>Thématique</label> <input th:field="*{SuccessStories.thematique}"
+								class="form-control form-control-sm" type="text" required> <br> -->
+
+							<!-- <div class="custom-file">
+								<input type="file" th:name="file" class="custom-file-input" id="customFile">
+								<label class="custom-file-label" for="customFile">Choisir fichier</label>
+							</div><br> -->
+
+
+
+							<div class="col text-center">
+								<button type="submit" class="gbtn" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:utext="#{success.buton_modif}"></button>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<footer class="site-footer" th:include="@{footer.html}"></footer>
+
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

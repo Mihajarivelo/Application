@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="shortcut icon" type="image/png" th:href="@{/images/favicon.png}"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Vanilla Periodic MonitoringTools</title>
+
+    <!-- Nuestro css-->
+    <link rel="stylesheet" type="text/css" href="static/css/user-form.css" th:href="@{/css/user-form.css}">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+
+    <!-- 	<link rel="stylesheet" type="text/css" href="static/css/index.css" th:href="@{/css/index.css}"> -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/giz.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fonts.css}">
+    <link rel="stylesheet" th:href="@{/export/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/export/css/dataTables.bootstrap4.min.css}">
+    <script th:src="@{/vendors/jQuery/jquery-3.4.1.min.js}"></script>
+
+
+</head>
+
+<body class="home">
+    <header class="header" th:include=@{header-global.html}>
+    </header>
+    <section class="main">
+        <div class="home-content" >
+            <h2 class="page-title" th:utext="#{accueil.home}"></h2>
+            <div class="welcome"></div>
+            <div th:each="home: ${homeList}">
+            <p th:text="${home.accueil_text1}"> </p>
+            <p th:text="${home.accueil_text2}"> </p>
+            </div>
+        </div>
+    </section>
+    <footer class="site-footer" th:include="@{footer.html}">
+    </footer>
+    <!-- SCRIPT -->
+    <script th:src="@{/export/js/pooper.min.js}"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <script th:src="@{/export/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/export/js/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{export/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/giz.js}"></script>
+</body>
+
+</html>

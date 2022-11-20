@@ -1,0 +1,198 @@
+<!--searchbox-->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css"
+	rel="stylesheet" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+<style type="text/css">
+.select2-container .select2-selection--single {
+	height: 40px !important;
+	width: 918px !important;
+	padding: 0 16px;
+	margin-top: 8px !important;
+}
+
+.select2-selection .select2-selection--single {
+	width: 295px !important;
+}
+
+.select2-container--default .select2-selection--single {
+	border: 1px solid #ccc !important;
+	/* border-radius: 0px !important;  */
+	margin-left: -2px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b
+	{
+	margin-top: 10px !important;
+	margin-left: 600px !important;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered
+	{
+	padding-left: 0px !important;
+	margin-top: 6px !important;
+}
+
+.select2-search--dropdown .select2-search__field {
+	padding: 4px;
+	width: 315%;
+	box-sizing: border-box;
+}
+</style>
+<!--searchbox-->
+
+
+<div
+	th:with="disableFields=!${editMode} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+
+	<form class="form edit-user-form" role="form" autocomplete="off"
+		th:object="${indicateurForm}"
+		th:action="${editMode} ?@{/editIndicateur} :@{/indicateurForm}"
+		method="post">
+
+		<!-- 
+		<input class="form-control" type=hidden
+			th:field="${indicateurForm.indicateur_id}" th:if="${editMode}"> -->
+
+		<div class="form-row">
+			<label class="cust-input">
+				<p th:utext="#{crud.menu}"></p>
+				<div class="custom-select">
+					<select class="form-control select2" size="3"
+						th:field="${indicateurForm.souscomposante}"
+						th:disabled="${disableFields}">
+						<option th:each="souscomposante :${souscomposantes}"
+							th:value="${souscomposante.souscomposante_code}"
+							th:text="${souscomposante.souscomposante_nom}"></option>
+					</select>
+					<div class="alert-danger"
+						th:if="${#fields.hasErrors('souscomposante')}"
+						th:errors="*{souscomposante}">
+						<span th:utext="#{message.name_error}"></span>
+					</div>
+				</div>
+			</label>
+		</div>
+
+		<div class="form-row">
+			<label class="cust-input">
+				<p th:utext="#{beneficiary.code}"></p> <input class="ginput"
+				type="text" th:field="${indicateurForm.indicateur_id}"
+				th:disabled="${disableFields}" th:placeholder="#{beneficiary.code}" />
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('indicateur_id')}"
+					th:errors="*{indicateur_id}">
+					<span th:utext="#{message.name_error}"></span>
+				</div>
+			</label> <label class="cust-input">
+				<p th:utext="#{indicateur.nom}"></p> <textarea class="form-control"
+					type="text" th:field="${indicateurForm.indicateur_nom}"
+					th:disabled="${disableFields}" th:placeholder="#{indicateur.nom}"></textarea>
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('indicateur_nom')}"
+					th:errors="*{indicateur_nom}">
+					<span th:utext="#{message.name_error}"></span>
+				</div>
+			</label> <label class="cust-input">
+				<p th:utext="#{beneficiary.source_donne}"></p> <textarea
+					class="form-control" type="text"
+					th:field="${indicateurForm.indicateur_srcdonnees}"
+					th:disabled="${disableFields}" th:placeholder="#{beneficiary.source_donne}"></textarea>
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('indicateur_srcdonnees')}"
+					th:errors="*{indicateur_srcdonnees}">
+					<span th:utext="#{message.name_error}"></span>
+				</div>
+			</label>
+		</div>
+
+		<div class="form-row">
+			<label class="cust-input">
+				<p th:utext="#{indicateur.ennonce_objectif}"></p> <input
+				class="ginput" type="text"
+				th:field="${indicateurForm.indicateur_ennonceobjectif}"
+				th:disabled="${disableFields}" th:placeholder="#{indicateur.ennonce_objectif}">
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('indicateur_ennonceobjectif')}"
+					th:errors="*{indicateur_ennonceobjectif}">
+					<span th:utext="#{message.name_error}"></span>
+				</div>
+			</label> <label class="cust-input">
+				<p th:utext="#{indicateur.objectifs}"></p> <input class="ginput"
+				type="number" th:field="${indicateurForm.indicateur_objectif}"
+				th:disabled="${disableFields}" th:placeholder="#{indicateur.objectifs}">
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('indicateur_objectif')}"
+					th:errors="*{indicateur_objectif}">
+					<span th:utext="#{message.name_error}"></span>
+				</div>
+			</label>
+			<!--  
+			<label class="cust-input">
+				<p th:utext="#{indicateur.observation}"></p> <input class="ginput" type="text"
+				th:field="${indicateurForm.indicateur_observation}"
+				th:disabled="${disableFields}" placeholder="Observation">
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('indicateur_observation')}"
+					th:errors="*{indicateur_observation}"><span th:utext="#{message.name_error}"></span></div>
+			</label> 
+			-->
+			
+			<label class="cust-input">
+				<p>Observation</p>
+				<div class="">
+					<select class="form-control"
+						style="select .form-control: not([ size ] ):not([ multiple ] ); height: 40px; font-size: 14px;"
+						th:field="${indicateurForm.indicateur_observation}"
+						th:disabled="${disableFields}">
+						<option value=""></option>
+						<option value="On track">On track</option>
+						<option value="Divergence forte">Divergence forte</option>
+						<option value="Divergence faible">Divergence faible</option>
+						<option value="Pas d'évaluation">Pas d'évaluation</option>
+						<option value="Off track">Off track</option>
+					</select>
+					<div class="alert-danger"
+						th:if="${#fields.hasErrors('indicateur_observation')}"
+						th:errors="*{indicateur_observation}">Name Error</div>
+				</div>
+			</label>
+
+		</div>
+
+		<div class="form-row">
+			<label class="cust-input">
+				<p th:utext="#{indicateur.situation}"></p> <textarea
+					class="form-control" type="text"
+					th:field="${indicateurForm.indicateur_situationref}"
+					th:disabled="${disableFields}" th:placeholder="#{indicateur.situation}"></textarea>
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('indicateur_situationref')}"
+					th:errors="*{indicateur_situationref}">
+					<span th:utext="#{message.name_error}"></span>
+				</div>
+			</label>
+		</div>
+
+		<div class="btn-row btn-submit">
+			<a class="" th:href="@{'/indicateurForm/cancel'}"
+				th:utext="#{button.annuler}"></a> <input type="submit" class="gbtn"
+				value="Save Changes"
+				th:value="${editMode}?#{button.save_change}:#{button.create}">
+		</div>
+		<div class="alert alert-danger text-center"
+			th:if="${formErrorMessage}" th:text="${formErrorMessage}">
+			<span th:utext="#{message.error}"></span>
+		</div>
+		<div class="alert alert-success text-center d-none" id="formSuccess"
+			th:if="${editMode}">
+			<span th:text="#{message.success}"></span>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$('.select2').select2();
+</script>

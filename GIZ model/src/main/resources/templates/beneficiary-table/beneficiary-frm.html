@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="shortcut icon" type="image/png" th:href="@{/images/favicon.png}"/>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Vanilla Periodic MonitoringTools</title>
+
+	<!-- STYLES -->
+
+
+	<link rel="stylesheet" th:href="@{/export/css/app.css}">
+	<link rel="stylesheet" th:href="@{/export/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/export/css/dataTables.bootstrap4.min.css}">
+	<link rel="stylesheet" th:href="@{/export/css/buttons.bootstrap4.min.css}">
+	<link rel="stylesheet" th:href="@{/export/css/jquery-stickytable.css}">
+	<!-- Nuestro css-->
+
+	<link rel="stylesheet" type="text/css" th:href="@{/css/user-form.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/fonts.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/giz.css}" />
+
+	<!--JQUERY-->
+
+	<script type="text/javascript" th:src="@{/vendors/jQuery/jquery-3.4.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{export/js/giz.js}"></script>
+
+</head>
+
+<body class="beneficiary-table">
+	<header class="header" th:include=@{header-global.html}> </header>
+	<section class="main">
+		<div class="composantesTable-content">
+			<header class="composantesTable-header">
+				<h2 class="page-title" th:utext="#{beneficiaryfrm.tableautitre}"></h2>
+			</header>
+			<table id="ejemplo" class="composantes-table">
+				<thead>
+					<tr class="red">
+						<!-- <th>N°</th> -->
+						<th><span th:utext="#{crud.nom_prenom }"></span></th>
+						<th><span th:utext="#{crud.genre}"></span></th>
+						<th><span th:utext="#{success.district}"></span></th>
+						<th><span th:utext="#{success.commune}"></span></th>
+						<th><span th:utext="#{success.village}"></span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="personne: ${listVIEWFormateursElevageMen}">
+						<!-- <td th:text="${personne.personneNom}"></td> -->
+						<td th:text="${personne.personneGenre}"></td>
+						<td th:text="${personne.district}"></td>
+						<td th:text="${personne.commune}"></td>
+						<td th:text="${personne.codeFkt}"></td>
+						<td th:text="${personne.villageNom}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+
+	<footer class="site-footer" th:include="@{footer.html}"></footer>
+
+	<script th:src="@{export/js/appbenfrm.js}"></script>
+	<script th:src="@{/export/js/pooper.min.js}"></script>
+	<script th:src="@{export/js/bootstrap.min.js}"></script>
+	<script th:src="@{export/js/jquery.dataTables.min.js}"></script>
+	<script th:src="@{export/js/dataTables.bootstrap4.min.js}"></script>
+	<script th:src="@{export/js/dataTables.buttons.min.js}"></script>
+	<script th:src="@{export/js/buttons.bootstrap4.min.js}"></script>
+	<script th:src="@{export/js/jszip.min.js}"></script>
+	<script th:src="@{export/js/pdfmake.min.js}"></script>
+	<script th:src="@{export/js/vfs_fonts.js}"></script>
+	<script th:src="@{export/js/buttons.html5.min.js}"></script>
+	<script th:src="@{export/js/buttons.print.min.js}"></script>
+	<script th:src="@{export/js/buttons.colVis.min.js}"></script>
+	<script th:src="@{export/js/jquery.ba-throttle-debounce.min.js}"></script>
+	<script type="text/javascript" th:src="@{/export/js/stickyTable.js}"></script>
+	<script>
+		$('#ejemplo').stickyTable({ overflowy: true });
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<link rel="shortcut icon" type="image/png" th:href="@{/images/favicon.png}"/>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Vanilla Periodic MonitoringTools</title>
+
+	<!--JQUERY-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+	<!-- Nuestro css-->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/user-form.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/fonts.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/giz.css}" />
+	<script type="text/javascript" th:src="@{/vendors/jQuery/jquery-3.4.1.min.js}"></script>
+
+</head>
+
+<body class="capitalise">
+	<header class="header" th:include=@{header-global.html}> </header>
+	<section class="main">
+		<!-- <div class="container"> -->
+		<div class="main-section" id="myTab" role="tablist">
+
+			<header class="tab-header">
+				<ul class="nav nav-tabs justify-content-end btn-row">
+					<li class="nav-item gbtn back"><a class="nav-link" th:href="@{/tableau-indicateur}" role="button" th:utext="#{action.retour}"></a></li>
+					<li class="nav-item gbtn"><a class="nav-link " th:classappend=" ${listindicateurTab}" id="list-tab"
+							data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false" th:utext="#{indicateur.liste}"></a></li>
+					<li class="nav-item gbtn"><a class="nav-link" th:classappend=" ${formindicateurTab}" id="form-tab"
+							data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true" th:utext="#{indicateur.from}"></a></li>
+				</ul>
+			</header>
+			<div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade show" th:classappend=" ${listindicateurTab}" id="list" role="tabpanel"
+					aria-labelledby="list-tab">
+					<div class="card">
+						<div class="card-body">
+							<h2 class="page-title" th:utext="#{indicateur.liste}"></h2>
+							<div th:include="indicateur-form/indicateur-list.html" th:remove="tag"></div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade show" th:classappend=" ${formindicateurTab}" id="form" role="tabpanel"
+					aria-labelledby="form-tab">
+					<div class="card">
+						<div class="card-body">
+							<h2 class="page-title" th:utext="#{indicateur.nouveau}"></h2>
+							<div th:include="indicateur-form/indicateur-form.html" th:remove="tag"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- </div> -->
+	</section>
+	<footer class="site-footer" th:include="@{footer.html}"></footer>
+
+	<div th:include="indicateur-form/confirm-delete-dialog.html" th:remove="tag"></div>
+
+	<script type="text/javascript" th:src="@{/export/js/pooper.min.js}"></script>
+	<script type="text/javascript" th:src="@{/export/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/export/js/giz.js}"></script>
+</body>
+
+</html>

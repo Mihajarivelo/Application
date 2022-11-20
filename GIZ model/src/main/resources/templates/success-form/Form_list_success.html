@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="shortcut icon" type="image/png" th:href="@{/images/favicon.png}" />
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Vanilla Periodic MonitoringTools</title>
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" th:href="@{/export/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/export/css/solid.css}">
+	<!-- <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"> -->
+	<link rel="stylesheet" th:href="@{/export/css/dataTables.bootstrap4.min.css}">
+	<!-- Nuestro css-->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/user-form.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/fonts.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/giz.css}" />
+
+	<script type="text/javascript" th:src="@{/vendors/jQuery/jquery-3.4.1.min.js}"></script>
+</head>
+
+<body class="stories">
+	<header class="header" th:include=@{header-global.html}></header>
+	<section class="main">
+		<div class="container">
+			<!-- <div class="main-section" id="myTab" role="tablist"> -->
+			<!-- <header></header> -->
+			<!-- <section class="main"> -->
+			<div class="composantesTable-content">
+				<form method="POST" th:action="@{/addSuccess}">
+					<div class="card">
+						<div class="card-body">
+							<header class="composantesTable-header justify-between">
+								<h2 class="page-title" th:utext="#{success.tableau_titre}"></h2>
+								<div class="top-btn text-center">
+									<button type="submit" class="gbtn" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:utext="#{success.button_ajout}"></button>
+								</div>
+							</header>
+							<!-- <h2 class="page-title" th:utext="#{success.tableau_titre}"></h2> -->
+							<table class="composantes-table" id="myTable">
+								<thead>
+									<tr>
+										<th scope="col"><span th:utext="#{success.nom}"></span></th>
+										<th scope="col"><span th:utext="#{success.district}"></span></th>
+										<th scope="col"><span th:utext="#{success.commune}"></span></th>
+										<th scope="col"><span th:utext="#{success.village}"></span></th>
+										<th scope="col"><span th:utext="#{success.thematique}"></span></th>
+										<th scope="col" class="center"><span th:utext="#{actions.titre}"></span></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="sc : ${listSuccessStories}">
+										<td th:text="${sc.proprietaire}"></td>
+										<td th:text="${sc.district}"></td>
+										<td th:text="${sc.Commune}"></td>
+										<td th:text="${sc.village}"></td>
+										<td th:text="${sc.thematique}"></td>
+										<td class="center td-action">
+											<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="delete" th:onclick="'javascript:confirmDelete(\''+ ${sc.id} +'\');'"></a>
+											<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="edit" th:href="@{'/edit/' + ${sc.id}}"></a>
+											<a class="download" th:href="@{'/downloadFile/' + ${sc.id}}"></a>
+											<a class="view" th:href="@{'/viewFile/' + ${sc.id}}" target="_blank"></a>
+											
+										</td>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+
+					<!-- <div class="col text-center">
+						<button type="submit" class="gbtn" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:utext="#{success.button_ajout}"></button>
+					</div> -->
+				</form>
+			</div>
+		</div>
+		</section>
+		<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content card-body">
+	      <div class="modal-header">
+	        <h2 class="modal-title" id="exampleModalLongTitle" th:utext="#{message.confirmDelete}"></h2>
+	        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">X</span>
+					</button> -->
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					
+	      </div>
+	      <div class="modal-body p-modal"><span th:utext="#{message.text_delete}"></span>
+	        <input type="hidden" id="successIdHiddenInput" />
+	      </div>
+	      <div class="modal-footer btn-row">
+	        <button type="button" class="gbtn cancel" data-dismiss="modal" th:utext="#{button.close }"></button>
+	        <button type="button" class="gbtn" th:onclick="confirmDeleteSuccess()" th:utext="#{actions.supprimer}"></button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+		<footer class="site-footer" th:include="@{footer.html}"></footer>
+	
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script> -->
+	<script th:src="@{/export/js/pooper.min.js}"></script>
+	<script th:src="@{export/js/bootstrap.min.js}"></script>
+	<script th:src="@{export/js/jquery.dataTables.min.js}"></script>
+	<script th:src="@{export/js/dataTables.bootstrap4.min.js}"></script>
+	<script type="text/javascript" th:src="@{export/js/giz.js}"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#myTable').DataTable();
+		});
+		function confirmDelete(id) {
+			$('#deleteModal').modal('show');
+			$("#successIdHiddenInput").val(id);
+		}
+		function confirmDeleteSuccess() {
+			var id = $("#successIdHiddenInput").val();
+			window.location = "delete/" + id;
+		}
+	</script>
+</body>
+
+</html>

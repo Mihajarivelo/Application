@@ -1,0 +1,44 @@
+<header class="composantesTable-header">
+	<h2 class="page-title">Indicateurs</h2>
+	<div class="btn-row flex-btn">
+		<a class="gbtn" th:href="@{indicateurForm}" style="margin-bottom: 5px; background-color: #C30F08 !important;"
+			th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:utext="#{ind.edit}">
+			</a>
+		<a class="gbtn" th:href="@{rapportForm}" style="margin-bottom: 5px; background-color: #C30F08 !important;"
+			th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+			<b>+</b><span th:utext="#{ind.indicateur}"></span></a> 
+		<a class="gbtn" th:href="@{commentaireForm}"
+			style="margin-bottom: 5px; background-color: #C30F08 !important;"
+			th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+			<b>+</b> <span th:utext="#{ind.commentaire}"></span> </a>
+
+		<div class="btn-group year-btn">
+			<a class="gbtn dropdown-toggle" data-toggle="dropdown"
+				href="#"><span th:utext="#{ind.select}"></span> <span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li class="dropdown-item"><a th:href="@{/tableau-indicateur}"><span th:utext="#{ind.anee}"></span></a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2016}">2016</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2017}">2017</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2018}">2018</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2019}">2019</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2020}">2020</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2021}">2021</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2022}">2022</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2023}">2023</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2024}">2024</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2025}">2025</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2026}">2026</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2027}">2027</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2028}">2028</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2029}">2029</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2030}">2030</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2031}">2031</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2032}">2032</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2033}">2033</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2034}">2034</a></li>
+				<li class="dropdown-item"><a th:href="@{/indicateur-2035}">2035</a></li>
+			</ul>
+		</div>
+
+	</div>
+</header>

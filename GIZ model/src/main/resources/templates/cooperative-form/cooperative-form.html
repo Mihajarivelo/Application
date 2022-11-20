@@ -1,0 +1,58 @@
+<div th:with="disableFields=!${editMode} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+
+	<form class="form edit-user-form" role="form" autocomplete="off"
+		th:object="${suivithemecoopForm}"
+		th:action="${editMode} ?@{/editSuivithemecoop} :@{/suivithemecoopForm}"
+		method="post">
+		<!--Es necesario para poder pasar la validacion del Model-->
+		<input class="form-control" type=hidden
+			th:field="${suivithemecoopForm.id}" th:if="${editMode}">
+
+		<div class="form-row">
+			<label class="cust-input">
+				<p th:utext="#{crud.homme}"></p> <input class="ginput" type="number" name="number"
+				style="height: 35px !important;" th:value="0"
+				th:field="${suivithemecoopForm.suivitheme_homme}"
+				th:disabled="${disableFields}" placeholder="Nombre d'homme"
+				required="required">
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('suivitheme_homme')}"
+					th:errors="*{suivitheme_homme}"><span th:utext="#{message.name_error}"></span></div>
+			</label> <label class="cust-input">
+				<p th:utext="#{crud.femme}"></p> <input class="ginput" type="number" name="number"
+				style="height: 35px !important;" th:value="0"
+				th:field="${suivithemecoopForm.suivitheme_femme}"
+				th:disabled="${disableFields}" placeholder="Nombre de femme"
+				required="required">
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('suivitheme_femme')}"
+					th:errors="*{suivitheme_femme}"><span th:utext="#{message.name_error}"></span></div>
+			</label>
+		</div>
+
+		<div class="form-row">
+			<label class="cust-input">
+				<p th:utext="#{commentaire.commentaire}"></p> <textarea class="form-control"
+					style="width: 610px; height: 50px;" type="text"
+					th:field="${suivithemecoopForm.suivitheme_comm}"
+					th:disabled="${disableFields}" placeholder="Commentaire"></textarea>
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('suivitheme_comm')}"
+					th:errors="*{suivitheme_comm}"><span th:utext="#{message.name_error}"></span></div>
+			</label>
+		</div>
+
+		<div class="form-group row">
+			<div class="btn-row btn-submit">
+				<a class=""
+					th:href="@{'/suivithemecoopForm/cancel'}" th:utext="#{button.annuler}"></a> <input
+					type="submit" class="gbtn" value="Save Changes"
+					th:value="${editMode}?#{button.save_change}:#{button.create}">
+			</div>
+		</div>
+		<div class="alert alert-danger text-center"
+			th:if="${formErrorMessage}" th:text="${formErrorMessage}"><span th:utext="#{message.error}"></span></div>
+		<div class="alert alert-success text-center d-none" id="formSuccess"
+			th:if="${editMode}"><span th:text="#{message.success}"></span></div>
+	</form>
+</div>

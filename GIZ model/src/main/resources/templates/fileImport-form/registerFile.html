@@ -1,0 +1,229 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="shortcut icon" type="image/png" th:href="@{/images/favicon.png}"/>
+	<!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
+	<title>Vanilla Periodic MonitoringTools</title>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!-- <title>Import des données</title> -->
+
+	<!-- Styles -->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/select.min.css}" />
+	<link rel="stylesheet" th:href="@{/export/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" href="static/css/user-form.css" th:href="@{/css/user-form.css}" />
+	<link rel="stylesheet" href="static/css/fonts.css" type="text/css" th:href="@{/css/fonts.css}" />
+	<link rel="stylesheet" href="static/css/giz.css" type="text/css" th:href="@{/css/giz.css}" />
+	<link rel="stylesheet" th:href="@{/export/css/solid.css}">
+	<!-- <link rel="stylesheet" th:href="@{/export/css/dataTables.bootstrap4.min.css}"> -->
+
+
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		html {
+			height: 100%;
+			font-size: 62.5%
+		}
+
+		body {
+			height: 100%;
+			background-color: #FFFFFF;
+			font: 1.2em Verdana, Arial, Helvetica, sans-serif;
+		}
+
+
+		/* ==================== Form style sheet ==================== */
+
+		form {
+			margin: 25px 0 0 29px;
+			width: 445px;
+			padding-bottom: 30px
+		}
+
+		form * {
+			vertical-align: middle;
+		}
+
+		legend {
+			font-size: 1.2em;
+			color: #2E6600;
+			font-weight: bold;
+		}
+
+		label {
+			float: left;
+			display: block;
+			width: 100px;
+			margin-top: 4px;
+			clear: left;
+		}
+
+		label.choose {
+			width: 162px;
+			margin-bottom: 10px;
+		}
+
+		label.spam-protection {
+			display: inline;
+			width: auto;
+		}
+
+		input.text,
+		textarea,
+		input.choose,
+		input.answer {
+			border: 1px solid #909090;
+			padding: 3px;
+		}
+
+		input.text {
+			width: 300px;
+			margin: 0 0 8px 0;
+		}
+
+		textarea {
+			width: 400px;
+			margin: 0 0 12px 0;
+			display: block;
+		}
+
+		select {
+			width: 250px;
+			border: 1px solid #909090;
+			padding: 2px;
+			margin: 0 0 8px 0;
+		}
+
+		input.choose {
+			margin: 0;
+		}
+
+		input.answer {
+			width: 40px;
+			margin: 0 0 0 10px;
+		}
+
+		input.submit-text {
+			font: 1.4em Georgia, "Times New Roman", Times, serif;
+			letter-spacing: 1px;
+			display: block;
+			margin: 23px 0 0 0;
+		}
+
+		/* hr.formik {
+			height: 1px;
+			color: gray;
+			background-color: gray;
+			border: 0 solid gray;
+			margin: 3px 0 20px 0;
+		} */
+
+		/* form br {
+			display: none;
+		} */
+
+		/* ==================== Form style sheet END ==================== */
+	</style>
+
+	<!--[if lte IE 7]>
+<style type="text/css">
+
+/* ==================== Form style sheet for IE 7 and lower ==================== */
+
+legend { position: relative; top: 6px; left: -7px; }
+
+/* ==================== Form style sheet for IE end ==================== */
+
+</style>
+<![endif]-->
+
+
+	<script type="text/javascript" th:src="@{/vendors/jQuery/jquery-3.4.1.min.js}"></script>
+
+
+</head>
+
+<body class="registerFile">
+	<header class="header" th:include=@{header-global.html}></header>
+	<section class="main">
+		<div class="container">
+			<div class="main-section" id="myTab" role="tablist">
+				<div class="card">
+					<div class="card-body">
+						<h2 class="page-title" th:utext="#{file.enregistre}"></h2>
+
+						<form method="POST" th:action="@{/registerFile}" name="uploadForm" class="requete-form gform">
+
+							<fieldset>
+								<label for="select" class="choose" th:utext="#{file.sous_comp}"></label>
+								<select th:name="sc" class="ginput form-control" id="sc"
+									onChange="gestionBtnUploadRegister()">
+									<option value="null">-- <span th:utext="#{file.select}"></span> --</option>
+									<option th:each="sc : ${scList}" th:value="${sc[0]}" th:text="${sc[1]}">
+									</option>
+								</select>
+							</fieldset>
+
+							<fieldset>
+								<label for="select" class="choose" th:utext="#{file.canevas}"></label>
+								<select class="ginput form-control" th:name="theme" id="theme"> </select>
+							</fieldset>
+
+							<span class="error" th:if="${headerVerification == 0}" th:utext="#{file.select0}"></span>
+							<span th:if="${headerVerification == 1}" th:utext="#{file.select1}"></span>
+							<span th:if="${dataValidation == 0}" th:utext="#{file.select2}"></span>
+							<span th:if="${dataValidation == 1}" th:utext="#{file.select3(${row})}"></span>
+							<span th:if="${dataValidation == 2}" th:utext="#{file.select4(${row})}"></span>
+							<span th:if="${dataValidation == 3}" th:utext="#{file.select5}"></span>
+							<span th:if="${dataValidation == 4}" th:utext="#{file.select6(${row})}"></span>
+							<span th:if="${dataValidation == 5}" th:utext="#{file.select7}"></span>
+							<span th:if="${dataValidation == 6}" th:utext="#{file.select10}"></span>
+							<span th:if="${fktnull != null}" th:utext="#{file.select8(${fktnull})}"></span>
+							<span th:if="${grpnull == 0}" th:utext="#{file.select9}"></span>
+							<span class="warn-success" th:if="${registerFinish == 1}"
+								th:utext="#{file.sucess_msg}"></span>
+
+							<!-- <p><input type="submit" name="bt_upload" value="upload Fichier" class="submit-text" disabled />
+						</p> -->
+							<button type="submit" name="bt_upload" value="Enregistrer Fichier" class="gbtn" disabled
+								th:utext="#{file.save}">
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer class="site-footer" th:include="@{footer.html}"></footer>
+
+
+	<!--script-->
+
+	<script th:src="@{/export/js/pooper.min.js}"></script>
+	<script th:src="@{export/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" src="customJs/formController.js"></script>
+	<script type="text/javascript" th:src="@{export/js/giz.js}"></script>
+	<script type="text/javascript" th:src="@{js/ajax.js}"></script>
+	<script>
+		$(document).ready(function () {
+			var maxLength = 85;
+			$('select > option').text(function (i, text) {
+				if (text.length > maxLength) {
+					return text.substr(0, maxLength) + '...';
+				}
+			});
+		});
+	</script>
+
+
+</body>
+
+</html>

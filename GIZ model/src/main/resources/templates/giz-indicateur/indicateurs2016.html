@@ -1,0 +1,2718 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<link rel="shortcut icon" type="image/png"
+	th:href="@{/images/favicon.png}" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Vanilla Periodic MonitoringTools</title>
+
+<!-- Custom styles for this template-->
+
+<link rel="stylesheet" th:href="@{/export/css/app.css}">
+<link rel="stylesheet" th:href="@{export/css/bootstrap.min.css}">
+<link rel="stylesheet"
+	th:href="@{/export/css/dataTables.bootstrap4.min.css}">
+<link rel="stylesheet"
+	th:href="@{/export/css/buttons.bootstrap4.min.css}">
+<link rel="stylesheet" th:href="@{/export/css/jquery-stickytable.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/giz.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/fonts.css}">
+
+<script type="text/javascript"
+	th:src="@{/vendors/jQuery/jquery-3.4.1.min.js}"></script>
+
+<style type="text/css">
+.ontrack {
+	text-align: center;
+}
+</style>
+
+</head>
+
+<body class="indicators">
+	<header class="header" th:include=@{header-global.html}></header>
+	<section class="main">
+		<div class="composantesTable-content">
+			<div th:include="ind-global.html" th:remove="tag"></div>
+			<!-- DataTales -->
+			<div class="container-table ">
+				<table id="example" class="composantes-table">
+					<thead>
+						<tr class="red">
+							<th>#</th>
+							<th width="250"><span th:utext="#{indicateur.indicateur}"></span></th>
+							<th class="th-comment"><span th:utext="#{indicateur.source}"></span></th>
+							<th class="th-comment"><span
+								th:utext="#{indicateur.ennonce_objectif}"></span></th>
+							<th><span th:utext="#{indicateur.objectifs}"></span></th>
+							<th class="center th-comment"><span
+								th:utext="#{indicateur.observation}"></span></th>
+							<th width="250"><span th:utext="#{indicateur.situation}"></span></th>
+							<th class="th-comment"><span th:utext="#{indicateur.type}"></span></th>
+							<th class="th-comment"><span
+								th:utext="#{indicateur.libelle_type}"></span></th>
+							<th><span th:utext="#{indicateur.situation_q1}"></span> 2016</th>
+							<th class="th-comment"><span
+								th:utext="#{indicateur.commmetaire}"></span></th>
+							<th><span th:utext="#{indicateur.situation_q2}"></span> 2016</th>
+							<th class="th-comment"><span
+								th:utext="#{indicateur.commmetaire}"></span></th>
+							<th><span th:utext="#{indicateur.situation_q3}"></span> 2016</th>
+							<th class="th-comment"><span
+								th:utext="#{indicateur.commmetaire}"></span></th>
+							<th><span th:utext="#{indicateur.situation_q4}"></span> 2016</th>
+							<th class="th-comment"><span
+								th:utext="#{indicateur.commmetaire}"></span></th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<tr class="dark relative">
+							<td>1.</td>
+							<td class="sticky-cell">
+								<div class="table-title  title-parent">La résilience des
+									producteurs et de leurs communautés est renforcée</div>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr class="grey-dark dark relative">
+							<td>1.1</td>
+							<td class="sticky-cell">
+								<div class=" table-title title-child">Revenu annuel par
+									exploitation</div>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listRevenuExploitation}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listRevenuType1Exploitation}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+
+							<td th:text="${beneficierpgm.rapportperiodiqueType}"></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+
+						<tr th:each="beneficierpgm: ${listRevenuType2Exploitation}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td></td>
+
+							<td th:text="${beneficierpgm.rapportperiodiqueType}"></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listRevenuType3Exploitation}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td></td>
+
+							<td th:text="${beneficierpgm.rapportperiodiqueType}"></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr
+							th:each="beneficierpgm: ${listTauxDiversificationRevenusType1}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+
+							<td th:text="${beneficierpgm.rapportperiodiqueType}"></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr
+							th:each="beneficierpgm: ${listTauxDiversificationRevenusType1Agricole}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td></td>
+
+							<td th:text="${beneficierpgm.rapportperiodiqueType}"></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr
+							th:each="beneficierpgm: ${listTauxDiversificationRevenusType1NonAgricole}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td></td>
+
+							<td th:text="${beneficierpgm.rapportperiodiqueType}"></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr
+							th:each="beneficierpgm: ${listTauxDiversificationRevenusType2}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td></td>
+
+							<td th:text="${beneficierpgm.rapportperiodiqueType}"></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr
+							th:each="beneficierpgm: ${listTauxDiversificationRevenusType2Agricole}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td></td>
+
+							<td th:text="${beneficierpgm.rapportperiodiqueType}"></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr
+							th:each="beneficierpgm: ${listTauxDiversificationRevenusType2NonAgricole}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td></td>
+
+							<td th:text="${beneficierpgm.rapportperiodiqueType}"></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr
+							th:each="beneficierpgm: ${listTauxDiversificationRevenusType3}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td></td>
+
+							<td th:text="${beneficierpgm.rapportperiodiqueType}"></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr
+							th:each="beneficierpgm: ${listTauxDiversificationRevenusType3Agricole}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td></td>
+
+							<td th:text="${beneficierpgm.rapportperiodiqueType}"></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr
+							th:each="beneficierpgm: ${listTauxDiversificationRevenusType3NonAgricole}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td></td>
+
+							<td th:text="${beneficierpgm.rapportperiodiqueType}"></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listMoisSoudureType1}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+
+							<td th:text="${beneficierpgm.rapportperiodiqueType}"></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listMoisSoudureType2}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td></td>
+
+							<td th:text="${beneficierpgm.rapportperiodiqueType}"></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listMoisSoudureType3}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td></td>
+
+							<td th:text="${beneficierpgm.rapportperiodiqueType}"></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listFRSuivi}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listRestitutionFR}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr class="grey-dark dark relative">
+							<td>1.2</td>
+							<td class="sticky-cell">
+								<div class=" table-title title-child">Formation des
+									producteurs de vanille</div>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listFormateursFBSFormes}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listProducteursSensibilises}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listSessionFormationFBS}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listProducteursFormes}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listTauxCompletion}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listBeneficiantPostFormationFBS}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listEntrepreneursIdentifies}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr
+							th:each="beneficierpgm: ${listPersonnesRessourcesOperationnelles}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr
+							th:each="beneficierpgm: ${listParticipantsPersonnesRessources}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listPepinieristesFonctionnels}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr class="grey-dark dark relative">
+							<td>1.3</td>
+							<td class="sticky-cell">
+								<div class=" table-title title-child">Santé animale et
+									petit élevage</div>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listASAFormes}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+
+						<tr th:each="beneficierpgm: ${listASAOperationnels}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listChiffreAffaireASA}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr
+							th:each="beneficierpgm: ${listBeneficiairesServiceSanteAnimale}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listCheptelsVaccines}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr
+							th:each="beneficierpgm: ${listFormateursElevagesOperationnels}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr
+							th:each="beneficierpgm: ${listProducteursFormesBonnesPratiquesElevage}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listProducteursAdopte}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listFermesDiffusionOperationnelles}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listVisiteursFermesDiffusion}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr class="grey-dark dark relative">
+							<td>1.4</td>
+							<td class="sticky-cell">
+								<div class=" table-title title-child">Renforcement et
+									autonomisation des structures de producteurs</div>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+
+						<tr
+							th:each="beneficierpgm: ${listStructureProducteursFonctionnels}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listStructureProducteursService}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listPetitsProducteursFormes}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listLeaderCooperativesCoaches}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listLeaderCooperativesFormes}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listPersonnesPlateformesDialogue}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr
+							th:each="beneficierpgm: ${listResolutionsDialoguesCommunautaires}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr class="dark relative">
+							<td>2.</td>
+							<td class="sticky-cell">
+								<div class="table-title  title-parent">Amélioration des
+									structures de services sociaux aux communautés</div>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr class="grey-dark dark relative">
+							<td>2.1</td>
+							<td class="sticky-cell">
+								<div class=" table-title title-child">Formation/éducation
+									des jeunes ruraux</div>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listMFROperationnels}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listReseauMFROperationnels}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listElevesEtudiantMFR}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listJeunesdiplomessortantMFR}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listJeunesSortantsProjet}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listElevesformesFBSMFR}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listEchangesMFRComiteJeunes}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr class="grey-dark dark relative">
+							<td>2.2</td>
+							<td class="sticky-cell">
+								<div class=" table-title title-child">Amélioration des
+									services d'éducation</div>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listEcoleBeneficiantSubventions}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listFRAMUtilisentSubventions}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<!-- 2.2.3 -->
+						<tr th:each="beneficierpgm: ${listProportionsSubventions1}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+
+							<td></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listProportionsSubventions2}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+
+							<td></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listProportionsSubventions3}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+
+							<td></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+						<!-- 2.2.3 -->
+
+						<tr th:each="beneficierpgm: ${listElevesPresentsEcoles}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listEnseignantsFormes}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listEnseignantsKitMadere}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listEcoleConcernees}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listParticipantsConcours}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listPourcentageParticipant}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr class="grey-dark dark relative">
+							<td>2.3</td>
+							<td class="sticky-cell">
+								<div class=" table-title title-child">Amélioration de
+									l'hygiène, santé et assainissement au niveau des comunautés de
+									producteurs de vanille</div>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listMahavelonaM12Adherants}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listVillagesCouvertsMahavelona}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listPrevalenceMaladies}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listTauxSinistraliteM7}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+
+							<td></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listTauxSinistraliteM12}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+
+							<td></td>
+							<td th:text="${beneficierpgm.rapportperiodiqueTypelib}"></td>
+
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listTauxFrequentation1}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listTauxFrequentation2}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listTauxSatisfaction}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listVillageAmeliore}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr class="dark relative">
+							<td>3.</td>
+							<td class="sticky-cell">
+								<div class="table-title  title-parent">Réduction du taux
+									de transfert de pauvreté intergénérationnel</div>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+
+						<tr class="grey-dark dark relative">
+							<td>3.1</td>
+							<td class="sticky-cell">
+								<div class=" table-title title-child">Amélioration de la
+									sécurité de revenu des ménages les plus vulnérables</div>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listBeneficiantGrants}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listSubventionsMenages}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listMenageRapportentGrants}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listVSLAConstitues}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listPersonnesFinanciersVSLA}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listMontantInvestisGroupeVSLA}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listVSLAFonctionnels}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listMahavelonaM7Adherant}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<!-- Androany 19/09/2019 -->
+
+						<tr class="grey-dark dark relative">
+							<td>3.2</td>
+							<td class="sticky-cell">
+								<div class=" table-title title-child">Amélioration des
+									capacités des jeunes pour une vie décente et dialogue
+									intergénérationnel</div>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+
+						<tr
+							th:each="beneficierpgm: ${listJeunesParticipantAlphabetisation}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listJeunesDescolarises}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listJeunesAyantComplete}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listPathway}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listJeunesTypePlanVie}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listJeunesAyantObtenuGrants}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listTauxAbandonScolaire}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr class="grey-dark dark relative">
+							<td>3.3</td>
+							<td class="sticky-cell">
+								<div class=" table-title title-child">Amélioration de la
+									santé, nutrition familiale et comportement parental</div>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listMenagesSensibilises}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr
+							th:each="beneficierpgm: ${listTauxDiversificationMenagespauvres}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listTauxFrequentationEnfants}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listRecommandationsSante}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr class="grey-dark dark relative">
+							<td>4.4</td>
+							<td class="sticky-cell">
+								<div class=" table-title title-child">L'apprentissage du
+									secteur par la contribution du projet est construit</div>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listAtelierSecteur}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listParticipationReunionsSVI}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listTauxConnaissance}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listActeurFiliere}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+
+						<tr th:each="beneficierpgm: ${listEtudeImpactComplete}">
+							<td th:text="${beneficierpgm.indicateurId}"></td>
+							<td class="sticky-cell" th:text="${beneficierpgm.indicateurNom}"></td>
+							<td th:text="${beneficierpgm.indicateurSrcdonnees}"></td>
+							<td th:text="${beneficierpgm.indicateurEnnonceobjectif}"></td>
+							<td th:text="${beneficierpgm.indicateurObjectifLong}"></td>
+
+							<td class="ontrack"
+								th:text="${beneficierpgm.indicateurObservation}"></td>
+
+							<td th:text="${beneficierpgm.indicateurSituationref}"></td>
+							<td></td>
+							<td></td>
+							<td th:text="${beneficierpgm.situationQ1Long}"></td>
+							<td th:text="${beneficierpgm.commQ1}"></td>
+							<td th:text="${beneficierpgm.situationQ2Long}"></td>
+							<td th:text="${beneficierpgm.commQ2}"></td>
+							<td th:text="${beneficierpgm.situationQ3Long}"></td>
+							<td th:text="${beneficierpgm.commQ3}"></td>
+							<td th:text="${beneficierpgm.situationQ4Long}"></td>
+							<td th:text="${beneficierpgm.commQ4}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- </div> -->
+			</div>
+
+		</div>
+	</section>
+	<footer class="site-footer" th:include="@{footer.html}"></footer>
+
+	<script src="export/js/lib.js" th:src="@{export/js/lib.js}"></script>
+	<script th:src="@{export/js/app.js}"></script>
+	<script type="text/javascript" th:src="@{/export/js/pooper.min.js}"></script>
+
+	<script type="text/javascript" th:src="@{/export/js/bootstrap.min.js}"></script>
+	<script th:src="@{export/js/jquery.ba-throttle-debounce.min.js}"></script>
+	<script type="text/javascript" th:src="@{export/js/stickyTable.js}"></script>
+
+	<script th:src="@{export/js/jquery.dataTables.min.js}"></script>
+	<script th:src="@{export/js/dataTables.bootstrap4.min.js}"></script>
+	<script th:src="@{export/js/dataTables.buttons.min.js}"></script>
+	<script th:src="@{export/js/buttons.bootstrap4.min.js}"></script>
+	<script type="text/javascript" th:src="@{export/js/tableHeadFixer.js}"></script>
+	<script th:src="@{export/js/jszip.min.js}"></script>
+	<script th:src="@{export/js/pdfmake.min.js}"></script>
+	<script th:src="@{export/js/vfs_fonts.js}"></script>
+	<script th:src="@{export/js/buttons.html5.min.js}"></script>
+	<script th:src="@{export/js/buttons.print.min.js}"></script>
+	<script th:src="@{export/js/buttons.colVis.min.js}"></script>
+
+	<script type="text/javascript" th:src="@{/export/js/giz.js}"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".ontrack").each(function() {
+				var observation = $(this).text();
+				if (observation == "On track") {
+					$(this).css({
+						"background" : "green"
+					});
+				} else if (observation == "Divergence forte") {
+					$(this).css({
+						"background" : "orange"
+					});
+				} else if (observation == "Divergence faible") {
+					$(this).css({
+						"background" : "yellow"
+					});
+				} else if (observation == "Pas d'évaluation") {
+					$(this).css({
+						"background" : "grey"
+					});
+				} else if (observation == "Off track") {
+					$(this).css({
+						"background" : "red"
+					});
+				}
+			});
+		});
+	</script>
+
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+
+							$("#example").tableHeadFixer({
+								"left" : 2
+							});
+
+							var today = new Date();
+							var date = today.getFullYear() + '-'
+									+ (today.getMonth() + 1) + '-'
+									+ today.getDate();
+							var time = today.getHours() + ":"
+									+ today.getMinutes() + ":"
+									+ today.getSeconds();
+							var dateTime = date + ' ' + time;
+
+							var table = $('#example')
+									.DataTable(
+											{
+												lengthChange : true,
+												ordering : false,
+
+												buttons : [ {
+													extend : 'excelHtml5',
+													text : 'Excel',
+													title : 'Tableau des indicateurs - année 2016'
+															+ ' ' + dateTime,
+													titleAttr : 'Export',
+												} ]
+											});
+
+							table.buttons().container().appendTo(
+									'#example_wrapper .col-md-6:eq(0)');
+						});
+
+		table.buttons().container()
+				.appendTo('#example_wrapper .col-md-6:eq(0)');
+
+		$(".header-language .dropdown-menu a").click(function() {
+			$(".header-language .btn").text($(this).text());
+			$(".header-language .btn").val($(this).text());
+		});
+	</script>
+
+</body>
+
+</html>

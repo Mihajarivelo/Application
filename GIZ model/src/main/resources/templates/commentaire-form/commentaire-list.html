@@ -1,0 +1,41 @@
+<div class="table-responsive">
+	<table id="commentaireList" class="composantes-table">
+		<thead>
+			<tr class="red">
+				<th scope="col"><span th:utext="#{commentaire.code}"></span></th>
+				<th scope="col"><span th:utext="#{commentaire.date}"></span></th>
+				<th scope="col"><span th:utext="#{commentaire.commentaire}"></span></th>
+				<th class="center"><span th:utext="#{actions.titre}"></span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="commentaire: ${commentaireList}">
+				<td th:text="${commentaire.indicateur_id}"></td>
+				<td th:text="${commentaire.commentaire_date}"></td>
+				<td th:text="${commentaire.commentaire_texte}"></td>
+				<td class="center td-action">
+				<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+						<a class="edit"  href="#" th:href="@{'/editCommentaire/'+ ${commentaire.id}}"></a>
+				</span> 
+				<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+				 <a class="delete" href="#"
+						th:onclick="'javascript:confirmDeleteCommentaire(\''+ ${commentaire.id} +'\');'"></a>
+				</span></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="alert alert-danger text-center" th:if="${listErrorMessage}"
+		th:text="${listErrorMessage}" th:utext="#{message.error}"></div>
+</div>
+
+<script type="text/javascript">
+	function confirmDeleteCommentaire(id) {
+		$('#deleteModalCommentaire').modal('show');
+		$("#commentaireIdHiddenInput").val(id);
+	}
+
+	function deleteCommentaire() {
+		var id = $("#commentaireIdHiddenInput").val();
+		window.location = "deleteCommentaire/" + id;
+	}
+</script>

@@ -1,0 +1,50 @@
+<div class="table-responsive">
+	<table id="userList" class="composantes-table">
+		<thead>
+			<tr class="red">
+				<!--  <th scope="col">#</th> -->
+				<th scope="col" ><span th:utext="#{user.nom}"></span></th>
+				<th scope="col" ><span th:utext="#{user.prenom}"></span></th>
+				<th scope="col" ><span th:utext="#{user.mail}"></span></th>
+				<th class="center" ><span th:utext="#{actions.titre}"></span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="user: ${userList}" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_USER'')')} and ${#httpServletRequest.remoteUser==user.username})">
+				<!-- <td th:text="${user.id}"></td> -->
+				<td th:text="${user.firstName}"></td>
+				<td th:text="${user.lastName}"></td>
+				<td th:text="${user.username}"></td>
+				<td class="center td-action">
+					
+						<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_USER'')')} and ${#httpServletRequest.remoteUser==user.username})" class="edit" href="#" th:href="@{'/editUser/'+ ${user.id}}"></a>
+					
+						<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="delete" href="#" th:onclick="'javascript:confirmDelete(\''+ ${user.id} +'\');'"></a>
+					
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	<div class="alert alert-danger text-center" th:if="${listErrorMessage}" th:text="${listErrorMessage}" th:utext="#{message.error}"></div>
+</div>
+
+<script type="text/javascript" th:src="@{/export/js/app.js}"></script>
+<script type="text/javascript" th:src="@{/export/js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/export/js/dataTables.bootstrap4.min.js}"></script>
+<script type="text/javascript" th:src="@{/export/js/dataTables.buttons.min.js}"></script>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		//Asegurate que el id que le diste a la tabla sea igual al texto despues del simbolo #
+		$('#userList').DataTable();
+	});
+	function confirmDelete(id) {
+		$('#deleteModal').modal('show');
+		$("#userIdHiddenInput").val(id);
+	}
+
+	function deleteUser() {
+		var id = $("#userIdHiddenInput").val();
+		window.location = "deleteUser/" + id;
+	}
+</script>

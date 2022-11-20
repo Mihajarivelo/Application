@@ -1,0 +1,46 @@
+<div class="table-responsive">
+	<table id="indicateurList" class="composantes-table">
+		<thead>
+			<tr class="red">
+				<th scope="col"><span th:utext="#{commentaire.code}"></span></th>
+				<th scope="col"><span th:utext="#{rapport.type_revenu}"></span></th>
+				<th scope="col"><span th:utext="#{rapport.libell_type}"></span></th>
+				<th scope="col"><span th:utext="#{rapport.date_situation}"></span></th>
+				<th scope="col"><span th:utext="#{rapport.valeur_situation}"></span></th>
+				<th scope="col"><span th:utext="#{commentaire.commentaire}"></span></th>
+				<th class="center"><span th:utext="#{actions.titre}"></span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="rapportperiodique: ${rapportList}">
+				<td th:text="${rapportperiodique.indicateur_id}"></td>
+				<td th:text="${rapportperiodique.rapportperiodique_type}"></td>
+				<td th:text="${rapportperiodique.rapportperiodique_typelib}"></td>
+				<td th:text="${rapportperiodique.rapportperiodique_situation}"></td>
+				<td th:text="${rapportperiodique.rapportperiodique_valeur}"></td>
+				<td th:text="${rapportperiodique.rapportperiodique_comm}"></td>
+				<td class="center td-action">
+				<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+						<a href="#" class="edit" th:href="@{'/editRapportperiodique/'+ ${rapportperiodique.id}}"></a>
+				</span> 
+				<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+				 <a href="#" class="delete"	th:onclick="'javascript:confirmDeleteRapport(\''+ ${rapportperiodique.id} +'\');'"></i></a>
+				</span></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="alert alert-danger text-center" th:if="${listErrorMessage}"
+		th:text="${listErrorMessage}"><span th:utext="#{message.error}"></span></div>
+</div>
+
+<script type="text/javascript">
+	function confirmDeleteRapport(id) {
+		$('#deleteModalRapport').modal('show');
+		$("#rapportperiodiqueIdHiddenInput").val(id);
+	}
+
+	function deleteRapportperiodique() {
+		var id = $("#rapportperiodiqueIdHiddenInput").val();
+		window.location = "deleteRapportperiodique/" + id;
+	}
+</script>

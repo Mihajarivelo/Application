@@ -1,0 +1,43 @@
+<div class="table-responsive">
+	<table id="welcomeList" class="composantes-table">
+		<thead class="thead-light">
+			<tr class="red">
+				<!-- <th scope="col">#</th>-->
+				<th scope="col"><span th:utext="#{accueil.premier_paragraphe}"></span></th>
+				<th scope="col"><span th:utext="#{accueil.deuxime_paragraphe}"></span></th>
+				<th class="center"><span th:utext="#{actions.titre}"></span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="accueil: ${accueilList}">
+				<!--
+				<td th:text="${accueil.id}"></td> -->
+				<td th:text="${accueil.accueil_text1}"></td>
+				<td th:text="${accueil.accueil_text2}"></td>
+				<td class="center td-action">
+
+					<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="edit" href="#"
+						th:href="@{'/editAccueil/'+ ${accueil.id}}"></a>
+				
+					<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="delete" href="#"
+					th:onclick="'javascript:confirmDeleteAccueil(\''+ ${accueil.id} +'\');'"></a>
+				
+			</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="alert alert-danger text-center" th:if="${listErrorMessage}"
+		th:text="${listErrorMessage}"><span th:utext="#{message.name_error}"></span></div>
+</div>
+
+<script type="text/javascript">
+	function confirmDeleteAccueil(id) {
+		$('#deleteModalAccueil').modal('show');
+		$("#accueilIdHiddenInput").val(id);
+	}
+
+	function deleteAccueil() {
+		var id = $("#accueilIdHiddenInput").val();
+		window.location = "deleteAccueil/" + id;
+	}
+</script>

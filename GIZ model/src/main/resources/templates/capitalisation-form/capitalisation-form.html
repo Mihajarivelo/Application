@@ -1,0 +1,135 @@
+<div
+	th:with="disableFields=!${editMode} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+
+	<form class="form edit-user-form" role="form" autocomplete="off"
+		th:object="${capitalisationForm}"
+		th:action="${editMode} ?@{/editCapitalisation} :@{/capitalisationForm}"
+		method="post">
+		<input class="form-control" type=hidden
+			th:field="${capitalisationForm.id}" th:if="${editMode}">
+
+		<div class="form-row">
+			<label class="cust-input">
+				<p th:utext="#{capitalisation.thematique}"></p> <input
+				class="form-control ginput"
+				style="height: 40px !important; font-size: 14px !important;"
+				type="text" th:field="${capitalisationForm.capitalisation_theme}"
+				th:disabled="${disableFields}" th:placeholder="#{capitalisation.thematique}" />
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('capitalisation_theme')}"
+					th:errors="*{capitalisation_theme}"
+					th:utext="#{message.name_error}"></div>
+			</label> <label class="cust-input">
+				<p th:utext="#{capitalisation.presentaion_activiter}"></p> <textarea
+					class="form-control" type="text"
+					th:field="${capitalisationForm.capitalisation_activite}"
+					th:disabled="${disableFields}"
+					th:placeholder="#{capitalisation.presentaion_activiter}"></textarea>
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('capitalisation_activite')}"
+					th:errors="*{capitalisation_activite}"
+					th:utext="#{message.name_error}"></div>
+			</label> <label class="cust-input">
+				<p th:utext="#{capitalisation.objectif}"></p> <textarea
+					class="form-control" type="text"
+					th:field="${capitalisationForm.capitalisation_objectif}"
+					th:disabled="${disableFields}" th:placeholder="#{capitalisation.objectif}"></textarea>
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('capitalisation_objectif')}"
+					th:errors="*{capitalisation_objectif}"
+					th:utext="#{message.name_error}"></div>
+			</label>
+		</div>
+
+		<div class="form-row">
+			<label class="cust-input">
+				<p th:utext="#{capitalisatoin.situation_avant}"></p> <textarea
+					class="form-control" type="text"
+					th:field="${capitalisationForm.capitalisation_situationavant}"
+					th:disabled="${disableFields}" th:placeholder="#{capitalisatoin.situation_avant}"></textarea>
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('capitalisation_situationavant')}"
+					th:errors="*{capitalisation_situationavant}"
+					th:utext="#{message.name_error}"></div>
+			</label> <label class="cust-input">
+				<p th:utext="#{capitalisation.situation_actuele}"></p> <textarea
+					class="form-control" type="text"
+					th:field="${capitalisationForm.capitalisation_situationactuelle}"
+					th:disabled="${disableFields}" th:placeholder="#{capitalisation.situation_actuele}"></textarea>
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('capitalisation_situationactuelle')}"
+					th:errors="*{capitalisation_situationactuelle}"
+					th:utext="#{message.name_error}"></div>
+			</label> <label class="cust-input">
+				<p th:utext="#{capitalisation.directement}"></p> <textarea
+					class="form-control" type="text"
+					th:field="${capitalisationForm.capitalisation_directement}"
+					th:disabled="${disableFields}"
+					th:placeholder="#{capitalisation.directement_plholder}"></textarea>
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('capitalisation_directement')}"
+					th:errors="*{capitalisation_directement}"
+					th:utext="#{message.name_error}"></div>
+			</label>
+		</div>
+
+		<div class="form-row">
+			<label class="cust-input">
+				<p th:utext="#{capitalisation.indirectment}"></p> <textarea
+					class="form-control" type="text"
+					th:field="${capitalisationForm.capitalisation_indirectement}"
+					th:disabled="${disableFields}"
+					th:placeholder="#{capitalisation.indirectment_plholder}"></textarea>
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('capitalisation_indirectement')}"
+					th:errors="*{capitalisation_indirectement}"
+					th:utext="#{message.name_error}"></div>
+			</label> <label class="cust-input">
+				<p th:utext="#{capitalisation.positif}"></p> <textarea
+					class="form-control" type="text"
+					th:field="${capitalisationForm.capitalisation_positif}"
+					th:disabled="${disableFields}"
+					th:placeholder="#{capitalisation.positif_plcholder}"></textarea>
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('capitalisation_positif')}"
+					th:errors="*{capitalisation_positif}"
+					th:utext="#{message.name_error}"></div>
+			</label> <label class="cust-input">
+				<p th:utext="#{capitalisation.negatifs}"></p> <textarea
+					class="form-control" type="text"
+					th:field="${capitalisationForm.capitalisation_negatif}"
+					th:disabled="${disableFields}"
+					th:placeholder="#{capitalisation.negatifs_plholder}"></textarea>
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('capitalisation_negatif')}"
+					th:errors="*{capitalisation_negatif}"
+					th:utext="#{message.name_error}"></div>
+			</label>
+		</div>
+
+		<div class="form-row">
+			<label class="cust-input">
+				<p th:utext="#{capitalisation.recommandation}"></p> <textarea
+					class="form-control" type="text"
+					th:field="${capitalisationForm.capitalisation_recommandation}"
+					th:disabled="${disableFields}" th:placeholder="#{capitalisation.recommandation}"></textarea>
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('capitalisation_recommandation')}"
+					th:errors="*{capitalisation_recommandation}"
+					th:utext="#{message.name_error}"></div>
+			</label>
+		</div>
+
+
+		<div class="btn-row btn-submit">
+			<a class="" th:href="@{'/capitalisationForm/cancel'}"
+				th:utext="#{button.annuler}"></a> <input type="submit" class="gbtn"
+				th:value="${editMode}?#{button.save_change}:#{button.create}">
+		</div>
+		<div class="alert alert-danger text-center"
+			th:if="${formErrorMessage}" th:text="${formErrorMessage}"
+			th:utext="#{message.error}"></div>
+		<div class="alert alert-success text-center d-none" id="formSuccess"
+			th:if="${editMode}" th:utext="#{message.success}"></div>
+	</form>
+</div>

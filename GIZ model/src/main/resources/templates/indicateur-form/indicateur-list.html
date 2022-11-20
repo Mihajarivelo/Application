@@ -1,0 +1,74 @@
+<link rel="stylesheet" href="export/css/app.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap4.min.css">
+
+<div class="composantesTable-content">
+	<table id="ejemplo" class="composantes-table">
+		<thead>
+			<tr class="red">
+				<th>#</th>
+				<th><span th:utext="#{beneficiary.code}"></span></th>
+				<th ><span th:utext="#{crud.nom}"></span></th>
+				<th ><span th:utext="#{beneficiary.source_donne}"></span></th>
+				<th><span th:utext="#{indicateur.ennonce_objectif}"></span></th>
+				<th><span th:utext="#{indicateur.objectifs}"></span></th>
+				<th><span th:utext="#{indicateur.observation}"></span></th>
+				<th ><span th:utext="#{indicateur.situation}"></span></th>
+				<th class="center"><span th:utext="#{actions.titre}"></span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="indicateur: ${indicateurList}">
+				<td th:text="${indicateur.souscomposante_code}"></td>
+				<td th:text="${indicateur.indicateur_id}"></td>
+				<td th:text="${indicateur.indicateur_nom}"></td>
+				<td th:text="${indicateur.indicateur_srcdonnees}"></td>
+				<td th:text="${indicateur.indicateur_ennonceobjectif}"></td>
+				<td th:text="${indicateur.indicateur_objectif}"></td>
+				<td th:text="${indicateur.indicateur_observation}"></td>
+				<td th:text="${indicateur.indicateur_situationref}"></td>
+
+				<td class="center">
+					<div class="td-action">
+						<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+						<a class="edit" href="#"
+						th:href="@{'/editIndicateur/'+ ${indicateur.indicateur_id}}"></a>
+						</span> <span
+							th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+								<a class="delete" href="#"
+								th:onclick="@{'javascript:confirmDeleteIndicateur(\''+ ${indicateur.indicateur_id} +'\');'}"></a>
+						</span>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="alert alert-danger text-center" th:if="${listErrorMessage}"
+		th:text="${listErrorMessage}"><span th:utext="#{message.error}"></span></div>
+</div>
+
+<script src="export/js/appindicateur.js"></script>
+<script src="export/js/jquery.dataTables.min.js"></script>
+<script src="export/js/dataTables.bootstrap4.min.js"></script>
+<script src="export/js/dataTables.buttons.min.js"></script>
+<script src="export/js/buttons.bootstrap4.min.js"></script>
+<script src="export/js/jszip.min.js"></script>
+<script src="export/js/pdfmake.min.js"></script>
+<script src="export/js/vfs_fonts.js"></script>
+<script src="export/js/buttons.html5.min.js"></script>
+<script src="export/js/buttons.print.min.js"></script>
+<script src="export/js/buttons.colVis.min.js"></script>
+
+
+<script type="text/javascript">
+	function confirmDeleteIndicateur(indicateur_id) {
+		$('#deleteModalIndicateur').modal('show');
+		$("#indicateurIdHiddenInput").val(indicateur_id);
+	}
+
+	function deleteIndicateur() {
+		var indicateur_id = $("#indicateurIdHiddenInput").val();
+		window.location = "deleteIndicateur/" + indicateur_id;
+	}
+</script>

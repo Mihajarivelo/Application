@@ -1,0 +1,52 @@
+<div th:with="disableFields=!${editMode} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+
+	<form class="form" role="form" autocomplete="off"
+		th:object="${accueilForm}"
+		th:action="${editMode} ?@{/editAccueil} :@{/accueilForm}"
+		method="post">
+		<!--Es necesario para poder pasar la validacion del Model-->
+		<input class="form-control" type=hidden th:field="${accueilForm.id}"
+			th:if="${editMode}">
+
+			<div class="form-row">
+				<label class="cust-input">
+						<p th:utext="#{accueil.premier_paragraphe}"></p>
+						<textarea class="form-control" type="text"
+							th:field="${accueilForm.accueil_text1}"
+							th:disabled="${disableFields}"
+							placeholder="Premier paragraphe de texte du page d'accueil" required="required">
+						</textarea>
+						<div class="alert-danger"
+							th:if="${#fields.hasErrors('accueil_text1')}"
+							th:errors="*{accueil_text1}" th:utext="#{message.name_error}"></div>
+				</label>
+			</div>
+
+		<div class="form-row">
+			<label class="cust-input">
+				<p th:utext="#{accueil.deuxime_paragraphe}"></p>
+				<textarea class="form-control" type="text"
+				th:field="${accueilForm.accueil_text2}"
+				th:disabled="${disableFields}"
+				placeholder="Deuxième paragraphe de texte du page d'accueil">
+				</textarea>
+				<div class="alert-danger"
+					th:if="${#fields.hasErrors('accueil_text2')}"
+					th:errors="*{accueil_text2}" th:utext="#{message.name_error}">
+				</div>
+			</label>
+		</div>
+
+		<div class="btn-row btn-submit">
+				<a class=""
+					th:href="@{'/accueilForm/cancel'}" th:utext="#{button.annuler}"></a> 
+				<input
+					type="submit" class="gbtn" 
+					th:value="${editMode}?#{button.save_change}:#{button.create}">
+		</div>
+		<div class="alert alert-danger text-center"
+			th:if="${formErrorMessage}" th:text="${formErrorMessage}" th:utext="#{message.error}"></div>
+		<div class="alert alert-success text-center d-none" id="formSuccess"
+			th:if="${editMode}" th:utext="#{message.success}"></div>
+	</form>
+</div>
