@@ -11,4 +11,9 @@ public class AccueilController {
     public String accueilPage(Model model) {
         return "home-view";
     }
+
+    @RequestMapping(value = "/intervention")
+    public String interventionPage(Model model) {
+        return "intervention-view";
+    }
 }
