@@ -274,112 +274,103 @@
         <!-- /.navbar-static-side -->
     </nav>
 
-
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Tableu de bord</h1>
+                <h1 class="page-header">Gestion des catégories</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
-        <!-- /.row -->
-        <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="panel panel-red">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-warning fa-5x"></i>
-                            </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge">6</div>
-                                <div>Problèmes non résolues</div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#">
-                        <div class="panel-footer">
-                            <span class="pull-left">Voire détailes</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="panel panel-green">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-tasks fa-5x"></i>
-                            </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge">12</div>
-                                <div>Touts les problèmes</div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#" th:href="@{/problem}">
-                        <div class="panel-footer">
-                            <span class="pull-left">Voire Détailes</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="panel panel-yellow">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-users fa-5x"></i>
-                            </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge">124</div>
-                                <div>Utilisateurs</div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#">
-                        <div class="panel-footer">
-                            <span class="pull-left">Voire détailes</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- /.row -->
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <i class="fa fa-bell fa-fw"></i> Importants
+                        Liste catégories
                     </div>
-                    <!-- /.panel-heading -->
+                    <!-- .panel-heading -->
                     <div class="panel-body">
-                        <div class="list-group">
-                            <a href="#" class="list-group-item">
-                                <i class="fa fa-tasks fa-fw"></i> Nouveau problèmes
-                                <span class="pull-right text-muted small"><em>4 minutes ago</em>
-                                    </span>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <i class="fa fa-users fa-fw"></i> Confirmation inscription utilisateur
-                                <span class="pull-right text-muted small"><em>12:00</em>
-                                    </span>
-                            </a>
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Catégorie 1
+                                            <span class="pull-right text-muted small"><em><a href="#">Voire détailes</a></em></span>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse ">
+                                    <div class="panel-body">
+                                        <div class="list-group">
+                                            <a href="#" class="list-group-item" data-toggle="tooltip" data-placement="right" title="clicker pour consulter">
+                                                 Sous categori 1
+                                                <span class="pull-right text-muted small"><em>12</em>
+                                                </span>
+                                            </a>
+                                            <a href="#" class="list-group-item" data-toggle="tooltip" data-placement="right" title="clicker pour consulter">
+                                                Sous categori 2
+                                                <span class="pull-right text-muted small"><em>5</em></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Catégorie 2
+                                            <span class="pull-right text-muted small"><em><a href="#">Voire détailes</a></em></span>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="list-group">
+                                            <a href="#" class="list-group-item" data-toggle="tooltip" data-placement="right" title="clicker pour consulter">
+                                                Sous categori 1
+                                                <span class="pull-right text-muted small"><em>12</em>
+                                                </span>
+                                            </a>
+                                            <a href="#" class="list-group-item" data-toggle="tooltip" data-placement="right" title="clicker pour consulter">
+                                                Sous categori 2
+                                                <span class="pull-right text-muted small"><em>5</em></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Catégorie 3
+                                            <span class="pull-right text-muted small"><em><a href="#">Voire détailes</a></em></span>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="list-group">
+                                            <a href="#" class="list-group-item" data-toggle="tooltip" data-placement="right" title="clicker pour consulter">
+                                                Sous categori 1
+                                                <span class="pull-right text-muted small"><em>12</em>
+                                                </span>
+                                            </a>
+                                            <a href="#" class="list-group-item" data-toggle="tooltip" data-placement="right" title="clicker pour consulter">
+                                                Sous categori 2
+                                                <span class="pull-right text-muted small"><em>5</em></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!-- /.panel-body -->
+                    <!-- .panel-body -->
                 </div>
-
+                <!-- /.panel -->
             </div>
-            <!-- /.col-lg-4 -->
+            <!-- /.col-lg-12 -->
         </div>
-        <!-- /.row -->
     </div>
     <!-- /#page-wrapper -->
 
@@ -391,5 +382,16 @@
 <script th:src="@{/bower_components/morrisjs/morris.min.js}"></script>
 <script th:src="@{/js/morris-data.js}"></script>
 <script th:src="@{/dist/js/sb-admin-2.js}"></script>
+<script>
+    // tooltip demo
+    $('.tooltip-demo').tooltip({
+        selector: "[data-toggle=tooltip]",
+        container: "body"
+    })
+
+    // popover demo
+    $("[data-toggle=popover]")
+        .popover()
+</script>
 </body>
 </html>
