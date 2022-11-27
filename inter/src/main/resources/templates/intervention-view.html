@@ -14,6 +14,8 @@
     <link th:href="@{/bower_components/metisMenu/dist/metisMenu.min.css}" rel="stylesheet">
     <link th:href="@{/dist/css/timeline.css}" rel="stylesheet">
     <link th:href="@{/dist/css/sb-admin-2.css}" rel="stylesheet">
+    <link th:href="@{/dist/css/user-view.css}" rel="stylesheet">
+
     <link th:href="@{/bower_components/morrisjs/morris.css}" rel="stylesheet">
     <link th:href="@{/bower_components/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
 </head>
@@ -29,7 +31,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#" th:href="@{/home}">Intervention</a>
+            <a class="navbar-brand" href="#" th:href="@{/home}">Problème</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -258,13 +260,12 @@
                         <!-- /input-group -->
                     </li>
                     <li>
-                        <a  href="#" th:href="@{/home}"><i class="fa fa-dashboard fa-fw"></i> Tableau de bord (admin)</a>
-                        <a  href="#" th:href="@{/user}"><i class="fa fa-users fa-fw"></i> Gestion utilisateur (admin)</a>
-                        <a  href="#" th:href="@{/hirarchie}"><i class="fa fa-sitemap fa-fw"></i> Gestion hierarchie (admin)</a>
-                        <a  href="#" th:href="@{/poste}"><i class="fa fa-list-alt fa-fw"></i> Poste (admin)</a>
-                        <a  href="#" th:href="@{/problemeCateg}"><i class="fa fa-list-ul fa-fw"></i> Catégorie des problèmes (admin)</a>
-                        <a  href="#" th:href="@{/problem}"><i class="fa fa-tasks fa-fw"></i> Liste des Problèmes (admin)</a>
-                        <a  href="#" th:href="@{/sendBox}"><i class="fa fa-send-o fa-fw"></i> Boîte d'envoi</a>
+                        <a  href="#" th:href="@{/home}"><i class="fa fa-dashboard fa-fw"></i>Acceuil</a>
+                        <a  href="#" th:href="@{/problemeCateg}"><i class="fa fa-users fa-fw"></i> Liste des catégories de problèmes</a>
+                        <a  href="#" th:href="@{/hirarchie}"><i class="fa fa-sitemap fa-fw"></i> Liste des problèmes</a>
+                        <a  href="#" th:href="@{/problem}"><i class="fa fa-list-alt fa-fw"></i> Signaler un problème</a>
+                        <a  href="#" th:href="@{/problemeCateg}"><i class="fa fa-list-ul fa-fw"></i>Boîte de reception</a>
+                        <a  href="#" th:href="@{/problem}"><i class="fa fa-tasks fa-fw"></i>Boîte d'envoi</a>
                     </li>
 
                 </ul>
@@ -277,16 +278,17 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Interventions</h1>
+                <h1 class="page-header">Problème envoyé</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
         <div class="row">
-            <div class="col-lg-12">
+             <div class="col-lg-12">
+                <a  class="btn btn-primary" href="#" data-toggle="modal" data-target="#myModal">Nouveau Problème</a>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Listes interventions
+                        Liste problème envoyé
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -296,7 +298,7 @@
                                 <tr>
                                     <th>Numéro</th>
                                     <th>Titre</th>
-                                    <th>Expéditeur</th>
+                                    <th>Destinataire</th>
                                     <th>Résolu</th>
                                     <th>Date</th>
                                     <th>Action</th>
@@ -347,10 +349,123 @@
             </div>
             <!-- /.col-lg-12 -->
         </div>
-        <a  href="#" th:href="@{/problemAutre}">Autre versino de probleme</a>
     </div>
     <!-- /#page-wrapper -->
 
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Nouveau Problème</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row mb-4">
+                        <label class="col-sm-2 col-form-label">Categorie</label>
+                        <div class="col-sm-10">
+                          <select class="form-select" aria-label="Default select example">
+                            <option selected>Informatique</option>
+                            <option value="1">Informatique</option>
+                            <option value="2">Comptabilité</option>
+                          </select>
+                        </div>
+                      </div>
+                   
+                        <nav class="navbar navbar-default" role="navigation">
+  <div class="collapse navbar-collapse" id="oNavigation">
+    <ul class="nav navbar-nav">
+    
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sous-Catégorie<b class="caret"></b> </a> 
+        <ul class="dropdown-menu">
+          <li class="dropdown-submenu">
+            <a tabindex="-1" href="#">Maintenance</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-submenu">
+                <a href="#">Panne</a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-submenu">
+                    <a href="#">Ecran Bleu</a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Ecran bleu au demarrage</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          
+          <li><a href="#">Deuxième niveau</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+ </div>
+            
+                    
+                    
+                    <div class="row mb-3">
+                      <label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
+                      <div class="col-sm-10">
+                        <textarea class="form-control" style="height: 100px"></textarea>
+                      </div>
+                    </div>
+
+                    
+                    <div class="row mb-5">
+                        <label for="inputNumber" class="col-sm-2 col-form-label">Ajouter pièce-jointe</label>
+                        <div class="col-sm-10">
+                          <input class="form-control" type="file" id="formFile">
+                        </div>
+                      </div>
+                  
+                    <div class="row mb-3">
+                      <div class="col-sm-10">
+                        <p>Intervenant</p>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="gridCheck1">
+                          <label class="form-check-label" for="gridCheck1">
+                            Rakoto Nandrasana feno 
+                          </label>
+                        </div>
+    
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="gridCheck2" checked>
+                          <label class="form-check-label" for="gridCheck2">
+                            Razanatsimba Jean
+                          </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck2" checked>
+                            <label class="form-check-label" for="gridCheck2">
+                              Andrinirina Fetra
+                            </label>
+                          </div>
+    
+                      </div>
+                    </div>
+    
+    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Quitter</button>
+                        <button type="button" class="btn btn-primary">Envoyer</button>
+                    </div>
+    
+            
+                  </form><!-- End General Form Elements -->
+    
+            </div>
+            
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
 <!-- /#wrapper -->
 <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
