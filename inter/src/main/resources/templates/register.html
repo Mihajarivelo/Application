@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Douane Login</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+
+    <!-- Vendor CSS Files -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+
+    <!-- Template Main CSS File -->
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" >
+</head>
+
+<body>
+  
+  <main>
+   
+    <div class="container-register d-flex flex-column align-items-center justify-content-center">
+
+          <form class="row content" role="form" autocomplete="off"
+                th:object="${agentForm}"
+                th:action="${editMode} ?@{/editAgent} :@{/agentForm}" method="post">
+           <div class="header-register d-flex justify-content-arround mb-3">
+                <a th:href="@{/login}"><i class="bi bi-arrow-left"></i></a>
+                <h3 class="title-register">CREER UN NOUVEAU COMPTE</h3>
+           </div>
+                <fieldset class="col-md-6 borderF">
+                  
+                  <legend class="borderF">Information personnelle</legend>
+                      <div class="form-group pt-2">
+                           <label>Numéro Matricule:</label>
+                          <input class="form-control" placeholder="Maztricule" th:field="${agentForm.numMatAgent}">
+                      </div>
+                      
+                      <div class="form-group pt-2">
+                              <label>Nom:</label>
+                              <input class="form-control" placeholder="Nom" th:field="${agentForm.nomAgent}">
+                      </div>
+                      
+                      <div class="form-group pt-2">
+                              <label>Prénoms:</label>
+                              <input class="form-control" placeholder="Prénom" th:field="${agentForm.prenomAgent}">
+                      </div>
+                  
+                       <div class="form-group pt-2">
+                              <label>Email:</label>
+                              <input class="form-control" type="email" placeholder="email" th:field="${agentForm.username}">
+                      </div>
+                     
+                          <div class="form-group pt-2">
+                              <label>Téléphone:</label>
+                              <input class="form-control" placeholder="telephone" th:field="${agentForm.telAgent}">
+                      </div>
+              
+                      <div class="form-group pt-2">
+                              <label>Mot de passe:</label>
+                              <input type="password" class="form-control" placeholder="mot de passe" th:field="${agentForm.password}">
+                      </div>
+                      
+                      <div class="form-group pt-2">
+                              <label>Confirmation de mot de passe:</label>
+                              <input type="password" class="form-control" th:field="${agentForm.confirmPassword}" >
+                      </div>
+            </fieldset>
+            
+              <div class="col-md-6 departement">
+                <div class="row">
+                  <div class="upload">
+                      <img src="" width = 100 height = 100 alt="">
+                      <div class="round">
+                        <input type="image" th:field="${agentForm.photoAgent}">
+                        <i class = "bi bi-camera-fill" style = "color:white;"></i>
+                      </div>
+                  </div>
+
+                </div>
+                <div class="row mt-4">
+                  <fieldset class="">
+                    <legend>Information sur le poste</legend>
+                    <div class="row pt-2">
+                      <div class="col-6 ">
+                                  <div class="form-group pt-2">
+                                    <label class=" col-form-label">Type hierarchie:</label>
+                                    <div class="">
+                                      <select class="form-select" aria-label="Default select example" th:field="${agentForm.photoAgent}">
+                                        <option th:each="typeH :${typeHierarchie}" th:value="${typeH.idType}"
+                                                th:text="${typeH.libelleType}"></option>
+                                      </select>
+                                  </div>
+                                </div>
+  
+                                  <div class="form-group pt-2">
+                                    <label class=" col-form-label">Nom hierarchie: </label>
+                                    <div class="">
+                                      <select class="form-select" aria-label="Default select example" >
+                                        <option th:each="hierarchi :${hierarchie}" th:value="${hierarchi.idHier}"
+                                                th:text="${hierarchi.libelleHier}"></option>
+                                      </select>
+                                  </div>
+                                </div>
+
+                                  <div class="form-group pt-2">
+                                    <label class=" col-form-label">Fonction: </label>
+                                    <div class="">
+                                      <select class="form-select" aria-label="Default select example" >
+                                        <option selected>Direction</option>
+                                        <option value="1">Service</option>
+                                        <option value="2">Division</option>
+                                        <option value="3">Section</option>
+                                        <option value="3">Section</option>
+                                        <option value="3">Sécretaire</option>
+                                      </select>
+                                </div>
+                              </div>
+                      </div>
+                      <div class="col-6">
+                          <div class="form-group pt-2">
+                            <label class=" col-form-label">Ville: </label>
+                            <div class="">
+                              <select class="form-select" aria-label="Default select example" >
+                                <option selected>Direction</option>
+                                <option value="1">Service</option>
+                                <option value="2">Division</option>
+                                <option value="3">Section</option>
+                                <option value="3">Section</option>
+                                <option value="3">Sécretaire</option>
+                              </select>
+                        </div>
+                          </div>
+                          <div class="form-group pt-2">
+                            <label class=" col-form-label">Quartier: </label>
+                            <div class="">
+                              <select class="form-select" aria-label="Default select example">
+                                <option selected>Direction</option>
+                                <option value="1">Service</option>
+                                <option value="2">Division</option>
+                                <option value="3">Section</option>
+                                <option value="3">Section</option>
+                                <option value="3">Sécretaire</option>
+                              </select>
+                        </div>
+                          </div>
+                          <div class="form-group pt-2">
+                            <label class=" col-form-label">Fonction: </label>
+                            <div class="">
+                              <select class="form-select" aria-label="Default select example" >
+                                <option selected>Direction</option>
+                                <option value="1">Service</option>
+                                <option value="2">Division</option>
+                                <option value="3">Section</option>
+                                <option value="3">Section</option>
+                                <option value="3">Sécretaire</option>
+                              </select>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                  
+                  </fieldset>
+                </div>
+                  <div class="alert alert-danger text-center"
+                       th:if="${formErrorMessage}" th:text="${formErrorMessage}" th:utext="#{message.error}"></div>
+                  <div class="alert alert-success text-center d-none" id="formSuccess"
+                       th:if="${editMode}" th:utext="#{message.success}"></div>
+  
+              <button type="submit" class="btn btn-default mt-5 createUser" >Créer</button>
+          </form>
+          
+  </div>
+
+
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main><!-- End #main -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../static/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/vendor/chart.js/chart.min.js"></script>
+  <script src="../static/vendor/echarts/echarts.min.js"></script>
+  <script src="../static/vendor/quill/quill.min.js"></script>
+  <script src="../static/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../static/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../static/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
