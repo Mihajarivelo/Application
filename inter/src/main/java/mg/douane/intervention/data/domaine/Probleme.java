@@ -51,4 +51,7 @@ public class Probleme {
     @OneToMany(mappedBy = "problemeRep")
     private Set<Reponse> reponses;
 
+    @Column(name = "intervenant", length = 500, nullable = false)
+    private String intervenant;
+
 }

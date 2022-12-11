@@ -1,5 +1,6 @@
 package mg.douane.intervention.repository;
 
+import mg.douane.intervention.data.domaine.Categorie;
 import mg.douane.intervention.data.domaine.SousCategorie;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -15,4 +16,8 @@ public interface SousCategoriRepository extends CrudRepository<SousCategorie, Lo
 
     @Query("SELECT s FROM SousCategorie s WHERE s.SCat IS NOT NULL")
     List<SousCategorie> findAllSousSousCategories();
+
+    List<SousCategorie> findAllByCategorie(Categorie categorie);
+
+    List<SousCategorie> findAllByScats(SousCategorie sousCategorie);
 }

@@ -278,7 +278,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="SignalerProblème.html">
+        <a class="nav-link collapsed" th:href="@{'/problemView/'+${#authentication.getPrincipal().getUsername()}}">
           <i class="bi bi-chat-left-dots-fill"></i>
           <span>Signaler problème</span>
         </a>

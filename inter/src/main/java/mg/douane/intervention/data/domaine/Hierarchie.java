@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -31,9 +32,11 @@ public class Hierarchie {
     private Date dateFinHier;
 
     @OneToMany(mappedBy = "hier", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Hierarchie> listHier;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Hierarchie hier;
 
     @ManyToOne
