@@ -26,7 +26,7 @@ public class Probleme {
     private String descriptionProb;
 
     @Lob
-    @Column(name = "pieceJointeProb", columnDefinition = "BYTEA") //BLOB
+    @Column(name = "pieceJointeProb")//, columnDefinition = "BYTEA") //BLOB
     private byte[] pieceJointeProb;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -51,7 +51,7 @@ public class Probleme {
     @OneToMany(mappedBy = "problemeRep")
     private Set<Reponse> reponses;
 
-    @Column(name = "intervenant", length = 500, nullable = false)
+    @Column(name = "intervenant", length = 500)
     private String intervenant;
 
 }

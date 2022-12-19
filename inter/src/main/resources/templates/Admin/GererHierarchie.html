@@ -37,9 +37,6 @@
     * License: https://bootstrapmade.com/license/
     ======================================================== -->
 </head>
-
-<body>
-
 <!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -326,7 +323,7 @@
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a th:href="@{'/problemeReception/'+${#authentication.getPrincipal().getUsername()}}">
+                    <a href="ReceptionProblème.html">
                         <i class="bi bi-circle"></i><span>Problèmes</span>
                     </a>
                 </li>
@@ -363,187 +360,16 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Problème envoyé</h1>
+        <h1>Bienvenue</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Signaler Problème</a></li>
-                <li class="breadcrumb-item active">Liste problème envoyé</li>
+                <li class="breadcrumb-item"><a href="index.html">Accueil</a></li>
+                <li class="breadcrumb-item active">Menu principal</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
-        <div class="row">
-
-            <div class="col-lg-12">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
-                    Nouveau problème
-                </button>
-                <div class="panel panel-default mt-5">
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <div class="dataTable_wrapper">
-                            <table class="table table-striped" id="problemData">
-                                <thead>
-                                <tr>
-                                    <th>Numéro</th>
-                                    <th>Titre</th>
-                                    <th>Destinataire</th>
-                                    <th>Résolu</th>
-                                    <th>Date</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr class="odd gradeX" th:each="pbm: ${problemList}">
-                                    <td th:text="${pbm.idProb}"></td>
-                                    <td th:text="${pbm.libelleProb}"></td>
-                                    <td th:text="${pbm.intervenant}"></td>
-                                    <td class="text-center">
-                                        <span th:if="${pbm.statut.idStatut == 1} OR ${pbm.statut.idStatut == 2}"><i
-                                                class="bi bi-x-lg"></i></span>
-                                        <span th:if="${pbm.statut.idStatut == 3}"><i class="bi bi-check-lg"></i></span>
-                                    </td>
-                                    <td class="text-center" th:text="${pbm.dateEnvProb}"></td>
-                                    <td class="text-center"><i class="bi bi-eye-fill"></i></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                    <!-- /.panel-body -->
-                </div>
-                <!-- /.panel -->
-            </div>
-            <!-- /.col-lg-12 -->
-        </div>
-        </div>
-        <!-- /#page-wrapper -->
-
-        </div>
-
-        <div class="modal fade" id="basicModal" tabindex="-1">
-            <div class="modal-dialog modal-lg ">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title sm-10"> Nouveau problème</h5>
-                        <button type="button sm-2" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form th:object="${problemtForm}"
-                              th:action="@{/addPrblm}" method="post">
-                            <div class="row  mb-4">
-                                <label class="col-sm-4 col-form-label">Categorie</label>
-                                <div class="col-sm-8">
-                                    <select class="form-select" aria-label="Default select example" id="categorie"
-                                            th:onchange="'javascript:getSousCategorie();'">
-                                        <option></option>
-                                        <option th:each="cat :${categori}" th:value="${cat.idCat}"
-                                                th:text="${cat.libelleCat}"></option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row  mb-4">
-                                <label class="col-sm-4 col-form-label">Sous-categorie 1:</label>
-                                <div class="col-sm-8">
-                                    <select class="form-select" aria-label="Default select example" id="sousCat1"
-                                            th:onchange="'javascript:getSousCategorie2();'">
-                                        <option></option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row  mb-4">
-                                <label class="col-sm-4 col-form-label">Sous-categorie 2:</label>
-                                <div class="col-sm-8">
-                                    <select class="form-select" aria-label="Default select example" id="sousCat2"
-                                            th:onchange="'javascript:getSousCategorie3();'">
-                                        <option></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row  mb-4">
-                                <label class="col-sm-4 col-form-label">Sous-categorie 2:</label>
-                                <div class="col-sm-8">
-                                    <select class="form-select" aria-label="Default select example" id="sousCat3">
-                                        <option></option>
-                                    </select>
-                                </div>
-                            </div>
-
-                          <div class="row mb-3">
-                            <label class="col-sm-4 col-form-label">Libelle</label>
-                            <div class="col-sm-8">
-                              <input class="form-control"  th:field="${problemtForm.libelleProb}">
-                            </div>
-                          </div>
-
-
-                            <div class="row mb-3">
-                                <label class="col-sm-4 col-form-label">Description</label>
-                                <div class="col-sm-8">
-                                    <textarea class="form-control" style="height: 100px" th:field="${problemtForm.descriptionProb}"></textarea>
-                                </div>
-                            </div>
-
-
-                            <div class="row mb-5">
-                                <label class="col-sm-4 col-form-label">Ajouter pièce-jointe</label>
-                                <div class="col-sm-8">
-                                    <input class="form-control" type="file" id="formFile">
-                                </div>
-                            </div>
-
-                            <div class="row  mb-4">
-                                <label class="col-sm-4 col-form-label">Priorité:</label>
-                                <div class="col-sm-8">
-                                    <select class="form-select" aria-label="Default select example" th:field="${problemtForm.priorite}">
-                                        <option th:value="0"></option>
-                                        <option th:each="prio :${prioriter}" th:value="${prio.idPriorite}"
-                                                th:text="${prio.libellePriorite}"></option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <!-- List group With Checkboxes and radios -->
-                                <label for="" class="col-4"> Confidentialité: </label>
-                                <ul class="list-group col-7">
-                                    <li class="list-group-item">
-                                        <input class="form-check-input me-1" type="radio" name="conf" value=""
-                                               aria-label="...">
-                                        Public
-                                    </li>
-                                    <li class="list-group-item">
-                                        <input class="form-check-input me-1" type="radio" name="conf" value=""
-                                               aria-label="...">
-                                        Privé
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <!-- List group With Checkboxes and radios -->
-                            <label for="">Intervenant: </label>
-                            <ul class="list-group" id="intervenant">
-
-
-                            </ul><!-- End List Checkboxes and radios -->
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Quitter</button>
-                                <button type="submit" class="btn btn-primary">Envoyer</button>
-                            </div>
-
-
-                        </form><!-- End General Form Elements -->
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </section>
 
 </main><!-- End #main -->
@@ -552,23 +378,7 @@
 <footer id="footer" class="footer">
 </footer><!-- End Footer -->
 
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
-
-<script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}"></script>
-<script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/dataTables.bootstrap5.min.js}"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#problemData').DataTable(
-            {
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.13.1/i18n/fr-FR.json"
-                }
-            }
-        );
-    });
-</script>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- Vendor JS Files -->
 <script th:src="@{/vendor/apexcharts/apexcharts.min.js}"></script>
@@ -582,92 +392,8 @@
 
 <!-- Template Main JS File -->
 <script th:src="@{/js/main.js}"></script>
-<script type="text/javascript">
-    function getSousCategorie() {
 
-        var typeId = $("#categorie").val();
-        var urlString = "[[@{'/sousCategorieListe/'}]]" + typeId;
-        $('#sousCat1').empty().append('<option ></option>');
 
-        $.ajax({methode: "GET", url: urlString})
-            .done(function (responseJson) {
-                var sousCatDropDow = $("#sousCat1");
-                $.each(responseJson, function (index, souscategorie) {
-                    $("<option>").val(souscategorie.idSCat).text(souscategorie.libelleSCat).appendTo(sousCatDropDow);
-                });
-            })
-            .fail(function () {
-                //alert("Error get data");
-            });
-
-    }
-
-    function getSousCategorie2() {
-
-        var typeId = $("#sousCat1").val();
-        var urlString = "[[@{'/sousCategorie2Liste/'}]]" + typeId;
-        $('#sousCat2').empty().append('<option ></option>');
-
-        $.ajax({methode: "GET", url: urlString})
-            .done(function (responseJson) {
-                var sousCatDropDow = $("#sousCat2");
-                $.each(responseJson, function (index, souscategorie) {
-                    $("<option>").val(souscategorie.idSCat).text(souscategorie.libelleSCat).appendTo(sousCatDropDow);
-                });
-            })
-            .fail(function () {
-                //alert("Error get data");
-            });
-
-        var urlString = "[[@{'/getIntervenant/'}]]" + typeId;
-        $('#intervenant').empty().append('<option ></option>');
-        $.ajax({methode: "GET", url: urlString})
-            .done(function (responseJson) {
-                var intervenantDropDow = $("#intervenant");
-                $.each(responseJson, function (index, agent) {
-                    var complexHtml = '<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" th:field="*{intervenant}" th:value="${problemtForm.intervenant}">' + agent.nomAgent + ' ' + agent.prenomAgent + '</li>';
-                    $('#intervenant').append(complexHtml);
-                });
-            })
-            .fail(function () {
-                //alert("Error get data");
-            });
-
-    }
-
-    function getSousCategorie3() {
-
-        var typeId = $("#sousCat2").val();
-        var urlString = "[[@{'/sousCategorie2Liste/'}]]" + typeId;
-        $('#sousCat3').empty().append('<option ></option>');
-
-        $.ajax({methode: "GET", url: urlString})
-            .done(function (responseJson) {
-                var sousCatDropDow = $("#sousCat3");
-                $.each(responseJson, function (index, souscategorie) {
-                    $("<option>").val(souscategorie.idSCat).text(souscategorie.libelleSCat).appendTo(sousCatDropDow);
-                });
-            })
-            .fail(function () {
-                //alert("Error get data");
-            });
-
-        var urlString = "[[@{'/getIntervenant/'}]]" + typeId;
-        $('#intervenant').empty().append('<option ></option>');
-        $.ajax({methode: "GET", url: urlString})
-            .done(function (responseJson) {
-                var intervenantDropDow = $("#intervenant");
-                $.each(responseJson, function (index, agent) {
-                    var complexHtml = '<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" th:field="${problemtForm.intervenant}" th:text="' + agent.nomAgent + ' ' + agent.prenomAgent + '" th:value="' + agent.nomAgent + ' ' + agent.prenomAgent + '"></li>';
-                    $('#intervenant').append(complexHtml);
-                });
-            })
-            .fail(function () {
-                //alert("Error get data");
-            });
-
-    }
-</script>
 </body>
 
 </html>

@@ -48,6 +48,9 @@ public class ProblemeController {
     @Autowired
     Statusrepository statusrepository;
 
+    @Autowired
+    ReponseRepository reponseRepository;
+
     @RequestMapping(value = "/problemeList/{filter}")
     public String problemePage(Model model, @PathVariable(name = "filter") String filter) {
         if(filter.equals("all"))
@@ -122,7 +125,7 @@ public class ProblemeController {
                 problemeAdd.setAgentProb(agent.get());
                 Optional<Statut> statut = statusrepository.findById((long) 1);
                 problemeAdd.setStatut(statut.get());
-                //problemeRepository.save(probleme);
+                problemeRepository.save(probleme);
                 model.addAttribute("problemtForm", new Probleme());
             } catch (Exception e) {
                 model.addAttribute("formErrorMessage", e.getMessage());
@@ -130,5 +133,29 @@ public class ProblemeController {
         }
 
         return "redirect:/problemView/"+((UserDetails) authentication.getPrincipal()).getUsername();
+    }
+
+    @GetMapping("/problemeReception/{userName}")
+    public String problemeRecpt(Model model,@PathVariable(name = "userName") String userName) {
+        Optional<Agent> agent = agentRepository.findByUsername(userName);
+        model.addAttribute("problemList", problemeRepository.findByIntervenant(agent.get().getNumMatAgent()));
+        model.addAttribute("problemListNews", problemeService.getAllProblemesByAgent(userName));
+        model.addAttribute("problemListEnCours", problemeService.getAllProblemesByAgent(userName));
+        model.addAttribute("problemListResolu", problemeService.getAllProblemesByAgent(userName));
+        return "Dispatch/ReceptionProblemeDispatch";
+    }
+
+    @RequestMapping(value = "/viewPblm/{id}")
+    public String getViewPrblmForm(Model model, @PathVariable(name = "id") Long id) {
+        Probleme problemToView = null;
+        try {
+            problemToView = problemeService.getPrbById(id);
+        } catch (Exception e) {
+        }
+        List<Reponse> reponseView = reponseRepository.findByProblemeRep(problemToView);
+
+        model.addAttribute("pblmView", problemToView);
+        model.addAttribute("response", reponseView);
+        return "Dispatch/DetailMessageDispatch";
     }
 }

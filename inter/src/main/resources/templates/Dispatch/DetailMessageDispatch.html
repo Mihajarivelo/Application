@@ -360,201 +360,48 @@
     </li>
 </aside><!-- End Sidebar-->
 
-<main id="main" class="main">
-
-    <div class="pagetitle">
-      <h1>Problèmes</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Liste Problèmes existants</a></li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
+<main id="main" class="main-detail">
 
     <section class="section dashboard">
-      <div class="row">
-        <div class="d-flex">
-            <div class="form-check mx-3">
-              <input class="form-check-input" type="radio" name="filter" id="gridRadios1" value="option1" th:onclick="'javascript:filterPrblm(\'all\');'" th:checked="${filter=='all'}">
-              <label class="form-check-label" for="gridRadios1">
-                Tout
-              </label>
-            </div>
-            <div class="form-check mx-3">
-              <input class="form-check-input" type="radio" name="filter" id="gridRadios2" value="option2" th:onclick="'javascript:filterPrblm(\'resolu\');'" th:checked="${filter=='resolu'}">
-              <label class="form-check-label" for="gridRadios2">
-                Résolu
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="filter" id="gridRadios3" value="option3" th:onclick="'javascript:filterPrblm(\'notresolu\');'" th:checked="${filter=='notresolu'}">
-              <label class="form-check-label" for="gridRadios3">
-               Non Résolu
-              </label>
-            </div>
-           
-        </div>
-    
+      
+              <!-- Accordion without outline borders -->
+              <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                      <form  action="" class="row" >
+                           
+                          <span class="col "><img src="../static/img/profile-img.jpg" alt="" width="50" class="rounded-circle"></span>
+                          <div class="col">
+                              <h6 >de: Randrianasolo Jean</h6>
+                              <p>Adresseemail@gmail.com</p>
+                          </div>                          
+                      </form>
+                    </button>
+                  </h2>
+                  <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body" >
+                          <form action="">
+                            <div th:each="rep: ${reponseView}">
+                             <p> <span>Catégorie: </span> INFORMATIQUE</p>
+                             <p ></p>
+                             <p> <span>Description: </span> <span th:text="${rep.libelleRep}"></span></p>
+                            <div>
+                              <img src="../static/img/images.png" alt="" width="300">
 
-        <div class="col-lg-12">       
-          <div class="panel panel-default mt-5">
-               <!-- /.panel-heading -->
-               <div class="panel-body">
-                   <div class="dataTable_wrapper">
-                       <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                           <thead>
-                           <tr>
-                               <th>Numéro</th>
-                               <th>Titre</th>
-                               <th>Destinataire</th>
-                               <th>Résolu</th>
-                               <th>Date</th>
-                               <th>Action</th>
-                           </tr>
-                           </thead>
-                           <tbody> <!-- <i class="bi bi-check-lg"></i></td> <i class="bi bi-arrow-down-circle-fill"></i> <i class="bi bi-arrow-repeat"></i> -->
-                           <tr class="odd gradeX" th:each="pbm: ${problemList}">
-                               <td th:text="${pbm.idProb}"></td>
-                               <td th:text="${pbm.libelleProb}"></td>
-                               <td th:text="${pbm.agentProb.nomAgent}"></td>
-                               <td class="text-center">
-                                 <span th:if="${pbm.statut.idStatut == 1} OR ${pbm.statut.idStatut == 2}"><i class="bi bi-x-lg"></i></span>
-                                 <span th:if="${pbm.statut.idStatut == 3}"><i class="bi bi-check-lg"></i></span>
-                               </td>
-                               <td th:text="${pbm.dateEnvProb}"></td>
-                               <td class="text-center"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal"><i class="bi bi-eye-fill"></i></a></td>
-                           </tr>
+                            </div>
 
-                           </tbody>
-                       </table>
-                   </div>
+                              <button type="button" class="btn btn-light repbtn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Répondre">
+                                <i class="bi bi-reply-fill"></i>
+                              </button>
 
-               </div>
-               <!-- /.panel-body -->
-           </div>
-           <!-- /.panel -->
-       </div>
-       <!-- /.col-lg-12 -->
-   </div>
-</div>
-<!-- /#page-wrapper -->
-      <div class="modal fade" id="basicModal" tabindex="-1">
-        <div class="modal-dialog modal-lg ">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title sm-10"> Nouveau problème</h5>
-              <button type="button sm-2" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="row  mb-4">
-                  <label class="col-sm-4 col-form-label">Categorie</label>
-                  <div class="col-sm-8">
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected>Informatique</option>
-                      <option value="1">Comptabilité</option>
-                      <option value="2">Juridique</option>
-                    </select>
-                  </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
 
-                <div class="row  mb-4">
-                  <label class="col-sm-4 col-form-label">Sous-categorie 1:</label>
-                  <div class="col-sm-8">
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected>Panne</option>
-                      <option value="1">Manque</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="row  mb-4">
-                  <label class="col-sm-4 col-form-label">Sous-categorie 2:</label>
-                  <div class="col-sm-8">
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected>Materiel</option>
-                      <option value="1">Reseau</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row  mb-4">
-                  <label class="col-sm-4 col-form-label">Sous-categorie 2:</label>
-                  <div class="col-sm-8">
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected>Ecran</option>
-                      <option value="1">Pc</option>
-                      <option value="2">Souris</option>
-                    </select>
-                  </div>
-                </div>
-
-
-
-
-                <div class="row mb-3">
-                  <label class="col-sm-4 col-form-label">Description</label>
-                  <div class="col-sm-8">
-                    <textarea class="form-control" style="height: 100px"></textarea>
-                  </div>
-                </div>
-
-
-                <div class="row mb-5">
-                  <label  class="col-sm-4 col-form-label">Ajouter pièce-jointe</label>
-                  <div class="col-sm-8">
-                    <input class="form-control" type="file" id="formFile">
-                  </div>
-                </div>
-
-                <div class="row  mb-4">
-                  <label class="col-sm-4 col-form-label">Priorité:</label>
-                  <div class="col-sm-8">
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected>Urgent</option>
-                      <option value="1">Moyenne</option>
-                      <option value="2">Faible</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <!-- List group With Checkboxes and radios -->
-                  <label for="" class="col-4"> Confidentialité: </label>
-                  <ul class="list-group col-7">
-                    <li class="list-group-item">
-                      <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                      Public
-                    </li>
-                    <li class="list-group-item">
-                      <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                      Privé
-                    </li>
-                </div>
-
-                <!-- List group With Checkboxes and radios -->
-                <label for="">Intervenant: </label>
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                    Randrianihasina Jean
-                  </li>
-                  <li class="list-group-item">
-                    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                    Randrianasolo Yves
-                  </li>
-                  <li class="list-group-item">
-                    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                    Herison Eric
-                  </li>
-                </ul><!-- End List Checkboxes and radios -->
-
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Quitter</button>
-                  <button type="button" class="btn btn-primary">Envoyer</button>
-                </div>
-
-
-              </form>
+              </div><!-- End Accordion without outline borders -->
+       
     </section>
 
   </main><!-- End #main -->
@@ -565,24 +412,18 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
-  <script th:src="@{/vendor/apexcharts/apexcharts.min.js}"></script>
-  <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-  <script th:src="@{/vendor/chart.js/chart.min.js}"></script>
-  <script th:src="@{/vendor/echarts/echarts.min.js}"></script>
-  <script th:src="@{/vendor/quill/quill.min.js}"></script>
-  <script th:src="@{/vendor/simple-datatables/simple-datatables.js}"></script>
-  <script th:src="@{/vendor/tinymce/tinymce.min.js}"></script>
-  <script th:src="@{/vendor/php-email-form/validate.js}"></script>
+<!-- Vendor JS Files -->
+<script th:src="@{/vendor/apexcharts/apexcharts.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/chart.js/chart.min.js}"></script>
+<script th:src="@{/vendor/echarts/echarts.min.js}"></script>
+<script th:src="@{/vendor/quill/quill.min.js}"></script>
+<script th:src="@{/vendor/simple-datatables/simple-datatables.js}"></script>
+<script th:src="@{/vendor/tinymce/tinymce.min.js}"></script>
+<script th:src="@{/vendor/php-email-form/validate.js}"></script>
 
-  <!-- Template Main JS File -->
-  <script th:src="@{/js/main.js}"></script>
-
-  <script type="text/javascript">
-    function filterPrblm(status) {
-      window.location = "/problemeList/" + status;
-    }
-  </script>
+<!-- Template Main JS File -->
+<script th:src="@{/js/main.js}"></script>
 
 </body>
 

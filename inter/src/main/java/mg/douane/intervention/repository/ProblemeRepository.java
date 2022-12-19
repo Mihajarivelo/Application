@@ -18,4 +18,6 @@ public interface ProblemeRepository extends CrudRepository<Probleme, Long> {
     List<Probleme> findAllNotResolu();
 
     List<Probleme> findByAgentProb(Agent agent);
+
+    List<Probleme> findByIntervenant(String intervenant);
 }
