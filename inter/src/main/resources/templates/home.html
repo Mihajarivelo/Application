@@ -46,10 +46,10 @@
     <div class="d-flex align-items-center justify-content-between">
       <p> <img th:src="@{/img/LogoDouane.png}" alt="" width="50"></p>
       <a href="index.html" class="logo d-flex align-items-center">
-       
+
         <span class="d-none d-lg-block">Help Douane</span>
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i> 
+      <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
 
@@ -112,7 +112,7 @@
                 <p>2 hrs. ago</p>
               </div>
             </li>
- 
+
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -272,14 +272,14 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="ListeToutProblèmeDispatch.html">
+        <a class="nav-link collapsed" th:href="@{/hierarchie}">
           <i class="bi bi-list-task"></i>
           <span>Gérer Hierarchie</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="SignalerProblèmeDispatch.html">
+        <a class="nav-link collapsed" th:href="@{/post}">
           <i class="bi bi-chat-left-dots-fill"></i>
           <span>Gérer Poste</span>
         </a>
@@ -326,7 +326,7 @@
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a th:href="@{'/problemeReception/'+${#authentication.getPrincipal().getUsername()}}">
+            <a href="ReceptionProblème.html">
               <i class="bi bi-circle"></i><span>Problèmes</span>
             </a>
           </li>

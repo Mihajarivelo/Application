@@ -41,7 +41,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-        <p> <img th:src="@{/img/LogoDouane.png}" alt="" width="50"></p>
+        <p><img th:src="@{/img/LogoDouane.png}" alt="" width="50"></p>
         <a href="index.html" class="logo d-flex align-items-center">
 
             <span class="d-none d-lg-block">Help Douane</span>
@@ -204,15 +204,16 @@
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                     <img th:src="@{/img/profile-img.jpg}" alt="Profile" class="rounded-circle">
-                    <span class="d-none d-md-block dropdown-toggle ps-2" th:text="${#authentication.getPrincipal().getUsername()}"></span>
+                    <span class="d-none d-md-block dropdown-toggle ps-2"
+                          th:text="${#authentication.getPrincipal().getUsername()}"></span>
                 </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
                         <h6>
-                            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" >Super Administrateur</span>
-                            <span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" >Administrateur</span>
-                            <span th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} OR ${#authorization.expression('hasRole(''ROLE_USER'')')}" >Utilisateur</span>
+                            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Super Administrateur</span>
+                            <span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">Administrateur</span>
+                            <span th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} OR ${#authorization.expression('hasRole(''ROLE_USER'')')}">Utilisateur</span>
                         </h6>
                     </li>
                     <li>
@@ -234,7 +235,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
+                        <a class="dropdown-item d-flex align-items-center" th:href="@{/login?logout}">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Déconnexion</span>
                         </a>
@@ -255,35 +256,35 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="HomeDispatch.html">
+            <a class="nav-link " th:href="@{/home}">
                 <i class="bi bi-grid"></i>
                 <span>Acceuil</span>
             </a>
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="ListeCategorieDispatch.html">
+            <a class="nav-link collapsed" th:href="@{/agent}">
                 <i class="bi bi-list-task"></i>
                 <span>Gérer Agent</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="ListeToutProblèmeDispatch.html">
+            <a class="nav-link collapsed" th:href="@{/hierarchie}">
                 <i class="bi bi-list-task"></i>
                 <span>Gérer Hierarchie</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="SignalerProblèmeDispatch.html">
+            <a class="nav-link collapsed" th:href="@{/post}">
                 <i class="bi bi-chat-left-dots-fill"></i>
                 <span>Gérer Poste</span>
             </a>
         </li>
 </aside>
 
-<aside id="sidebar" class="sidebar" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" >
+<aside id="sidebar" class="sidebar" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -316,14 +317,14 @@
         </li>
 
 
-
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-collection-fill"></i><span>Boîte de reception</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-collection-fill"></i><span>Boîte de reception</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="ReceptionProblème.html">
+                    <a th:href="@{'/problemRecep/'+${#authentication.getPrincipal().getUsername()}}">
                         <i class="bi bi-circle"></i><span>Problèmes</span>
                     </a>
                 </li>

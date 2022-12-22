@@ -1,13 +1,7 @@
 package mg.douane.intervention.service;
 
-import mg.douane.intervention.data.domaine.Agent;
-import mg.douane.intervention.data.domaine.FichePoste;
-import mg.douane.intervention.data.domaine.Probleme;
-import mg.douane.intervention.data.domaine.SousCategorie;
-import mg.douane.intervention.repository.AgentRepository;
-import mg.douane.intervention.repository.FichePosteRepository;
-import mg.douane.intervention.repository.ProblemeRepository;
-import mg.douane.intervention.repository.SousCategoriRepository;
+import mg.douane.intervention.data.domaine.*;
+import mg.douane.intervention.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +24,9 @@ public class ProblemeServiceImpl implements ProblemeService {
     @Autowired
     FichePosteRepository fichePosteRepository;
 
+    @Autowired
+    Statusrepository statusrepository;
+
     @Override
     public Iterable<Probleme> getAllProblemes() {
         return problemeRepository.findAll();
@@ -47,9 +44,91 @@ public class ProblemeServiceImpl implements ProblemeService {
     public Iterable<Probleme> getAllProblemesByAgent(String userName) {
         Optional<Agent> agent = agentRepository.findByUsername(userName);
         if(agent.isPresent()) {
-            return problemeRepository.findByAgentProb(agent.get());
+            Iterable<Probleme> problemes = problemeRepository.findByAgentProb(agent.get());
+            List<Probleme> problemeRep = new ArrayList<>();
+            for (Probleme prb : problemes) {
+                try {
+                    String interTemp = prb.getIntervenant();
+                    String[] interSplit = interTemp.split(",");
+                    String inter = "";
+                    if (interSplit.length > 0) {
+                        for (int i = 0; i < interSplit.length; i++) {
+                            Optional<Agent> agentOptional = agentRepository.findById(interSplit[i]);
+                            inter = inter + agentOptional.get().getNomAgent() + " " + agentOptional.get().getPrenomAgent() + ";";
+                        }
+                    }
+                    prb.setIntervenant(inter.substring(0, inter.length() - 1));
+                    problemeRep.add(prb);
+                }catch (Exception e) {
+                    problemeRep.add(prb);
+                }
+            }
+            return problemeRep;
         }
         return null;
+    }
+
+    @Override
+    public Iterable<Probleme> getAllProblemesByDest(String userName) {
+        Optional<Agent> agent = agentRepository.findByUsername(userName);
+        if(agent.isPresent()) {
+            Iterable<Probleme> problemes = problemeRepository.findAll();
+            return getProblemes(agent, problemes);
+        }
+        return null;
+    }
+
+    @Override
+    public Iterable<Probleme> getAllProblemesByDestNews(String userName) {
+        Optional<Agent> agent = agentRepository.findByUsername(userName);
+        Optional<Statut> statut = statusrepository.findById((long) 1);
+        if(agent.isPresent()) {
+            Iterable<Probleme> problemes = problemeRepository.findByStatut(statut.get());
+            return getProblemes(agent, problemes);
+        }
+        return null;
+    }
+
+    @Override
+    public Iterable<Probleme> getAllProblemesByDestEnAttente(String userName) {
+        Optional<Agent> agent = agentRepository.findByUsername(userName);
+        Optional<Statut> statut = statusrepository.findById((long) 2);
+        if(agent.isPresent()) {
+            Iterable<Probleme> problemes = problemeRepository.findByStatut(statut.get());
+            return getProblemes(agent, problemes);
+        }
+        return null;
+    }
+
+    @Override
+    public Iterable<Probleme> getAllProblemesByDestResolu(String userName) {
+        Optional<Agent> agent = agentRepository.findByUsername(userName);
+        Optional<Statut> statut = statusrepository.findById((long) 3);
+        if(agent.isPresent()) {
+            Iterable<Probleme> problemes = problemeRepository.findByStatut(statut.get());
+            return getProblemes(agent, problemes);
+        }
+        return null;
+    }
+
+    private Iterable<Probleme> getProblemes(Optional<Agent> agent, Iterable<Probleme> problemes) {
+        List<Probleme> problemeRep = new ArrayList<>();
+        for (Probleme prb : problemes) {
+            try {
+                String interTemp = prb.getIntervenant();
+                String[] interSplit = interTemp.split(",");
+                if (interSplit.length > 0) {
+                    for (int i = 0; i < interSplit.length; i++) {
+                        Optional<Agent> agentOptional = agentRepository.findById(interSplit[i]);
+                        if(agent.get() == agentOptional.get()) {
+                            problemeRep.add(prb);
+                        }
+                    }
+                }
+            }catch (Exception e) {
+            }
+        }
+        return problemeRep;
     }
 
     @Override

@@ -2,6 +2,7 @@ package mg.douane.intervention.repository;
 
 import mg.douane.intervention.data.domaine.Agent;
 import mg.douane.intervention.data.domaine.Probleme;
+import mg.douane.intervention.data.domaine.Statut;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -19,5 +20,5 @@ public interface ProblemeRepository extends CrudRepository<Probleme, Long> {
 
     List<Probleme> findByAgentProb(Agent agent);
 
-    List<Probleme> findByIntervenant(String intervenant);
+    List<Probleme> findByStatut(Statut statut);
 }

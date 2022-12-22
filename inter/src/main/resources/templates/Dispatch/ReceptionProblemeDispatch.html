@@ -16,10 +16,11 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link type="text/css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" >
+    <link type="text/css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link type="text/css" th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
     <link type="text/css" th:href="@{/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
     <link type="text/css" th:href="@{/vendor/quill/quill.snow.css}" rel="stylesheet">
@@ -28,7 +29,7 @@
     <link type="text/css" th:href="@{/vendor/simple-datatables/style.css}" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" >
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
 
     <!-- =======================================================
     * Template Name: NiceAdmin - v2.4.1
@@ -44,7 +45,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-        <p> <img th:src="@{/img/LogoDouane.png}" alt="" width="50"></p>
+        <p><img th:src="@{/img/LogoDouane.png}" alt="" width="50"></p>
         <a href="index.html" class="logo d-flex align-items-center">
 
             <span class="d-none d-lg-block">Help Douane</span>
@@ -207,15 +208,16 @@
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                     <img th:src="@{/img/profile-img.jpg}" alt="Profile" class="rounded-circle">
-                    <span class="d-none d-md-block dropdown-toggle ps-2" th:text="${#authentication.getPrincipal().getUsername()}"></span>
+                    <span class="d-none d-md-block dropdown-toggle ps-2"
+                          th:text="${#authentication.getPrincipal().getUsername()}"></span>
                 </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
                         <h6>
-                            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" >Super Administrateur</span>
-                            <span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" >Administrateur</span>
-                            <span th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} OR ${#authorization.expression('hasRole(''ROLE_USER'')')}" >Utilisateur</span>
+                            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Super Administrateur</span>
+                            <span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">Administrateur</span>
+                            <span th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} OR ${#authorization.expression('hasRole(''ROLE_USER'')')}">Utilisateur</span>
                         </h6>
                     </li>
                     <li>
@@ -237,7 +239,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
+                        <a class="dropdown-item d-flex align-items-center" th:href="@{/login?logout}">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Déconnexion</span>
                         </a>
@@ -258,7 +260,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="HomeDispatch.html">
+            <a class="nav-link " th:href="@{/home}">
                 <i class="bi bi-grid"></i>
                 <span>Acceuil</span>
             </a>
@@ -272,21 +274,21 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="ListeToutProblèmeDispatch.html">
+            <a class="nav-link collapsed" th:href="@{/hierarchie}">
                 <i class="bi bi-list-task"></i>
                 <span>Gérer Hierarchie</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="SignalerProblèmeDispatch.html">
+            <a class="nav-link collapsed" th:href="@{/post}">
                 <i class="bi bi-chat-left-dots-fill"></i>
                 <span>Gérer Poste</span>
             </a>
         </li>
 </aside>
 
-<aside id="sidebar" class="sidebar" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" >
+<aside id="sidebar" class="sidebar" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -319,14 +321,14 @@
         </li>
 
 
-
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-collection-fill"></i><span>Boîte de reception</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-collection-fill"></i><span>Boîte de reception</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a th:href="@{'/problemeReception/'+${#authentication.getPrincipal().getUsername()}}">
+                    <a th:href="@{'/problemRecep/'+${#authentication.getPrincipal().getUsername()}}">
                         <i class="bi bi-circle"></i><span>Problèmes</span>
                     </a>
                 </li>
@@ -363,106 +365,124 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Problème</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item active">Liste problème reçu</li>
-        </ol>
-      </nav>
+        <h1>Problème</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">Liste problème reçu</li>
+            </ol>
+        </nav>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
-      
-              <!-- Bordered Tabs Justified -->
-              <!--Link to navigate Tab-->
-              <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
-                <li class="nav-item flex-fill" role="presentation">
-                  <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="true">Tout</button>
-                </li>
-                <li class="nav-item flex-fill" role="presentation">
-                  <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Nouveau</button>
-                </li>
-                <li class="nav-item flex-fill" role="presentation">
-                  <button class="nav-link w-100" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">En Attente</button>
-                </li>
-                <li class="nav-item flex-fill" role="presentation">
-                  <button class="nav-link w-100" id="resolu-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-Resolu" type="button" role="tab" aria-controls="contact" aria-selected="false">Résolu</button>
-                </li>
-              </ul>
-              <!--End link to Navigate-->
 
-              <!--Content Table-->
-              <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+        <!-- Bordered Tabs Justified -->
+        <!--Link to navigate Tab-->
+        <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
+            <li class="nav-item flex-fill" role="presentation">
+                <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab"
+                        data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home"
+                        aria-selected="true">Tout
+                </button>
+            </li>
+            <li class="nav-item flex-fill" role="presentation">
+                <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab"
+                        data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile"
+                        aria-selected="false">Nouveau
+                </button>
+            </li>
+            <li class="nav-item flex-fill" role="presentation">
+                <button class="nav-link w-100" id="contact-tab" data-bs-toggle="tab"
+                        data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact"
+                        aria-selected="false">En Attente
+                </button>
+            </li>
+            <li class="nav-item flex-fill" role="presentation">
+                <button class="nav-link w-100" id="resolu-tab" data-bs-toggle="tab"
+                        data-bs-target="#bordered-justified-Resolu" type="button" role="tab" aria-controls="contact"
+                        aria-selected="false">Résolu
+                </button>
+            </li>
+        </ul>
+        <!--End link to Navigate-->
 
-               <div class="tab-pane fade show active" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
+        <!--Content Table-->
+        <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+
+            <div class="tab-pane fade show active" id="bordered-justified-home" role="tabpanel"
+                 aria-labelledby="home-tab">
                 <div class="panel panel-default mt-5">
-               <!-- /.panel-heading -->
-               <div class="panel-body">
-                   <div class="dataTable_wrapper">
-                       <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                           <thead>
-                           <tr>
-                               <th>Numéro</th>
-                               <th>Titre</th>
-                               <th>Expéditaire</th>
-                               <th>Priorité</th>
-                               <th>Statut</th>
-                               <th>Date</th>
-                               <th>Action</th>
-                           </tr>
-                           </thead>
-                           <tbody>
-                           <tr class="odd gradeX" th:each="pbm: ${problemList}">
-                               <td th:text="${pbm.idProb}"></td>
-                               <td th:text="${pbm.libelleProb}"></td>
-                               <td th:text="${pbm.agentProb.nomAgent +' '+ pbm.agentProb.prenomAgent}"></td>
-                               <td th:text="${pbm.priorite.libellePriorite}"></td>
-                               <td class="text-center">
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="dataTable_wrapper">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                <tr>
+                                    <th>Numéro</th>
+                                    <th>Titre</th>
+                                    <th>Expéditaire</th>
+                                    <th>Priorité</th>
+                                    <th>Statut</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="odd gradeX" th:each="pbm: ${problemList}">
+                                    <td th:text="${pbm.idProb}"></td>
+                                    <td th:text="${pbm.libelleProb}"></td>
+                                    <td th:text="${pbm.agentProb.nomAgent +' '+ pbm.agentProb.prenomAgent}"></td>
+                                    <td th:text="${pbm.priorite.libellePriorite}"></td>
+                                    <td class="text-center">
                                         <span th:if="${pbm.statut.idStatut == 1} OR ${pbm.statut.idStatut == 2}"><i
                                                 class="bi bi-x-lg"></i></span>
-                                   <span th:if="${pbm.statut.idStatut == 3}"><i class="bi bi-check-lg"></i></span>
-                               </td>
-                               <td class="text-center" th:text="${pbm.dateEnvProb}"></td>
-                               <td class="text-center"><a href="" th:href="@{'/viewPblm/'+ ${pbm.idProb}}">Voir</a> <a href="" >Transferer</a></td>
-                           </tr>
-                           </tbody>
-                       </table>
-                   </div>
+                                        <span th:if="${pbm.statut.idStatut == 3}"><i class="bi bi-check-lg"></i></span>
+                                    </td>
+                                    <td class="text-center" th:text="${pbm.dateEnvProb}"></td>
+                                    <td class="text-center"><a href="" th:href="@{'/viewPblm/'+ ${pbm.idProb}}">Voir</a>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#basicModal" th:data-parameter="${pbm.idProb}" th:onclick="getPrb(this.getAttribute('data-parameter'));">Transferer</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-               </div>
-               <!-- /.panel-body -->
-                </div>      
-               </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+            </div>
 
-                <div class="tab-pane fade" id="bordered-justified-profile" role="tabpanel" aria-labelledby="profile-tab">
-                  <div class="d-flex mt-3">
+            <div class="tab-pane fade" id="bordered-justified-profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="d-flex mt-3">
                     <div class="form-check mx-3">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                      <label class="form-check-label" for="gridRadios1">
-                        Tout
-                      </label>
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
+                               checked>
+                        <label class="form-check-label" for="gridRadios1">
+                            Tout
+                        </label>
                     </div>
                     <div class="form-check mx-3">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                      <label class="form-check-label" for="gridRadios1">
-                        Urgent
-                      </label>
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
+                               checked>
+                        <label class="form-check-label" for="gridRadios1">
+                            Urgent
+                        </label>
                     </div>
                     <div class="form-check mx-3">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                      <label class="form-check-label" for="gridRadios1">
-                        Moyenne
-                      </label>
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
+                               checked>
+                        <label class="form-check-label" for="gridRadios1">
+                            Moyenne
+                        </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                      <label class="form-check-label" for="gridRadios2">
-                       Faible
-                      </label>
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                            Faible
+                        </label>
                     </div>
-                   
+
                 </div>
-                  <div class="panel panel-default mt-5">
+                <div class="panel panel-default mt-5">
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         <div class="dataTable_wrapper">
@@ -482,8 +502,8 @@
                                 <tr class="odd gradeX" th:each="pbm: ${problemListNews}">
                                     <td th:text="${pbm.idProb}"></td>
                                     <td th:text="${pbm.libelleProb}"></td>
-                                    <td th:text="${pbm.agentProb}"></td>
-                                    <td th:text="${pbm.priorite}"></td>
+                                    <td th:text="${pbm.agentProb.nomAgent +' '+ pbm.agentProb.prenomAgent}"></td>
+                                    <td th:text="${pbm.priorite.libellePriorite}"></td>
                                     <td class="text-center">
                                         <span th:if="${pbm.statut.idStatut == 1} OR ${pbm.statut.idStatut == 2}"><i
                                                 class="bi bi-x-lg"></i></span>
@@ -492,45 +512,48 @@
                                     <td class="text-center" th:text="${pbm.dateEnvProb}"></td>
                                     <td class="text-center"><i class="bi bi-eye-fill"></i></td>
                                 </tr>
-     
+
                                 </tbody>
                             </table>
                         </div>
-     
+
                     </div>
                     <!-- /.panel-body -->
-                    </div>      
                 </div>
+            </div>
 
-                <div class="tab-pane fade" id="bordered-justified-contact" role="tabpanel" aria-labelledby="contact-tab">
-                  <div class="d-flex mt-3">
+            <div class="tab-pane fade" id="bordered-justified-contact" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="d-flex mt-3">
                     <div class="form-check mx-3">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                      <label class="form-check-label" for="gridRadios1">
-                        Tout
-                      </label>
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
+                               checked>
+                        <label class="form-check-label" for="gridRadios1">
+                            Tout
+                        </label>
                     </div>
                     <div class="form-check mx-3">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                      <label class="form-check-label" for="gridRadios1">
-                        Urgent
-                      </label>
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
+                               checked>
+                        <label class="form-check-label" for="gridRadios1">
+                            Urgent
+                        </label>
                     </div>
                     <div class="form-check mx-3">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                      <label class="form-check-label" for="gridRadios1">
-                        Moyenne
-                      </label>
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
+                               checked>
+                        <label class="form-check-label" for="gridRadios1">
+                            Moyenne
+                        </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                      <label class="form-check-label" for="gridRadios2">
-                       Faible
-                      </label>
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                            Faible
+                        </label>
                     </div>
-                   
+
                 </div>
-                  <div class="panel panel-default mt-5">
+                <div class="panel panel-default mt-5">
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         <div class="dataTable_wrapper">
@@ -547,11 +570,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="odd gradeX" th:each="pbm: ${problemListEnCours}">
+                                <tr class="odd gradeX" th:each="pbm: ${problemListEnAttente}">
                                     <td th:text="${pbm.idProb}"></td>
                                     <td th:text="${pbm.libelleProb}"></td>
-                                    <td th:text="${pbm.agentProb}"></td>
-                                    <td th:text="${pbm.priorite}"></td>
+                                    <td th:text="${pbm.agentProb.nomAgent +' '+ pbm.agentProb.prenomAgent}"></td>
+                                    <td th:text="${pbm.priorite.libellePriorite}"></td>
                                     <td class="text-center">
                                         <span th:if="${pbm.statut.idStatut == 1} OR ${pbm.statut.idStatut == 2}"><i
                                                 class="bi bi-x-lg"></i></span>
@@ -560,46 +583,49 @@
                                     <td class="text-center" th:text="${pbm.dateEnvProb}"></td>
                                     <td class="text-center"><i class="bi bi-eye-fill"></i></td>
                                 </tr>
-     
+
                                 </tbody>
                             </table>
                         </div>
-     
+
                     </div>
                     <!-- /.panel-body -->
-                    </div>      
                 </div>
+            </div>
 
-                <!--Content for Resolu Tab-->
-                <div class="tab-pane fade" id="bordered-justified-Resolu" role="tabpanel" aria-labelledby="Resolu-tab">
-                  <div class="d-flex mt-3">
+            <!--Content for Resolu Tab-->
+            <div class="tab-pane fade" id="bordered-justified-Resolu" role="tabpanel" aria-labelledby="Resolu-tab">
+                <div class="d-flex mt-3">
                     <div class="form-check mx-3">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                      <label class="form-check-label" for="gridRadios1">
-                        Tout
-                      </label>
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
+                               checked>
+                        <label class="form-check-label" for="gridRadios1">
+                            Tout
+                        </label>
                     </div>
                     <div class="form-check mx-3">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                      <label class="form-check-label" for="gridRadios1">
-                        Urgent
-                      </label>
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
+                               checked>
+                        <label class="form-check-label" for="gridRadios1">
+                            Urgent
+                        </label>
                     </div>
                     <div class="form-check mx-3">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                      <label class="form-check-label" for="gridRadios1">
-                        Moyenne
-                      </label>
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
+                               checked>
+                        <label class="form-check-label" for="gridRadios1">
+                            Moyenne
+                        </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                      <label class="form-check-label" for="gridRadios2">
-                       Faible
-                      </label>
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                            Faible
+                        </label>
                     </div>
-                   
+
                 </div>
-                  <div class="panel panel-default mt-5">
+                <div class="panel panel-default mt-5">
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         <div class="dataTable_wrapper">
@@ -619,8 +645,8 @@
                                 <tr class="odd gradeX" th:each="pbm: ${problemListResolu}">
                                     <td th:text="${pbm.idProb}"></td>
                                     <td th:text="${pbm.libelleProb}"></td>
-                                    <td th:text="${pbm.agentProb}"></td>
-                                    <td th:text="${pbm.priorite}"></td>
+                                    <td th:text="${pbm.agentProb.nomAgent +' '+ pbm.agentProb.prenomAgent}"></td>
+                                    <td th:text="${pbm.priorite.libellePriorite}"></td>
                                     <td class="text-center">
                                         <span th:if="${pbm.statut.idStatut == 1} OR ${pbm.statut.idStatut == 2}"><i
                                                 class="bi bi-x-lg"></i></span>
@@ -629,39 +655,74 @@
                                     <td class="text-center" th:text="${pbm.dateEnvProb}"></td>
                                     <td class="text-center"><i class="bi bi-eye-fill"></i></td>
                                 </tr>
-     
+
                                 </tbody>
                             </table>
                         </div>
-     
+
                     </div>
                     <!-- /.panel-body -->
-                    </div>      
                 </div>
-                <!--End for Content for Resolu tab-->
-              </div><!-- End Bordered Tabs Justified -->
-</div>
-<!-- /#page-wrapper -->
+            </div>
+            <!--End for Content for Resolu tab-->
+        </div><!-- End Bordered Tabs Justified -->
+        </div>
+        <!-- /#page-wrapper -->
 
-</div>
+        </div>
 
 
-</div>
-    </div>
-  </div>
-</div>
-       
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="modal fade" id="basicModal" tabindex="-1">
+            <div class="modal-dialog modal-lg ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title sm-10"> Tranferer a </h5>
+                        <button type="button sm-2" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post">
+                            <div class="row  mb-4">
+                                <label class="col-sm-4 col-form-label">Role</label>
+                                <div class="col-sm-8">
+                                    <select class="form-select" aria-label="Default select example" id="agent">
+                                        <option></option>
+                                        <option th:each="age :${agentList}" th:value="${age.numMatAgent}"
+                                                th:text="${age.nomAgent+' '+age.prenomAgent}"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" id="cancel" data-dismiss="modal">Annuler
+                                </button>
+                                <button type="button" class="btn btn-primary" th:onclick="'javascript:transferer();'">
+                                    Envoyer
+                                </button>
+                            </div>
+
+
+                        </form><!-- End General Form Elements -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
 
-  </main><!-- End #main -->
+</main><!-- End #main -->
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-  </footer><!-- End Footer -->
+<!-- ======= Footer ======= -->
+<footer id="footer" class="footer">
+</footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+<script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}"></script>
 <!-- Vendor JS Files -->
 <script th:src="@{/vendor/apexcharts/apexcharts.min.js}"></script>
 <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
@@ -674,6 +735,27 @@
 
 <!-- Template Main JS File -->
 <script th:src="@{/js/main.js}"></script>
+<script type="text/javascript">
+    var selectedprb = 0;
+
+    function transferer() {
+        var agent = $("#agent").val();
+        var urlString = "[[@{'/tranferer/'}]]" + agent +'/'+ window.selectedprb;
+
+        $.ajax({methode: "GET", url: urlString})
+            .done(function (responseJson) {
+
+            })
+            .fail(function () {
+                //alert("Error get data");
+            });
+        $('#basicModal').modal('hide');
+    }
+
+    function getPrb(idProb) {
+        window.selectedprb = idProb;
+    }
+</script>
 </body>
 
 </html>

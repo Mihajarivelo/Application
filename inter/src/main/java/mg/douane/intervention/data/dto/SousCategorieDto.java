@@ -8,4 +8,5 @@ import lombok.Setter;
 public class SousCategorieDto {
     private Long idSCat;
     private String libelleSCat;
+    private Long idSouSCat;
 }

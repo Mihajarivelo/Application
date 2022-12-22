@@ -12,6 +12,14 @@ public interface ProblemeService {
 
     public Iterable<Probleme> getAllProblemesByAgent(String userName);
 
+    public Iterable<Probleme> getAllProblemesByDest(String userName);
+
+    public Iterable<Probleme> getAllProblemesByDestNews(String userName);
+
+    public Iterable<Probleme> getAllProblemesByDestEnAttente(String userName);
+
+    public Iterable<Probleme> getAllProblemesByDestResolu(String userName);
+
     public List<Agent> getIntervenant(Long id);
 
     public Probleme createPbr(Probleme probleme) throws Exception;

@@ -25,7 +25,7 @@ public class Reponse {
     private String descriptionRep;
 
     @Lob
-    @Column(name = "pieceJointeRep", columnDefinition = "BYTEA") //BLOB
+    @Column(name = "pieceJointeRep")//, columnDefinition = "BYTEA") //BLOB
     private byte[] pieceJointeRep;
 
     @Temporal(TemporalType.TIMESTAMP)
