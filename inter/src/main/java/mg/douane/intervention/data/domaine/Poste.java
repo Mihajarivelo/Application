@@ -1,5 +1,6 @@
 package mg.douane.intervention.data.domaine;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -21,15 +22,27 @@ public class Poste {
     @Column(name = "fonctionPoste", length = 50, nullable = false)
     private String fonctionPoste;
 
-    @ManyToOne
-    @JoinColumn(name = "porte_id")
-    private Porte porte;
+    @Column(name = "porte", length = 5, nullable = false)
+    private String porte;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "dateDebPoste")
+    private Date dateDebPoste;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "dateFinPoste")
+    private Date dateFinPoste;
+
+    // @ManyToOne
+    // @JoinColumn(name = "porte_id")
+    // private Porte porte;
 
     @ManyToOne
     @JoinColumn(name = "quartier_id")
     private Quartier quartier;
 
-    @OneToMany(mappedBy = "posteFich")
-    private Set<FichePoste> fichePostes;
+    @ManyToOne
+    @JoinColumn(name = "hierarchie_id")
+    private Hierarchie hierarchiePoste;
 
 }

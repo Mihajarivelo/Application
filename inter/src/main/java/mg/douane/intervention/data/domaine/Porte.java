@@ -25,7 +25,7 @@ public class Porte {
     @Column(name = "libellePorte", length = 20, nullable = false)
     private String libellePorte;
 
-    @OneToMany(mappedBy = "porte")
-    private Set<Poste> postes;
+//    @OneToMany(mappedBy = "porte")
+//    private Set<Poste> postes;
 
 }

@@ -32,6 +32,7 @@
   <main>
     <div class="container">
 
+
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4 contentLog">
         <div class="container">
           <div class="row justify-content-center">
@@ -39,17 +40,12 @@
 
               <div class="card mb-1">
 
-                <div class="card-body">
-                  <div class="d-flex justify-content-center pt-3">
-                    <p> <img th:src="@{/img/LogoDouane.png}" alt="" width="100"></p>
-                    <a href="index.html" class="logo d-flex align-items-center w-auto">
-                      <span class="d-none d-lg-block">Help Douane</span>
-                    </a>
-                  </div><!-- End Logo -->
 
-                  <div class="pb-2">
-                    <h3 class="card-title text-center pb-3 fs-4">SE CONNECTER</h3>
-                  </div>
+                  <div class="card-body">
+                    <span class="d-none d-lg-block text-center pt-3"><img th:src="@{/img/LogoHelpDouane.png}" width="250"alt=""></span>
+                   <div class="pb-2">
+                     <h3 class="card-title text-center pb-3 fs-4" style="color: #005a87;">SE CONNECTER</h3>
+                   </div>
 
                   <form class="row g-3 needs-validation" th:action="@{/login}" method="post" >
 

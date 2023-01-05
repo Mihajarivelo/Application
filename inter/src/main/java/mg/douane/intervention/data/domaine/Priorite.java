@@ -5,12 +5,14 @@ import java.util.Set;
 import javax.persistence.*;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name = "priorite")
 public class Priorite {
     @GenericGenerator(name = "seqPrio", strategy = "increment")
@@ -28,4 +30,8 @@ public class Priorite {
     @OneToMany(mappedBy = "priorite")
     private Set<Probleme> problemes;
 
+    public Priorite(long idPriorite, String libellePriorite) {
+        this.idPriorite = idPriorite;
+        this.libellePriorite = libellePriorite;
+    }
 }

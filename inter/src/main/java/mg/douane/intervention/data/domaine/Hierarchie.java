@@ -43,7 +43,4 @@ public class Hierarchie {
     @JoinColumn(name = "typeHier_id")
     private TypeHierarchie type;
 
-    @OneToMany(mappedBy = "hierarchieFich")
-    private Set<FichePoste> fichePostes;
-
 }

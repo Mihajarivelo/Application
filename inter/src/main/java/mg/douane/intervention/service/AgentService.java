@@ -7,6 +7,8 @@ public interface AgentService {
 
     public Iterable<Agent> getAllAgents();
 
+    public Iterable<Agent> getAllAgentsWithFiche();
+
     public Agent createAgent(Agent agent) throws Exception;
 
     public Agent getAgentById(String id) throws Exception;

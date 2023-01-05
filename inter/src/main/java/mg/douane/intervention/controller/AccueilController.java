@@ -3,23 +3,19 @@ package mg.douane.intervention.controller;
 import mg.douane.intervention.data.domaine.Agent;
 import mg.douane.intervention.data.domaine.Categorie;
 import mg.douane.intervention.data.domaine.Role;
-import mg.douane.intervention.data.domaine.SousCategorie;
 import mg.douane.intervention.repository.AgentRepository;
 import mg.douane.intervention.repository.CategorieRepository;
 import mg.douane.intervention.repository.RoleRepository;
-import mg.douane.intervention.repository.SousCategoriRepository;
 import mg.douane.intervention.service.AgentServiceImpl;
-import mg.douane.intervention.service.CategoriService;
-import mg.douane.intervention.service.SousCategorieService;
+import mg.douane.intervention.service.CategorieService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.*;
 
 @Controller
@@ -34,13 +30,7 @@ public class AccueilController {
     RoleRepository roleRepository;
 
     @Autowired
-    CategoriService categoriService;
-
-    @Autowired
-    SousCategorieService sousCategorieService;
-
-    @Autowired
-    SousCategoriRepository sousCategoriRepository;
+    CategorieService categorieService;
 
     @Autowired
     CategorieRepository categorieRepository;
@@ -68,7 +58,7 @@ public class AccueilController {
     public String createRole(@PathVariable Long idRole, @PathVariable String idAgent) {
         Optional<Agent> agent = agentRepository.findById(idAgent);
         Optional<Role> role = roleRepository.findById(idRole);
-        Set<Role> roleSet = new HashSet<Role> ();
+        Set<Role> roleSet = new HashSet<Role>();
         roleSet.add(role.get());
         agent.get().setRoles(roleSet);
         agentRepository.save(agent.get());
@@ -82,32 +72,33 @@ public class AccueilController {
         for (Role role : agent.get().getRoles()) {
             roleGet = role.getIdRole();
         }
-        return ResponseEntity.ok(roleGet+"");
+        return ResponseEntity.ok(roleGet + "");
     }
 
     @RequestMapping(value = "/hierarchie")
     public String gereHierarchiePage(Model model) {
-        model.addAttribute("categList", categoriService.getAllCategories());
+        model.addAttribute("categList", categorieService.getAllCategories());
         return "Admin/GererHierarchie";
     }
 
     @RequestMapping("/addSousCat/{idCat}/{idSousCat}/{name}")
     public String addSousCat(@PathVariable Long idCat, @PathVariable Long idSousCat, @PathVariable String name) {
-        if(idSousCat == 0) {
-            Optional<Categorie> cat = categorieRepository.findById(idCat);
-            SousCategorie sousCat = new SousCategorie();
-            sousCat.setCategorie(cat.get());
-            sousCat.setLibelleSCat(name);
-            sousCategoriRepository.save(sousCat);
+        Optional<Categorie> cat = categorieRepository.findById(idCat);
+        if (idSousCat == 0) {
+            Categorie sousCat = new Categorie();
+            sousCat.setCat(cat.get());
+            sousCat.setLibelleCat(name);
+            sousCat.setDateDebCat(new Date());
+            categorieRepository.save(sousCat);
         } else {
-            Optional<Categorie> cat = categorieRepository.findById(idCat);
-            Optional<SousCategorie> sousCategorie = sousCategoriRepository.findById(idSousCat);
-            SousCategorie sousCat = new SousCategorie();
-            sousCat.setCategorie(cat.get());
-            sousCat.setSCat(sousCategorie.get());
-            sousCat.setLibelleSCat(name);
-            sousCategoriRepository.save(sousCat);
+            Optional<Categorie> c = categorieRepository.findById(idSousCat);
+            Categorie sousCat = new Categorie();
+            sousCat.setCat(c.get());
+            sousCat.setLibelleCat(name);
+            sousCat.setDateDebCat(new Date());
+            categorieRepository.save(sousCat);
         }
+
         return "redirect:/hierarchie";
     }
 
@@ -115,10 +106,9 @@ public class AccueilController {
     public String addCat(@PathVariable String name) {
         Categorie categorie = new Categorie();
         categorie.setLibelleCat(name);
+        categorie.setDateDebCat(new Date());
         categorieRepository.save(categorie);
         return "redirect:/hierarchie";
     }
-
-
 
 }

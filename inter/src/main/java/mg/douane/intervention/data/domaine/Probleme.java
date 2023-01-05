@@ -1,12 +1,11 @@
 package mg.douane.intervention.data.domaine;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
 
-import lombok.Getter;
+import lombok.*;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -27,7 +26,7 @@ public class Probleme {
     private String descriptionProb;
 
     @Lob
-    @Column(name = "pieceJointeProb")//, columnDefinition = "BYTEA") //BLOB
+    @Column(name = "pieceJointeProb") // BLOB
     private byte[] pieceJointeProb;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -46,13 +45,21 @@ public class Probleme {
     private Agent agentProb;
 
     @ManyToOne
+    @JoinColumn(name = "cat_id")
+    private Categorie probCat;
+
+    @OneToMany(mappedBy = "prob", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    private Set<Probleme> sprobs;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Probleme prob;
+
+    @ManyToOne
     @JoinColumn(name = "priorite_id")
     private Priorite priorite;
 
     @OneToMany(mappedBy = "problemeRep")
     private Set<Reponse> reponses;
 
-    @Column(name = "intervenant", length = 500)
-    private String intervenant;
 
 }

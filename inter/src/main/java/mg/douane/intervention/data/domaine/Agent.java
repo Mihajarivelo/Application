@@ -23,7 +23,7 @@ public class Agent {
     private String prenomAgent;
 
     @Lob
-    @Column(name = "photoAgent") //, columnDefinition = "BLOB")
+    @Column(name = "photoAgent") // , columnDefinition = "BLOB")
     private byte[] photoAgent;
 
     @Column(name = "username", nullable = false, length = 50)
@@ -35,11 +35,9 @@ public class Agent {
     @Column(name = "password", nullable = false, length = 250)
     private String password;
 
-    @Size(min=1)
+    @Size(min = 1)
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "agent_roles",
-            joinColumns=@JoinColumn(name="agent_id"),
-            inverseJoinColumns=@JoinColumn(name="role_id"))
+    @JoinTable(name = "agent_roles", joinColumns = @JoinColumn(name = "agent_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     @OneToMany(mappedBy = "agentProb")
@@ -50,6 +48,9 @@ public class Agent {
 
     @OneToMany(mappedBy = "agentFich")
     private Set<FichePoste> fichePostes;
+
+    @OneToMany(mappedBy = "agentInt")
+    private Set<Intervenant> intervenants;
 
     @Transient
     private String confirmPassword;

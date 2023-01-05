@@ -1,8 +1,10 @@
 package mg.douane.intervention.service;
 
 import mg.douane.intervention.data.domaine.Agent;
+import mg.douane.intervention.data.domaine.FichePoste;
 import mg.douane.intervention.data.dto.ChangePasswordDto;
 import mg.douane.intervention.repository.AgentRepository;
+import mg.douane.intervention.repository.FichePosteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,9 +25,22 @@ public class AgentServiceImpl implements AgentService {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    FichePosteRepository fichePosteRepository;
+
     @Override
     public Iterable<Agent> getAllAgents() {
         return repository.findAll();
+    }
+
+    @Override
+    public Iterable<Agent> getAllAgentsWithFiche() {
+        List<Agent> agents = new ArrayList<>();
+        List<FichePoste> fichePostes = (List<FichePoste>) fichePosteRepository.findAll();
+        for(int i=0; i < fichePostes.size(); i++) {
+            agents.add(fichePostes.get(i).getAgentFich());
+        }
+        return agents;
     }
 
     private boolean checkUserEmailAvailable(Agent agent) throws Exception {

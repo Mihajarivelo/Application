@@ -57,16 +57,15 @@
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
 
-                    <span class="d-none d-md-block dropdown-toggle ps-2"
-                          th:text="${#authentication.getPrincipal().getUsername()}"></span>
+                    <span class="d-none d-md-block dropdown-toggle ps-2" th:text="${#authentication.getPrincipal().getUsername()}"></span>
                 </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
                         <h6>
-                            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Super Administrateur</span>
-                            <span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">Administrateur</span>
-                            <span th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} OR ${#authorization.expression('hasRole(''ROLE_USER'')')}">Utilisateur</span>
+                            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" >Super Administrateur</span>
+                            <span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" >Administrateur</span>
+                            <span th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} OR ${#authorization.expression('hasRole(''ROLE_USER'')')}" >Utilisateur</span>
                         </h6>
                     </li>
                     <li>
@@ -137,7 +136,7 @@
         </li>
 </aside>
 
-<aside id="sidebar" class="sidebar" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+<aside id="sidebar" class="sidebar" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" >
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -170,10 +169,10 @@
         </li>
 
 
+
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-collection-fill"></i><span>Boîte de reception</span><i
-                    class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-collection-fill"></i><span>Boîte de reception</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
@@ -217,7 +216,7 @@
         <h1>Problème</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Liste problème reçu</li>
+                <li class="breadcrumb-item active">Liste reponse reçu</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -283,14 +282,12 @@
                                     <td th:text="${pbm.priorite.libellePriorite}"></td>
                                     <td class="text-center">
                                         <span th:if="${pbm.statut.idStatut == 1} OR ${pbm.statut.idStatut == 2}"><i
-                                                class="bi bi-x-lg"></i></span>
+                                                class="bi bi-x-lg" style="color: red;"></i></span>
                                         <span th:if="${pbm.statut.idStatut == 3}"><i class="bi bi-check-lg"></i></span>
                                     </td>
                                     <td class="text-center" th:text="${pbm.dateEnvProb}"></td>
                                     <td class="text-center"><a href="" th:href="@{'/viewPblm/'+ ${pbm.idProb}}">Voir</a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#basicModal"
-                                           th:data-parameter="${pbm.idProb}"
-                                           th:onclick="getPrb(this.getAttribute('data-parameter'));">Transferer</a>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#basicModal" th:data-parameter="${pbm.idProb}" th:onclick="getPrb(this.getAttribute('data-parameter'));">Transferer</a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -357,7 +354,7 @@
                                     <td th:text="${pbm.priorite.libellePriorite}"></td>
                                     <td class="text-center">
                                         <span th:if="${pbm.statut.idStatut == 1} OR ${pbm.statut.idStatut == 2}"><i
-                                                class="bi bi-x-lg"></i></span>
+                                                class="bi bi-x-lg" style="color: red;"></i></span>
                                         <span th:if="${pbm.statut.idStatut == 3}"><i class="bi bi-check-lg"></i></span>
                                     </td>
                                     <td class="text-center" th:text="${pbm.dateEnvProb}"></td>
@@ -428,7 +425,7 @@
                                     <td th:text="${pbm.priorite.libellePriorite}"></td>
                                     <td class="text-center">
                                         <span th:if="${pbm.statut.idStatut == 1} OR ${pbm.statut.idStatut == 2}"><i
-                                                class="bi bi-x-lg"></i></span>
+                                                class="bi bi-x-lg" style="color: red;"></i></span>
                                         <span th:if="${pbm.statut.idStatut == 3}"><i class="bi bi-check-lg"></i></span>
                                     </td>
                                     <td class="text-center" th:text="${pbm.dateEnvProb}"></td>
@@ -496,8 +493,11 @@
                                 <tr class="odd gradeX" th:each="pbm: ${problemListResolu}">
                                     <td th:text="${pbm.idProb}"></td>
                                     <td th:text="${pbm.libelleProb}"></td>
-                                    <td th:text="${pbm.agentProb.nomAgent +' '+ pbm.agentProb.prenomAgent}"></td>
-                                    <td th:text="${pbm.priorite.libellePriorite}"></td>
+                                    <td th:text="${pbm.agentProb.nomAgent+ pbm.agentProb.prenomAgent}"></td>
+                                    <td>
+                                        <span th:if="${pbm.priorite.libellePriorite == 'Urgent'}"> <span class="badge badge-danger">Urgent</span>
+                                    </span>
+                                    </td>
                                     <td class="text-center">
                                         <span th:if="${pbm.statut.idStatut == 1} OR ${pbm.statut.idStatut == 2}"><i
                                                 class="bi bi-x-lg"></i></span>
@@ -536,118 +536,24 @@
                                 aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form th:object="${problemtForm}"
-                              th:action="@{/addPrblm}" method="post">
+                        <form method="post">
                             <div class="row  mb-4">
-                                <label class="col-sm-4 col-form-label">Id Probleme source</label>
+                                <label class="col-sm-4 col-form-label">Nom Agent</label>
                                 <div class="col-sm-8">
-                                    <input class="form-control" id="prbSource" disabled>
-                                    <input type="hidden" id="source" name="idProbMer">
-                                </div>
-                            </div>
-
-                            <div class="row  mb-4">
-                                <label class="col-sm-4 col-form-label">Categorie</label>
-                                <div class="col-sm-8">
-                                    <select class="form-select" aria-label="Default select example" id="categorie"
-                                            th:onchange="'javascript:getSousCategorie();'">
+                                    <select class="form-select" aria-label="Default select example" id="agent">
                                         <option></option>
-                                        <option th:each="cat :${categori}" th:value="${cat.idCat}"
-                                                th:text="${cat.libelleCat}"></option>
+                                        <option th:each="age :${agentList}" th:value="${age.numMatAgent}"
+                                                th:text="${age.nomAgent+' '+age.prenomAgent}"></option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="row  mb-4">
-                                <label class="col-sm-4 col-form-label">Sous-categorie 1:</label>
-                                <div class="col-sm-8">
-                                    <select class="form-select" aria-label="Default select example" id="sousCat1"
-                                            th:onchange="'javascript:getSousCategorie2();'">
-                                        <option></option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row  mb-4">
-                                <label class="col-sm-4 col-form-label">Sous-categorie 2:</label>
-                                <div class="col-sm-8">
-                                    <select class="form-select" aria-label="Default select example" id="sousCat2"
-                                            th:onchange="'javascript:getSousCategorie3();'">
-                                        <option></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- <div class="row  mb-4">
-                                <label class="col-sm-4 col-form-label">Sous-categorie 2:</label>
-                                <div class="col-sm-8">
-                                    <select class="form-select" aria-label="Default select example" id="sousCat3">
-                                        <option></option>
-                                    </select>
-                                </div>
-                            </div> -->
-
-                            <div class="row mb-3">
-                                <label class="col-sm-4 col-form-label">Libelle</label>
-                                <div class="col-sm-8">
-                                    <input class="form-control" th:field="${problemtForm.libelleProb}">
-                                </div>
-                            </div>
-
-
-                            <div class="row mb-3">
-                                <label class="col-sm-4 col-form-label">Description</label>
-                                <div class="col-sm-8">
-                                    <textarea class="form-control" style="height: 100px"
-                                              th:field="${problemtForm.descriptionProb}"></textarea>
-                                </div>
-                            </div>
-
-
-                            <div class="row mb-5">
-                                <label class="col-sm-4 col-form-label">Ajouter pièce-jointe</label>
-                                <div class="col-sm-8">
-                                    <input class="form-control" type="file" id="formFile">
-                                </div>
-                            </div>
-
-                            <div class="row  mb-4">
-                                <label class="col-sm-4 col-form-label">Priorité:</label>
-                                <div class="col-sm-8">
-                                    <select class="form-select" aria-label="Default select example"
-                                            th:field="${problemtForm.priorite}">
-                                        <option th:value="0"></option>
-                                        <option th:each="prio :${prioriter}" th:value="${prio.idPriorite}"
-                                                th:text="${prio.libellePriorite}"></option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <!-- List group With Checkboxes and radios -->
-                                <label for="" class="col-4"> Confidentialité: </label>
-                                <ul class="list-group col-7">
-                                    <li class="list-group-item">
-                                        <input class="form-check-input me-1" type="radio" name="conf" value=""
-                                               aria-label="...">
-                                        Public
-                                    </li>
-                                    <li class="list-group-item">
-                                        <input class="form-check-input me-1" type="radio" name="conf" value=""
-                                               aria-label="...">
-                                        Privé
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <!-- List group With Checkboxes and radios -->
-                            <label for="">Intervenant: </label>
-                            <ul class="list-group" id="intervenant">
-
-
-                            </ul><!-- End List Checkboxes and radios -->
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Quitter</button>
-                                <button type="submit" class="btn btn-primary">Envoyer</button>
+                                <button type="button" class="btn btn-default" id="cancel" data-dismiss="modal">Annuler
+                                </button>
+                                <button type="button" class="btn btn-primary" th:onclick="'javascript:transferer();'">
+                                    Envoyer
+                                </button>
                             </div>
 
 
@@ -683,109 +589,22 @@
 <script type="text/javascript">
     var selectedprb = 0;
 
-    function getSousCategorie() {
-
-        var typeId = $("#categorie").val();
-        var urlString = "[[@{'/getSousCategorieListe/'}]]" + typeId;
-        $('#sousCat1').empty().append('<option ></option>');
+    function transferer() {
+        var agent = $("#agent").val();
+        var urlString = "[[@{'/tranferer/'}]]" + agent +'/'+ window.selectedprb;
 
         $.ajax({methode: "GET", url: urlString})
             .done(function (responseJson) {
-                var sousCatDropDow = $("#sousCat1");
-                $.each(responseJson, function (index, souscategorie) {
-                    $("<option>").val(souscategorie.idCat).text(souscategorie.libelleCat).appendTo(sousCatDropDow);
-                });
+
             })
             .fail(function () {
                 //alert("Error get data");
             });
-
-        var urlString = "[[@{'/getIntervenant/'}]]" + typeId;
-        $('#intervenant').empty().append('<option ></option>');
-        $.ajax({methode: "GET", url: urlString})
-            .done(function (responseJson) {
-                var intervenantDropDow = $("#intervenant");
-                $.each(responseJson, function (index, agent) {
-                    var complexHtml = '<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" name="intervenant" value="' + agent.numMatAgent + '">' + agent.nomAgent + ' ' + agent.prenomAgent + '</li>';
-                    $('#intervenant').append(complexHtml);
-                });
-            })
-            .fail(function () {
-                //alert("Error get data");
-            });
-
-    }
-
-    function getSousCategorie2() {
-
-        var typeId = $("#sousCat1").val();
-        var urlString = "[[@{'/getSousCategorieListe/'}]]" + typeId;
-        $('#sousCat2').empty().append('<option ></option>');
-
-        $.ajax({methode: "GET", url: urlString})
-            .done(function (responseJson) {
-                var sousCatDropDow = $("#sousCat2");
-                $.each(responseJson, function (index, souscategorie) {
-                    $("<option>").val(souscategorie.idCat).text(souscategorie.libelleCat).appendTo(sousCatDropDow);
-                });
-            })
-            .fail(function () {
-                //alert("Error get data");
-            });
-
-        var urlString = "[[@{'/getIntervenant/'}]]" + typeId;
-        $('#intervenant').empty().append('<option ></option>');
-        $.ajax({methode: "GET", url: urlString})
-            .done(function (responseJson) {
-                var intervenantDropDow = $("#intervenant");
-                $.each(responseJson, function (index, agent) {
-                    var complexHtml = '<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" name="intervenant" value="' + agent.numMatAgent + '">' + agent.nomAgent + ' ' + agent.prenomAgent + '</li>';
-                    $('#intervenant').append(complexHtml);
-                });
-            })
-            .fail(function () {
-                //alert("Error get data");
-            });
-
-    }
-
-    function getSousCategorie3() {
-
-        var typeId = $("#sousCat2").val();
-        var urlString = "[[@{'/getSousCategorieListe/'}]]" + typeId;
-        $('#sousCat3').empty().append('<option ></option>');
-
-        $.ajax({methode: "GET", url: urlString})
-            .done(function (responseJson) {
-                var sousCatDropDow = $("#sousCat3");
-                $.each(responseJson, function (index, souscategorie) {
-                    $("<option>").val(souscategorie.idSCat).text(souscategorie.libelleSCat).appendTo(sousCatDropDow);
-                });
-            })
-            .fail(function () {
-                //alert("Error get data");
-            });
-
-        var urlString = "[[@{'/getIntervenant/'}]]" + typeId;
-        $('#intervenant').empty().append('<option ></option>');
-        $.ajax({methode: "GET", url: urlString})
-            .done(function (responseJson) {
-                var intervenantDropDow = $("#intervenant");
-                $.each(responseJson, function (index, agent) {
-                    var complexHtml = '<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" name="intervenant" value="' + agent.numMatAgent + '">' + agent.nomAgent + ' ' + agent.prenomAgent + '</li>';
-                    $('#intervenant').append(complexHtml);
-                });
-            })
-            .fail(function () {
-                //alert("Error get data");
-            });
-
+        $('#basicModal').modal('hide');
     }
 
     function getPrb(idProb) {
         window.selectedprb = idProb;
-        $('#prbSource').val(idProb);
-        $('#source').val(idProb);
     }
 </script>
 </body>

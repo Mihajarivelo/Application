@@ -12,11 +12,11 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Getter
 @Setter
-@Table(name = "categorie")
+@Table(name = "Categorie")
 public class Categorie {
-    @GenericGenerator(name = "seqCat", strategy = "increment")
+    @GenericGenerator(name = "seqSc", strategy = "increment")
     @Id
-    @GeneratedValue(generator = "seqCat")
+    @GeneratedValue(generator = "seqSc")
     private Long idCat;
 
     @Column(name = "libelleCat", length = 50, nullable = false)
@@ -28,9 +28,20 @@ public class Categorie {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "dateFinCat")
-    private Date dateFinHier;
+    private Date dateFinCat;
 
-    @OneToMany(mappedBy = "categorie")
-    private Set<SousCategorie> sousCategories;
+    @Column(name = "descriptionCat", nullable = true, length = 500)
+    private String descriptionCat;
 
+    @OneToMany(mappedBy = "cat", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    private Set<Categorie> scats;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Categorie cat;
+
+    @OneToMany(mappedBy = "probCat")
+    private Set<Probleme> problemes;
+
+    @OneToMany(mappedBy = "catFich")
+    private Set<FichePoste> fichePostes;
 }

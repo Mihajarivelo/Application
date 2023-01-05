@@ -252,8 +252,7 @@
 <!-- ======= Sidebar ======= -->
 
 <aside id="sidebar" class="sidebar" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-
-    <ul class="sidebar-nav" id="sidebar-nav">
+    <ul class="sidebar-nav mt-5" id="sidebar-nav">
 
         <li class="nav-item">
             <a class="nav-link " th:href="@{/home}">
@@ -501,7 +500,6 @@
     function getRole(idAgent) {
         var urlString = "[[@{'/getRole/'}]]" + idAgent;
         window.selectedAgent = idAgent;
-        console.log(window.selectedAgent);
         $.ajax({methode: "GET", url: urlString})
             .done(function (responseJson) {
                 $('#role').val(responseJson);

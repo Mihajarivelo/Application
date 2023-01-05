@@ -17,7 +17,16 @@
 
 
     <!-- Vendor CSS Files -->
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+
+    <link type="text/css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" >
+  <link type="text/css" th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+  <link type="text/css" th:href="@{/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
+  <link type="text/css" th:href="@{/vendor/quill/quill.snow.css}" rel="stylesheet">
+  <link type="text/css" th:href="@{/vendor/quill/quill.bubble.css}" rel="stylesheet">
+  <link type="text/css" th:href="@{/vendor/remixicon/remixicon.css}" rel="stylesheet">
+  <link type="text/css" th:href="@{/vendor/simple-datatables/style.css}" rel="stylesheet">
+
+
 
     <!-- Template Main CSS File -->
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
@@ -41,7 +50,7 @@
                 <legend class="borderF">Information personnelle</legend>
                 <div class="form-group pt-2">
                     <label>Numéro Matricule:</label>
-                    <input class="form-control" placeholder="Maztricule" th:field="${agentForm.numMatAgent}">
+                    <input class="form-control" placeholder="Matricule" th:field="${agentForm.numMatAgent}">
                 </div>
 
                 <div class="form-group pt-2">
@@ -78,11 +87,16 @@
 
             <div class="col-md-6 departement">
                 <div class="row">
-                    <div class="upload">
-                        <img src="" width=100 height=100 alt="">
-                        <div class="round">
-                            <input type="image" th:field="${agentForm.photoAgent}">
-                            <i class="bi bi-camera-fill" style="color:white;"></i>
+                    <div class="upload" >
+                        <img id="frame"  width="150px" height="150px" />
+                        <div class="round" >
+                            <!-- <input type="image" th:field="${agentForm.photoAgent}"> -->
+
+                            <input
+                            onchange="loadImg()"
+                             class="rounded-circle" name="file" type="file" id="formFile">
+                             <i class="bi bi-camera-fill" style="color: white;"></i>
+                            
                         </div>
                     </div>
 
@@ -104,14 +118,14 @@
                                 </div>
 
 
-                                <div class="form-group pt-2">
+                                <!--<div class="form-group pt-2">
                                     <label class=" col-form-label">Nom hierarchie: </label>
                                     <div class="">
                                         <select class="form-select" aria-label="Default select example" id="hierarchie" th:field="${fichePosteForm.hierarchieFich.idHier}" >
                                             <option th:value="0"></option>
                                         </select>
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <div class="form-group pt-2">
                                     <label class=" col-form-label">Fonction : </label>
@@ -154,16 +168,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <!--<div class="col-12">
                                 <label class=" col-form-label">Sous categorie : </label>
                                 <div class="">
-                                    <select class="form-select" aria-label="Default select example" th:field="${fichePosteForm.souCatFich.idSCat}">
+                                    <select class="form-select" aria-label="Default select example" th:field="${fichePosteForm.CatFich.idSCat}">
                                         <option th:value="0"></option>
                                         <option th:each="souscat :${souscateg}" th:value="${souscat.idSCat}"
                                                 th:text="${souscat.libelleSCat}"></option>
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
 
                     </fieldset>
@@ -206,6 +220,9 @@
 <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
 
 <script type="text/javascript">
+    function loadImg(){
+    $('#frame').attr('src', URL.createObjectURL(event.target.files[0]));
+}
     function getHierarchie() {
 
         var typeId = $("#typeHierarchie").val();

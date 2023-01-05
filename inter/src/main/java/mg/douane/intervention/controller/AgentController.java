@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -48,16 +49,16 @@ public class AgentController {
     VilleRepository villeRepository;
 
     @Autowired
-    PorteRepository porteRepository;
-
-    @Autowired
     QuartierService quartierService;
 
     @Autowired
-    SousCategoriRepository sousCategoriRepository;
+    CategorieRepository categorieRepository;
 
     @Autowired
     FichePosteRepository fichePosteRepository;
+
+    @Autowired
+    PorteRepository porteRepository;
 
     @RequestMapping(value = { "/", "/login" })
     public String index() {
@@ -74,16 +75,16 @@ public class AgentController {
         model.addAttribute("postes", posteRepository.findAll());
         model.addAttribute("villes", villeRepository.findAll());
         model.addAttribute("portes", porteRepository.findAll());
-        model.addAttribute("souscateg", sousCategoriRepository.findAll());
+        model.addAttribute("souscateg", categorieRepository.findAll());
         return "register";
     }
 
     @GetMapping("/hierarchieList/{id}")
     @ResponseBody
-    public List<HierarchieDto> getHierarchie(@PathVariable Long id){
+    public List<HierarchieDto> getHierarchie(@PathVariable Long id) {
         List<Hierarchie> hierarchies = hierarchieService.getHierarchieByTypeHierarchie(id);
         List<HierarchieDto> hierarchieDtos = new ArrayList<>();
-        for(int i = 0; i< hierarchies.size(); i++) {
+        for (int i = 0; i < hierarchies.size(); i++) {
             HierarchieDto hierarchieDto = new HierarchieDto();
             hierarchieDto.setIdHier(hierarchies.get(i).getIdHier());
             hierarchieDto.setLibelleHier(hierarchies.get(i).getLibelleHier());
@@ -94,10 +95,10 @@ public class AgentController {
 
     @GetMapping("/quartierList/{id}")
     @ResponseBody
-    public List<QuartierDto> getQuartier(@PathVariable Long id){
+    public List<QuartierDto> getQuartier(@PathVariable Long id) {
         List<Quartier> quartiers = quartierService.getQuartierByVille(id);
         List<QuartierDto> quartierDtos = new ArrayList<>();
-        for(int i = 0; i< quartiers.size(); i++) {
+        for (int i = 0; i < quartiers.size(); i++) {
             QuartierDto quartierDto = new QuartierDto();
             quartierDto.setIdQuartier(quartiers.get(i).getIdQuartier());
             quartierDto.setLibelleQuartier(quartiers.get(i).getLibelleQuartier());
@@ -107,20 +108,24 @@ public class AgentController {
     }
 
     @PostMapping("/agentForm")
-    public String createAgent(@Valid @ModelAttribute("agentForm") Agent agent, @ModelAttribute("fichePosteForm") FichePoste fichePoste, BindingResult result, ModelMap model) {
+    public String createAgent(@Valid @ModelAttribute("agentForm") Agent agent,
+            @ModelAttribute("fichePosteForm") FichePoste fichePoste, BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
             model.addAttribute("agentForm", agent);
             model.addAttribute("formTab", "active");
         } else {
             try {
                 Agent agnt = agentService.createAgent(agent);
-                Optional<Hierarchie> hierarchie = hierarchieRepository.findById(fichePoste.getHierarchieFich().getIdHier());
+                // Optional<Hierarchie> hierarchie = hierarchieRepository
+                // .findById(fichePoste.getHierarchieFich().getIdHier());
                 Optional<Poste> poste = posteRepository.findById(fichePoste.getPosteFich().getIdPoste());
-                Optional<SousCategorie> sousCategorie = sousCategoriRepository.findById(fichePoste.getSouCatFich().getIdSCat());
+//                Optional<Categorie> sousCategorie = categorieRepository
+//                        .findById(fichePoste.getCatFich().getIdCat());
                 fichePoste.setAgentFich(agnt);
-                fichePoste.setHierarchieFich(hierarchie.get());
+                // fichePoste.setHierarchieFich(hierarchie.get());
                 fichePoste.setPosteFich(poste.get());
-                fichePoste.setSouCatFich(sousCategorie.get());
+                fichePoste.setDateDebFich(new Date());
+                //fichePoste.setCatFich(sousCategorie.get());
                 fichePosteRepository.save(fichePoste);
                 model.addAttribute("agentForm", new Agent());
                 model.addAttribute("listTab", "active");
@@ -156,7 +161,8 @@ public class AgentController {
     }
 
     @PostMapping("/editAgent")
-    public String postEditUserForm(@Valid @ModelAttribute("agentForm") Agent agent, BindingResult result, ModelMap model) {
+    public String postEditUserForm(@Valid @ModelAttribute("agentForm") Agent agent, BindingResult result,
+            ModelMap model) {
         if (result.hasErrors()) {
             model.addAttribute("agentForm", agent);
             model.addAttribute("formTab", "active");

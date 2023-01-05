@@ -1,9 +1,22 @@
 package mg.douane.intervention.repository;
 
 import mg.douane.intervention.data.domaine.Categorie;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CategorieRepository extends CrudRepository<Categorie, Long> {
+
+    @Query("SELECT c FROM Categorie c WHERE c.cat IS NULL")
+    List<Categorie> findAllCategories();
+
+    @Query("SELECT c FROM Categorie c WHERE c.cat IS NOT NULL")
+    List<Categorie> findAllSousCategories();
+
+    List<Categorie> findAllByCat(Categorie categorie);
+
+    List<Categorie> findAllByScats(Categorie sousCategorie);
 }

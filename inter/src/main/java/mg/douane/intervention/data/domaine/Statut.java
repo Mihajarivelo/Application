@@ -5,12 +5,14 @@ import java.util.Set;
 import javax.persistence.*;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name = "statut")
 public class Statut {
 
@@ -29,4 +31,8 @@ public class Statut {
     @OneToMany(mappedBy = "statut")
     private Set<Probleme> problemes;
 
+    public Statut(long idStatut, String libelleStatut) {
+        this.idStatut = idStatut;
+        this.libelleStatut = libelleStatut;
+    }
 }

@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SousCategorieDto {
+public class CategorieDto {
+    private Long idCat;
+    private String libelleCat;
     private Long idSCat;
-    private String libelleSCat;
-    private Long idSouSCat;
 }

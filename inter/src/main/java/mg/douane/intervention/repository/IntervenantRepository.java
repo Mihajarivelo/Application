@@ -1,19 +1,17 @@
 package mg.douane.intervention.repository;
 
 import mg.douane.intervention.data.domaine.Agent;
+import mg.douane.intervention.data.domaine.Intervenant;
 import mg.douane.intervention.data.domaine.Probleme;
-import mg.douane.intervention.data.domaine.Reponse;
-
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface ReponseRepository extends CrudRepository<Reponse, Long> {
+public interface IntervenantRepository extends CrudRepository<Intervenant, Long> {
 
-    List<Probleme> findByAgentRep(Agent agent);
+    List<Intervenant> findByAgentInt(Agent agent);
 
-    List<Reponse> findByProblemeRep(Probleme probleme);
+    Intervenant findByProbInt(Probleme probleme);
 }
