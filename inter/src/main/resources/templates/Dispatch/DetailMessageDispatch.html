@@ -250,6 +250,9 @@
                             <hr>
                         </div>
                         <span th:if="${#httpServletRequest.remoteUser!=lasteResponse?.getAgentRep()?.getUsername()}">
+
+                            <span th:if="${#httpServletRequest.remoteUser==orgPrblm.getUsername()}">
+                                <button type="button" class="btn btn-primary" th:data-parameter="${pblmView.idProb}" th:onclick="resolvePrbm(this.getAttribute('data-parameter'));">Mettre en résolu</button></span>
                         <input type="text" class="form-control" id="repAdd">
                         <button type="button" class="btn btn-light repbtn" data-bs-toggle="tooltip"
                                 data-bs-placement="bottom" title="Répondre"
@@ -292,6 +295,18 @@
     function addReponse(idProb) {
         var description = $("#repAdd").val();
         var urlString = "[[@{'/addRep/'}]]" + idProb + '/' + description;
+
+        $.ajax({methode: "GET", url: urlString})
+            .done(function (responseJson) {
+                location.reload();
+            })
+            .fail(function () {
+                //alert("Error get data");
+            });
+    }
+
+    function resolvePrbm(idProb) {
+        var urlString = "[[@{'/resolveprbm/'}]]" + idProb;
 
         $.ajax({methode: "GET", url: urlString})
             .done(function (responseJson) {

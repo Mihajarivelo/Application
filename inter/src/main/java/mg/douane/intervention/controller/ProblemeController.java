@@ -238,6 +238,7 @@ public class ProblemeController {
 
         model.addAttribute("pblmView", problemToView.get());
         model.addAttribute("response", reponseView);
+        model.addAttribute("orgPrblm", problemToView.get().getAgentProb());
         try {
             model.addAttribute("lasteResponse", reponseView.get(reponseView.size() - 1));
         } catch (Exception e) {
@@ -260,6 +261,15 @@ public class ProblemeController {
         rep.setProblemeRep(prb.get());
         rep.setAgentRep(agent.get());
         reponseRepository.save(rep);
+        return "redirect:/viewPblm/" + idProb;
+    }
+
+    @RequestMapping("/resolveprbm/{idProb}")
+    public String addRep(@PathVariable long idProb) {
+        Optional<Probleme> prb = problemeRepository.findById(idProb);
+        Optional<Statut> statut = statusrepository.findById((long) 3);
+        prb.get().setStatut(statut.get());
+        Probleme p = problemeRepository.save(prb.get());
         return "redirect:/viewPblm/" + idProb;
     }
 
