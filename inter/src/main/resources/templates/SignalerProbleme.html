@@ -284,6 +284,7 @@
                         <form th:object="${problemtForm}"
                               th:action="@{/addPrblm}" method="post">
                             <div class="row  mb-4">
+                                <input type="hidden" id="source" name="idProbMer" value="0">
                                 <label class="col-sm-4 col-form-label">Categorie</label>
                                 <div class="col-sm-8">
                                     <select class="form-select" aria-label="Default select example" id="categorie"
