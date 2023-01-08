@@ -285,6 +285,9 @@ public class ProblemeController {
         Optional<Statut> statut = statusrepository.findById((long) 3);
         Probleme probleme = prb.get();
         probleme.setStatut(statut.get());
+        try{
+            probleme.getProb().setStatut(statut.get());
+        } catch (Exception e) {}
         Probleme p = problemeRepository.save(probleme);
         return "redirect:/viewPblm/" + idProb;
     }
