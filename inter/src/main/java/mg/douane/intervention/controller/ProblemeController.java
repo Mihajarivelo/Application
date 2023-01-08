@@ -226,6 +226,10 @@ public class ProblemeController {
                 problemeAdd.setPieceJointeProb(problemeOptional.get().getPieceJointeProb());
                 problemeAdd.setProbCat(problemeOptional.get().getProbCat());
 
+                Optional<Statut> statutTransfer = statusrepository.findById((long) 4);
+                problemeOptional.get().setStatut(statutTransfer.get());
+                problemeRepository.save(problemeOptional.get());
+
             }
             Probleme saveProb = problemeRepository.save(problemeAdd);
             Intervenant interv = new Intervenant();

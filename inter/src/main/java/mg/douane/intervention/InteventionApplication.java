@@ -52,7 +52,7 @@ public class InteventionApplication extends SpringBootServletInitializer {
     public void initAll() {
         try {
             List<Statut> statuts = Stream.of(
-                    new Statut((long) 1, "News"), new Statut((long) 2, "en attente"), new Statut((long) 3, "resolu")
+                    new Statut((long) 1, "News"), new Statut((long) 2, "en attente"), new Statut((long) 3, "resolu"), new Statut((long) 4, "transferer")
             ).collect(Collectors.toList());
             statusrepository.saveAll(statuts);
         } catch (Exception e) {

@@ -240,11 +240,11 @@
                Non Résolu
               </label>
             </div>
-           
-        </div>
-    
 
-        <div class="col-lg-12">       
+        </div>
+
+
+        <div class="col-lg-12">
           <div class="panel panel-default mt-5">
                <!-- /.panel-heading -->
                <div class="panel-body">
@@ -262,6 +262,7 @@
                            </thead>
                            <tbody> <!-- <i class="bi bi-check-lg"></i></td> <i class="bi bi-arrow-down-circle-fill"></i> <i class="bi bi-arrow-repeat"></i> -->
                            <tr class="odd gradeX" th:each="pbm: ${problemList}">
+<!--                             <span th:if="${pbm.statut.idStatut != 4}">-->
                                <td th:text="${pbm.idProb}"></td>
                                <td th:text="${pbm.libelleProb}"></td>
                                <td th:text="${pbm.agentProb.nomAgent}"></td>
@@ -271,8 +272,8 @@
                                </td>
                                <td th:text="${pbm.dateEnvProb}"></td>
                                <td class="text-center"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal"><i class="bi bi-eye-fill"></i></a></td>
+<!--                               </span>-->
                            </tr>
-
                            </tbody>
                        </table>
                    </div>

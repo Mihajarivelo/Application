@@ -246,6 +246,7 @@
                                 </thead>
                                 <tbody>
                                 <tr class="odd gradeX" th:each="pbm: ${problemList}">
+<!--                                    <span th:if="${pbm.statut != '4'}">-->
                                     <td th:text="${pbm.idProb}"></td>
                                     <td th:text="${pbm.libelleProb}"></td>
                                     <td th:text="${pbm.intervenant}"></td>
@@ -255,6 +256,7 @@
                                     </td>
                                     <td class="text-center" th:text="${pbm.dateEnvProb}"></td>
                                     <td class="text-center"><a href="" th:href="@{'/viewPblm/'+ ${pbm.idProb}}"><i class="bi bi-eye-fill"></i></a></td>
+<!--                                    </span>-->
                                 </tr>
                                 </tbody>
                             </table>
