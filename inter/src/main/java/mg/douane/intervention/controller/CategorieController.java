@@ -17,7 +17,7 @@ public class CategorieController {
     public String categoriePage(Model model) {
         model.addAttribute("categList", categorieService.getAllCategories());
         model.addAttribute("souscategList", categorieService.getAllSousCategories());
-        model.addAttribute("soussouscategList", categorieService.getAllSousSousCategories());
+        model.addAttribute("soussouscategList", categorieService.getAllSousCategories());
         return "ListeCategorie";
     }
 }

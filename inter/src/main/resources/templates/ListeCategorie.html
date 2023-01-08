@@ -244,9 +244,9 @@
                   <li th:each="categ: ${categList}"><span class="categorie"></span><b th:text="${categ.libelleCat}"></b>
                     <ul class="souscat" >
                       <li th:each="souscategorie: ${souscategList}" >
-                        <span  class="categorie" th:if="${souscategorie.categorie.idCat} == ${categ.idCat}" th:text="${souscategorie.libelleSCat}"></span>
+                        <span  class="categorie" th:if="${souscategorie.cat.idCat} == ${categ.idCat}" th:text="${souscategorie.libelleCat}"></span>
                         <ul class="souscat" >
-                          <li th:each="soussouscategorie: ${soussouscategList}"><span th:if="${soussouscategorie.SCat.idSCat} == ${souscategorie.idSCat}" th:text="${soussouscategorie.libelleSCat}"></span></li>
+                          <li th:each="soussouscategorie: ${soussouscategList}"><span th:if="${soussouscategorie.cat.idCat} == ${souscategorie.idCat}" th:text="${soussouscategorie.libelleCat}"></span></li>
                         </ul>
                       </li>
                     </ul>

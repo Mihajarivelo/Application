@@ -197,29 +197,42 @@ public class ProblemeController {
         if (result.hasErrors()) {
             model.addAttribute("problemtForm", probleme);
         } else {
-            try {
-                Probleme problemeAdd = probleme;
+            Probleme problemeAdd = probleme;
+            if(idProbMer == 0) {
+                try {
+                    problemeAdd = probleme;
+                    problemeAdd.setDateEnvProb(new Date());
+                    Optional<Agent> agent = agentRepository.findByUsername(((UserDetails) authentication.getPrincipal()).getUsername());
+                    problemeAdd.setAgentProb(agent.get());
+                    Optional<Statut> statut = statusrepository.findById((long) 1);
+                    problemeAdd.setStatut(statut.get());
+
+                    model.addAttribute("problemtForm", new Probleme());
+                } catch (Exception e) {
+                    model.addAttribute("formErrorMessage", e.getMessage());
+                }
+            } else {
+                Optional<Probleme> problemeOptional = problemeRepository.findById(idProbMer);
+                problemeAdd = probleme;
+                problemeAdd.setPriorite(problemeOptional.get().getPriorite());
+                problemeAdd.setAgentProb(problemeOptional.get().getAgentProb());
                 problemeAdd.setDateEnvProb(new Date());
-                Optional<Agent> agent = agentRepository.findByUsername(((UserDetails) authentication.getPrincipal()).getUsername());
-                problemeAdd.setAgentProb(agent.get());
+                problemeAdd.setConfidentialiteProb(problemeOptional.get().isConfidentialiteProb());
                 Optional<Statut> statut = statusrepository.findById((long) 1);
                 problemeAdd.setStatut(statut.get());
-                try{
-                    Optional<Probleme> problemeOptional = problemeRepository.findById(idProbMer);
-                    problemeAdd.setProb(problemeOptional.get());
-                } catch (Exception e) {}
-                Probleme saveProb = problemeRepository.save(problemeAdd);
+                problemeAdd.setDescriptionProb(problemeOptional.get().getDescriptionProb());
+                problemeAdd.setProb(problemeOptional.get());
+                problemeAdd.setLibelleProb("Probleme transferet : " + problemeOptional.get().getLibelleProb());
+                problemeAdd.setPieceJointeProb(problemeOptional.get().getPieceJointeProb());
+                problemeAdd.setProbCat(problemeOptional.get().getProbCat());
 
-                Intervenant interv = new Intervenant();
-                Optional<Agent> agentOptional = agentRepository.findById(intervenant);
-                interv.setAgentInt(agentOptional.get());
-                interv.setProbInt(saveProb);
-                intervenantRepository.save(interv);
-
-                model.addAttribute("problemtForm", new Probleme());
-            } catch (Exception e) {
-                model.addAttribute("formErrorMessage", e.getMessage());
             }
+            Probleme saveProb = problemeRepository.save(problemeAdd);
+            Intervenant interv = new Intervenant();
+            Optional<Agent> agentOptional = agentRepository.findById(intervenant);
+            interv.setAgentInt(agentOptional.get());
+            interv.setProbInt(saveProb);
+            intervenantRepository.save(interv);
         }
 
         return "redirect:/problemView/" + ((UserDetails) authentication.getPrincipal()).getUsername();
@@ -229,9 +242,11 @@ public class ProblemeController {
     public String getViewPrblmForm(Model model, @PathVariable(name = "id") Long id) {
         Optional<Probleme> problemToView = problemeRepository.findById(id);
         try {
-            Optional<Statut> statut = statusrepository.findById((long) 2);
-            problemToView.get().setStatut(statut.get());
-            problemeRepository.save(problemToView.get());
+            if(problemToView.get().getStatut().getIdStatut() == 1) {
+                Optional<Statut> statut = statusrepository.findById((long) 2);
+                problemToView.get().setStatut(statut.get());
+                problemeRepository.save(problemToView.get());
+            }
         } catch (Exception e) {
         }
         List<Reponse> reponseView = reponseRepository.findByProblemeRep(problemToView.get());
@@ -268,8 +283,9 @@ public class ProblemeController {
     public String addRep(@PathVariable long idProb) {
         Optional<Probleme> prb = problemeRepository.findById(idProb);
         Optional<Statut> statut = statusrepository.findById((long) 3);
-        prb.get().setStatut(statut.get());
-        Probleme p = problemeRepository.save(prb.get());
+        Probleme probleme = prb.get();
+        probleme.setStatut(statut.get());
+        Probleme p = problemeRepository.save(probleme);
         return "redirect:/viewPblm/" + idProb;
     }
 
