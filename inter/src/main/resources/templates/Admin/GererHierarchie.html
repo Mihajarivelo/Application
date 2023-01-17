@@ -285,16 +285,22 @@
                     <input type="text" id="catAdd" class="form-control" placeholder="nouveau hierarchie a ajouté">
                 </div>
                 <div class="col-2">
-                    <button type="button" class="btn btn-primary" th:onclick="'javascript:addHier();'">Ajouter</button>
+                    <select class="form-select" aria-label="Default select example" id="typehier">
+                        <option value="0"></option>
+                        <option th:each="type :${typeHierListe}" th:value="${type.idType}"
+                                th:text="${type.libelleType}"></option>
+                    </select>
+                    <button type="button" class="btn btn-primary" th:onclick="'javascript:addHier();'">
+                        Ajouter</button>
                 </div>
             </div>
         </div>
-
+<!--
         <div class="row mt-2" style="margin-top:150px;">
             <div id="bs-treeetable" class="treetable">
                 Chargement ...
             </div>
-        </div>
+        </div>-->
 
 
     </section>
@@ -391,10 +397,10 @@
             });
     });
 
-    function addSousCat(idCat) {
+    function addSousHier(idCat) {
         var sousCatId = $("#sousCat" + idCat).val();
         var name = $("#sousCatAdd" + idCat).val();
-        var urlString = "[[@{'/addSousCat/'}]]" + idCat + '/' + sousCatId + '/' + name;
+        var urlString = "[[@{'/addSouHierarchie/'}]]" + idCat + '/'  + name;
 
         $.ajax({methode: "GET", url: urlString})
             .done(function (responseJson) {

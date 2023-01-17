@@ -120,6 +120,19 @@ public class AccueilController {
         return "redirect:/hierarchie";
     }
 
+    @RequestMapping("/addSouHierarchie/{idH}/{name}")
+    public String addHierarchie(@PathVariable long idH,  @PathVariable String name) {
+        Hierarchie hierarchie = new Hierarchie();
+        hierarchie.setLibelleHier(name);
+        hierarchie.setDateDebHier(new Date());
+        Optional<Hierarchie> hierarchieOptional = hierarchieRepository.findById(idH);
+        Optional<TypeHierarchie> typeHierarchie = typeHierarchieRepository.findById(hierarchieOptional.get().getType().getIdType());
+        hierarchie.setHier(hierarchieOptional.get());
+        hierarchie.setType(typeHierarchie.get());
+        hierarchieRepository.save(hierarchie);
+        return "redirect:/hierarchie";
+    }
+
     @GetMapping("/sousHierarchie/{id}")
     @ResponseBody
     public List<HierarchieDto> getSousHier(@PathVariable Long id) {

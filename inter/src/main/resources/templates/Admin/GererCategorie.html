@@ -227,10 +227,10 @@
                     <div class="row">
                         <div class="col-11">
                             <input type="text" class="form-control" name="query" placeholder="Rechercher"
-                                   title="Enter search keyword">
+                                   title="Enter search keyword" id="find">
                         </div>
                         <div class="col-1">
-                            <button type="button" title="Search"><i class="bi bi-search"></i></button>
+                            <button type="button" title="Search" th:onclick="'javascript:findCat();'"><i class="bi bi-search"></i></button>
                         </div>
                     </div>
                 </form>
@@ -331,11 +331,10 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
-        var urlString = "[[@{'/getAllCategorieListe'}]]";
+        var urlString = "[[@{'/getAllCategorieListe/All'}]]";
         $.ajax({methode: "GET", url: urlString})
             .done(function (responseJson) {
 
-                console.log(responseJson);
                 $("#bs-treeetable").bstreetable({
                         data: responseJson,
                         maintitle: "Catégories",
@@ -351,13 +350,25 @@
                             callback();
                         },
                         noderemoveCallback: function (data, callback) {
-                            alert(JSON.stringify(data));
-                            //do your things then callback
+                            urlString = "[[@{'/deleteCat/'}]]" + data;
+                            $.ajax({methode: "GET", url: urlString})
+                                .done(function (responseJson) {
+
+                                })
+                                .fail(function () {
+                                    //alert("Error get data");
+                                });
                             callback();
                         },
                         nodeupdateCallback: function (data, callback) {
-                            alert(JSON.stringify(data));
-                            //do your things then callback
+                            urlString = "[[@{'/updateCat/'}]]" + data.idCat + '/' + data.name;
+                            $.ajax({methode: "GET", url: urlString})
+                                .done(function (responseJson) {
+
+                                })
+                                .fail(function () {
+                                    //alert("Error get data");
+                                });
                             callback();
                         }
                     }
@@ -416,6 +427,55 @@
         $.ajax({methode: "GET", url: urlString})
             .done(function (responseJson) {
                 location.reload();
+            })
+            .fail(function () {
+                //alert("Error get data");
+            });
+    }
+
+    function findCat() {
+        var name = $("#find").val();
+        var urlString = "[[@{'/getAllCategorieListe/'}]]" + name;
+
+        $.ajax({methode: "GET", url: urlString})
+            .done(function (responseJson) {
+                $("#bs-treeetable").bstreetable({
+                    data: responseJson,
+                    maintitle: "Catégories",
+                    nodeaddCallback: function (data, callback) {
+                        urlString = "[[@{'/addSCat/'}]]" + data.name + '/' + data.idSCat;
+                        $.ajax({methode: "GET", url: urlString})
+                            .done(function (responseJson) {
+
+                            })
+                            .fail(function () {
+                                //alert("Error get data");
+                            });
+                        callback();
+                    },
+                    noderemoveCallback: function (data, callback) {
+                        urlString = "[[@{'/deleteCat/'}]]" + data;
+                        $.ajax({methode: "GET", url: urlString})
+                            .done(function (responseJson) {
+
+                            })
+                            .fail(function () {
+                                //alert("Error get data");
+                            });
+                        callback();
+                    },
+                    nodeupdateCallback: function (data, callback) {
+                        urlString = "[[@{'/updateCat/'}]]" + data.idCat + '/' + data.name;
+                        $.ajax({methode: "GET", url: urlString})
+                            .done(function (responseJson) {
+
+                            })
+                            .fail(function () {
+                                //alert("Error get data");
+                            });
+                        callback();
+                    }
+                })
             })
             .fail(function () {
                 //alert("Error get data");

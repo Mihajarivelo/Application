@@ -123,10 +123,15 @@ public class ProblemeController {
         return categorieDtos;
     }
 
-    @GetMapping("/getAllCategorieListe")
+    @GetMapping("/getAllCategorieListe/{find}")
     @ResponseBody
-    public List<CategorieDto> getAllCategorieListe() {
-        List<Categorie> categories = categorieRepository.findAllCategories();
+    public List<CategorieDto> getAllCategorieListe(@PathVariable String find) {
+        List<Categorie> categories = new ArrayList<>();
+        if(find.equals("All")) {
+            categories = categorieRepository.findAllCategories();
+        } else {
+            categories = categorieRepository.findByLibelleCat(find.toLowerCase());
+        }
         List<CategorieDto> categorieDtos = new ArrayList<>();
         CategorieDto categorieDto = new CategorieDto();
         for (int i = 0; i < categories.size(); i++) {
@@ -190,6 +195,27 @@ public class ProblemeController {
             categorie.setCat(categorieOptional.get());
             categorie.setDateDebCat(new Date());
             categorieRepository.save(categorie);
+        }
+        return null;
+    }
+
+    @GetMapping("/updateCat/{idCat}/{name}")
+    @ResponseBody
+    public String updateCat( @PathVariable Long idCat, @PathVariable String name) {
+        Optional<Categorie> categorieOptional = categorieRepository.findById(idCat);
+        if(categorieOptional.isPresent()) {
+            categorieOptional.get().setLibelleCat(name);
+            categorieRepository.save(categorieOptional.get());
+        }
+        return null;
+    }
+
+    @GetMapping("/deleteCat/{idCat}")
+    @ResponseBody
+    public String deleteCat(@PathVariable Long idCat) {
+        Optional<Categorie> categorieOptional = categorieRepository.findById(idCat);
+        if(categorieOptional.isPresent()) {
+            categorieRepository.delete(categorieOptional.get());
         }
         return null;
     }
