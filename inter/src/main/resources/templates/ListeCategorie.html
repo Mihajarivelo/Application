@@ -62,10 +62,10 @@
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
           <li class="dropdown-header">
             <h6>
-              <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" >Super Administrateur</span>
-              <span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" >Administrateur</span>
-              <span th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} OR ${#authorization.expression('hasRole(''ROLE_USER'')')}" >Utilisateur</span>
-            </h6>
+                            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" >Administrateur</span>
+                            <span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" >Dispatcher</span>
+                            <span th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} OR ${#authorization.expression('hasRole(''ROLE_USER'')')}" >Utilisateur</span>
+                        </h6>
           </li>
           <li>
             <hr class="dropdown-divider">
@@ -122,9 +122,9 @@
 
     <li class="nav-item">
       <a class="nav-link collapsed" th:href="@{/hierarchie}">
-        <i class="bi bi-list-task"></i>
-        <span>Gérer Catégorie</span>
-      </a>
+                <i class="bi bi-list-task"></i>
+                <span>Gérer Hierarchie</span>
+            </a>
     </li>
 
     <li class="nav-item">
@@ -175,12 +175,12 @@
       </a>
       <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li>
-          <a th:href="@{'/problemRecep/'+${#authentication.getPrincipal().getUsername()}}">
+          <a th:href="@{'/problemRecep/'+${#authentication.getPrincipal().getUsername()}+'/'+'all'}">
             <i class="bi bi-circle"></i><span>Problèmes</span>
           </a>
         </li>
         <li>
-          <a href="ReceptionReponse.html">
+          <a th:href="@{'/problemRepons/'+${#authentication.getPrincipal().getUsername()}}">
             <i class="bi bi-circle"></i><span>Réponses</span>
           </a>
         </li>
@@ -195,10 +195,10 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="BoiteEnvoieDispatxh.html">
-        <i class="bi bi-cursor-fill"></i>
-        <span>Gérer catégorie</span>
-      </a>
+      <a class="nav-link collapsed"  th:href="@{/categorie}">
+                <i class="bi bi-cursor-fill"></i>
+                <span>Gérer Catégorie</span>
+            </a>
     </li>
 
     <li class="nav-item">
@@ -233,28 +233,30 @@
         <div class="row mt-5">
           <div class="col-lg-4">
 
-            <div class="card">
-              <div class="card-body">
+           
   
                 <!-- Accordion without outline borders
                 th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
                th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_USER'')')} and ${#httpServletRequest.remoteUser==user.username})"
                 -->
                 <ul id="myListCat" >
-                  <li th:each="categ: ${categList}"><span class="categorie"></span><b th:text="${categ.libelleCat}"></b>
+                  <li th:each="categ: ${categList}"><span class="categorie"></span><b th:text="${categ.libelleCat}"></b> <br>
+                     <span>Description:</span> 
+                     <p th:text="${categ.descriptionCat}"></p>
+                   
                     <ul class="souscat" >
                       <li th:each="souscategorie: ${souscategList}" >
                         <span  class="categorie" th:if="${souscategorie.cat.idCat} == ${categ.idCat}" th:text="${souscategorie.libelleCat}"></span>
                         <ul class="souscat" >
-                          <li th:each="soussouscategorie: ${soussouscategList}"><span th:if="${soussouscategorie.cat.idCat} == ${souscategorie.idCat}" th:text="${soussouscategorie.libelleCat}"></span></li>
+                          <li th:each="soussouscategorie: ${soussouscategList}"><span th:if="${soussouscategorie.cat.idCat} == ${souscategorie.idCat}" th:text="${soussouscategorie.libelleCat}"></span>
+                          </li>
                         </ul>
                       </li>
                     </ul>
                  </li>
                 </ul><!-- End Accordion without outline borders -->
 
-          </div>
-        </div>
+        
             </div>
           </div>
         </div>

@@ -31,6 +31,12 @@ public class ProblemeServiceImpl implements ProblemeService {
     @Autowired
     IntervenantRepository intervenantRepository;
 
+    @Autowired
+    PrioriterRepository prioriterRepository;
+
+    @Autowired
+    ReponseRepository reponseRepository;
+
     @Override
     public Iterable<Probleme> getAllProblemes() {
         return problemeRepository.findAll();
@@ -90,34 +96,58 @@ public class ProblemeServiceImpl implements ProblemeService {
     }
 
     @Override
-    public Iterable<Probleme> getAllProblemesByDestNews(String userName) {
+    public Iterable<Reponse> getAllReponseByDest(String userName) {
+        Optional<Agent> agent = agentRepository.findByUsername(userName);
+        if (agent.isPresent()) {
+            List<Intervenant> intervenants = intervenantRepository.findByAgentInt(agent.get());
+            List<Reponse> reponseList = new ArrayList<>();
+            for(int i=0; i < intervenants.size(); i++) {
+                reponseList.add(reponseRepository.findAllByPrblme(intervenants.get(i).getProbInt()));
+            }
+            return reponseList;
+        }
+        return null;
+    }
+
+    @Override
+    public Iterable<Probleme> getAllProblemesByDestNews(String userName, String filter) {
         Optional<Agent> agent = agentRepository.findByUsername(userName);
         Optional<Statut> statut = statusrepository.findById((long) 1);
-        if (agent.isPresent()) {
-            Iterable<Probleme> problemes = problemeRepository.findByStatut(statut.get());
-            return getProblemes(agent, problemes);
-        }
-        return null;
+        return getProblemesStatusFilter(filter, agent, statut);
     }
 
     @Override
-    public Iterable<Probleme> getAllProblemesByDestEnAttente(String userName) {
+    public Iterable<Probleme> getAllProblemesByDestEnAttente(String userName, String filter) {
         Optional<Agent> agent = agentRepository.findByUsername(userName);
         Optional<Statut> statut = statusrepository.findById((long) 2);
-        if (agent.isPresent()) {
-            Iterable<Probleme> problemes = problemeRepository.findByStatut(statut.get());
-            return getProblemes(agent, problemes);
-        }
-        return null;
+        return getProblemesStatusFilter(filter, agent, statut);
     }
 
     @Override
-    public Iterable<Probleme> getAllProblemesByDestResolu(String userName) {
+    public Iterable<Probleme> getAllProblemesByDestResolu(String userName, String filter) {
         Optional<Agent> agent = agentRepository.findByUsername(userName);
         Optional<Statut> statut = statusrepository.findById((long) 3);
+        return getProblemesStatusFilter(filter, agent, statut);
+    }
+
+    private Iterable<Probleme> getProblemesStatusFilter(String filter, Optional<Agent> agent, Optional<Statut> statut) {
         if (agent.isPresent()) {
-            Iterable<Probleme> problemes = problemeRepository.findByStatut(statut.get());
-            return getProblemes(agent, problemes);
+            if(filter.equals("all")) {
+                Iterable<Probleme> problemes = problemeRepository.findByStatut(statut.get());
+                return getProblemes(agent, problemes);
+            } else if(filter.equals("urgent")) {
+                Optional<Priorite> priorite = prioriterRepository.findById((long) 1);
+                Iterable<Probleme> problemes = problemeRepository.findByStatutAndPrioriter(statut.get(), priorite.get());
+                return getProblemes(agent, problemes);
+            } else if(filter.equals("normal")) {
+                Optional<Priorite> priorite = prioriterRepository.findById((long) 2);
+                Iterable<Probleme> problemes = problemeRepository.findByStatutAndPrioriter(statut.get(), priorite.get());
+                return getProblemes(agent, problemes);
+            } else {
+                Optional<Priorite> priorite = prioriterRepository.findById((long) 3);
+                Iterable<Probleme> problemes = problemeRepository.findByStatutAndPrioriter(statut.get(), priorite.get());
+                return getProblemes(agent, problemes);
+            }
         }
         return null;
     }

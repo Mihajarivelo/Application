@@ -73,13 +73,13 @@ public class AgentServiceImpl implements AgentService {
     }
 
     @Override
-    public Agent getAgentById(String id) throws Exception {
+    public Agent getAgentById(long id) throws Exception {
         return repository.findById(id).orElseThrow(() -> new Exception("This Agent no exist"));
     }
 
     @Override
     public Agent updateAgent(Agent fromUser) throws Exception {
-        Agent toUser = getAgentById(fromUser.getNumMatAgent());
+        Agent toUser = getAgentById(fromUser.getIdAgent());
         mapAgent(fromUser, toUser);
         return repository.save(toUser);
     }
@@ -96,7 +96,7 @@ public class AgentServiceImpl implements AgentService {
 
     @Override
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public void deleteAgent(String id) throws Exception {
+    public void deleteAgent(long id) throws Exception {
         Agent user = getAgentById(id);
         repository.delete(user);
     }

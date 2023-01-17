@@ -238,21 +238,22 @@
         </div>
         <div class="row mt-5">
             <div class="accordion" id="accordionExample">
-                <div class="accordion-item" th:each="hier: ${hierarListe}">
-                    <h2 class="accordion-header" th:attr="id='headingOne' + ${hier.idHier}">
+                <div class="accordion-item" th:each="categ: ${categList}">
+                    <h2 class="accordion-header" th:attr="id='headingOne' + ${categ.idCat}">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                th:attr="aria-controls='collapse' + ${hier.idHier}, data-bs-target='#collapse' + ${hier.idHier}"
-                                th:text="${hier.libelleHier}">
+                                th:attr="aria-controls='collapse' + ${categ.idCat}, data-bs-target='#collapse' + ${categ.idCat}"
+                                th:text="${categ.libelleCat}">
+                            <!--th:data-parameter="${categ.idCat}" th:onclick="getSouscat(this.getAttribute('data-parameter'));"-->
                         </button>
-                        <input type="hidden" id="categorieId" th:value="${hier.idHier}">
+                        <input type="hidden" id="categorieId" th:value="${categ.idCat}">
                     </h2>
-                    <div th:attr="id='collapse' + ${hier.idHier}, aria-labelledby='headingOne' + ${hier.idHier}"
+                    <div th:attr="id='collapse' + ${categ.idCat}, aria-labelledby='headingOne' + ${categ.idCat}"
                          class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <table th:attr="id='treeTable' + ${hier.idHier}" class="table">
+                            <table th:attr="id='treeTable' + ${categ.idCat}" class="table">
                                 <thead>
                                 <tr>
-                                    <th>Sous Hierarchie</th>
+                                    <th>Sous catégorie</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -260,17 +261,17 @@
                             <div class="row">
                                 <div class="col-4">
                                     <select class="form-select" aria-label="Default select example"
-                                            th:attr="id='sousCat' + ${hier.idHier}">
+                                            th:attr="id='sousCat' + ${categ.idCat}">
                                         <option value="0"></option>
                                     </select>
                                 </div>
                                 <div class="col-4">
-                                    <input type="text" th:attr="id='sousCatAdd' + ${hier.idHier}" class="form-control"
-                                           placeholder="nouveau sous hierarchie">
+                                    <input type="text" th:attr="id='sousCatAdd' + ${categ.idCat}" class="form-control"
+                                           placeholder="nouveau sous catégorie">
                                 </div>
                                 <div class="col-2">
-                                    <button type="button" class="btn btn-primary" th:data-parameter="${hier.idHier}"
-                                            th:onclick="addSousHier(this.getAttribute('data-parameter'));">Ajouter
+                                    <button type="button" class="btn btn-primary" th:data-parameter="${categ.idCat}"
+                                            th:onclick="addSousCat(this.getAttribute('data-parameter'));">Ajouter
                                     </button>
                                 </div>
                             </div>
@@ -282,10 +283,10 @@
         <div class="row mt-2">
             <div class="row">
                 <div class="col-4">
-                    <input type="text" id="catAdd" class="form-control" placeholder="nouveau hierarchie a ajouté">
+                    <input type="text" id="catAdd" class="form-control" placeholder="nouveau catégorie a ajouté">
                 </div>
                 <div class="col-2">
-                    <button type="button" class="btn btn-primary" th:onclick="'javascript:addHier();'">Ajouter</button>
+                    <button type="button" class="btn btn-primary" th:onclick="'javascript:addCat();'">Ajouter</button>
                 </div>
             </div>
         </div>
@@ -329,55 +330,58 @@
 <script type="text/javascript" th:src="@{/js/jquery.edittreetable.js}"></script>
 <script type="text/javascript">
 
-    var data = [{
-        id: 1, name: "Cat 1", pid: 0
-        },
-        {
-            id: 2, name: "sous 1", pid: 1
-        },
-        {
-            id: 6, name: "sous 2", pid: 1
-        },
-        {
-            id: 4, name: "sous sous 1", pid: 2
-        },
-        {
-            id: 5, name: "sous sous sous 1", pid: 4
-        },
-        {
-            id: 3, name: "Cat 2", pid: 0
-        }];
+    $(document).ready(function(){
+        var urlString = "[[@{'/getAllCategorieListe'}]]";
+        $.ajax({methode: "GET", url: urlString})
+            .done(function (responseJson) {
 
-    $("#bs-treeetable").bstreetable({
-            data: data,
-            maintitle: "Catégories",
-            nodeaddCallback: function (data, callback) {
-                alert(JSON.stringify(data));
+                console.log(responseJson);
+                $("#bs-treeetable").bstreetable({
+                        data: responseJson,
+                        maintitle: "Catégories",
+                        nodeaddCallback: function (data, callback) {
+                            urlString = "[[@{'/addSCat/'}]]" + data.name + '/' + data.idSCat;
+                            $.ajax({methode: "GET", url: urlString})
+                                .done(function (responseJson) {
 
-                callback({id: 18, name: data.name, innercode: "ttttt", pid: data.pid});
-            },
-            noderemoveCallback: function (data, callback) {
-                alert(JSON.stringify(data));
-                //do your things then callback
-                callback();
-            },
-            nodeupdateCallback: function (data, callback) {
-                alert(JSON.stringify(data));
-                //do your things then callback
-                callback();
-            }
-        }
-    );
+                                })
+                                .fail(function () {
+                                        //alert("Error get data");
+                                    });
+                            callback();
+                        },
+                        noderemoveCallback: function (data, callback) {
+                            alert(JSON.stringify(data));
+                            //do your things then callback
+                            callback();
+                        },
+                        nodeupdateCallback: function (data, callback) {
+                            alert(JSON.stringify(data));
+                            //do your things then callback
+                            callback();
+                        }
+                    }
+                );
+
+            })
+            .fail(function () {
+                //alert("Error get data");
+            });
+    });
+
+
+
+
 
     $(".accordion-item").each(function () {
         var idCat = $(this).children(".accordion-header").children("#categorieId").val(); //$("#categorieId").val();
-        var urlString = "[[@{'/sousHierarchie/'}]]" + idCat;
+        var urlString = "[[@{'/sousCategorieListe/'}]]" + idCat;
         $.ajax({methode: "GET", url: urlString})
             .done(function (responseJson) {
                 var sousCat = $("#sousCat" + idCat);
-                $.each(responseJson, function (idx, soushierarchie) {
-                    $("#treeTable" + idCat).append("<tr data-tt-id=\"" + soushierarchie.idHier + "\" data-tt-parent-id=\"" + soushierarchie.idShier + "\"><td>" + soushierarchie.libelleHier + "</td><td><button type=\"button\" class=\"btn btn-outline-primary btn-sm\" id=\"" + soushierarchie.idHier + "\">Modifier</button><button type=\"button\" class=\"btn btn-outline-danger btn-sm\" id=\"" + soushierarchie.idHier + "\">Supprimer</button></td></tr>");
-                    $("<option>").val(soushierarchie.idHier).text(soushierarchie.libelleHier).appendTo(sousCat);
+                $.each(responseJson, function (idx, souscategorie) {
+                    $("#treeTable" + idCat).append("<tr data-tt-id=\"" + souscategorie.idCat + "\" data-tt-parent-id=\"" + souscategorie.idSCat + "\"><td>" + souscategorie.libelleCat + "</td><td><button type=\"button\" class=\"btn btn-outline-primary btn-sm\" id=\"" + souscategorie.idCat + "\">Modifier</button><button type=\"button\" class=\"btn btn-outline-danger btn-sm\" id=\"" + souscategorie.idSCat + "\">Supprimer</button></td></tr>");
+                    $("<option>").val(souscategorie.idCat).text(souscategorie.libelleCat).appendTo(sousCat);
                 });
                 $("#treeTable" + idCat).treetable({
                     expandable: true,
@@ -405,10 +409,9 @@
             });
     }
 
-    function addHier() {
+    function addCat() {
         var name = $("#catAdd").val();
-        var type = $("#typehier").val();
-        var urlString = "[[@{'/addHierarchie/'}]]" + name + '/' + type ;
+        var urlString = "[[@{'/addCat/'}]]" + name;
 
         $.ajax({methode: "GET", url: urlString})
             .done(function (responseJson) {

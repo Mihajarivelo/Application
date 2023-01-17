@@ -9,5 +9,5 @@ import lombok.Setter;
 public class HierarchieDto {
     private Long idHier;
     private String libelleHier;
-
+    private Long idShier;
 }

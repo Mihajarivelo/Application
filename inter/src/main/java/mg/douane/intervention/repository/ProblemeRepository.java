@@ -1,6 +1,7 @@
 package mg.douane.intervention.repository;
 
 import mg.douane.intervention.data.domaine.Agent;
+import mg.douane.intervention.data.domaine.Priorite;
 import mg.douane.intervention.data.domaine.Probleme;
 import mg.douane.intervention.data.domaine.Statut;
 import org.springframework.data.jpa.repository.Query;
@@ -21,4 +22,7 @@ public interface ProblemeRepository extends CrudRepository<Probleme, Long> {
     List<Probleme> findByAgentProb(Agent agent);
 
     List<Probleme> findByStatut(Statut statut);
+
+    @Query("SELECT p FROM Probleme p WHERE p.statut = ?1 AND p.priorite = ?2")
+    List<Probleme> findByStatutAndPrioriter(Statut statut, Priorite priorite);
 }

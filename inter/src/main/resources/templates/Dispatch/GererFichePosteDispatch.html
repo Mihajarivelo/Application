@@ -63,8 +63,8 @@
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
                         <h6>
-                            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Super Administrateur</span>
-                            <span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">Administrateur</span>
+                            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Administrateur</span>
+                            <span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">Disptacher</span>
                             <span th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} OR ${#authorization.expression('hasRole(''ROLE_USER'')')}">Utilisateur</span>
                         </h6>
                     </li>
@@ -124,7 +124,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" th:href="@{/hierarchie}">
                 <i class="bi bi-list-task"></i>
-                <span>Gérer Catégorie</span>
+                <span>Gérer Hierarchie</span>
             </a>
         </li>
 
@@ -136,7 +136,7 @@
         </li>
 </aside>
 
-<aside id="sidebar" class="sidebar" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+<aside id="sidebar" class="sidebar" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" >
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -169,19 +169,19 @@
         </li>
 
 
+
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-collection-fill"></i><span>Boîte de reception</span><i
-                    class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-collection-fill"></i><span>Boîte de reception</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a th:href="@{'/problemRecep/'+${#authentication.getPrincipal().getUsername()}}">
+                    <a th:href="@{'/problemRecep/'+${#authentication.getPrincipal().getUsername()}+'/'+'all'}">
                         <i class="bi bi-circle"></i><span>Problèmes</span>
                     </a>
                 </li>
                 <li>
-                    <a href="ReceptionReponse.html">
+                    <a th:href="@{'/problemRepons/'+${#authentication.getPrincipal().getUsername()}}">
                         <i class="bi bi-circle"></i><span>Réponses</span>
                     </a>
                 </li>
@@ -196,9 +196,9 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="BoiteEnvoieDispatxh.html">
+            <a class="nav-link collapsed"  th:href="@{/categorie}">
                 <i class="bi bi-cursor-fill"></i>
-                <span>Gérer catégorie</span>
+                <span>Gérer Catégorie</span>
             </a>
         </li>
 
@@ -228,22 +228,15 @@
         <!-- /.panel-heading -->
         <div class="panel-body">
 
-            <div class="search-bar mb-5">
-                <form class="search-form d-flex align-items-center" method="POST" action="#">
-                    <input type="text" name="query" placeholder="Rerchercher" title="Enter search keyword">
-                    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-                </form>
-            </div><!-- End Search Bar -->
             <div class="col-lg-12 mt-3">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
                     Répartir les tâches
                 </button>
                 <div class="dataTable_wrapper mt-3">
-                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                    <table class="table table-striped" id="tacheData">
                         <thead>
                         <tr>
                             <th>Numéro</th>
-                            <th>Titre</th>
                             <th>Destinataire</th>
                             <th>Date</th>
                             <th>Action</th>
@@ -252,11 +245,10 @@
                         <tbody>
                         <tr class="odd gradeX" th:each="fiche: ${ficheList}">
                             <td th:text="${fiche.idFich}"></td>
-                            <td th:text="${fiche.catFich.libelleCat}"></td>
                             <td th:text="${fiche.agentFich.nomAgent +' '+ fiche.agentFich.prenomAgent}"></td>
                             <td class="text-center" th:text="${fiche.dateDebFich}"></td>
                             <td class="text-center"><a data-bs-toggle="modal" data-bs-target="#myModal"
-                                                       th:data-parameter="${fiche.agentFich.numMatAgent}"
+                                                       th:data-parameter="${fiche.agentFich.idAgent}"
                                                        th:onclick="getAgentEdit(this.getAttribute('data-parameter'));"><i
                                     class="bi bi-pencil-square mx-2"></i></a><a href="#"><i
                                     class="bi bi-trash-fill"></i></a></td>
@@ -287,7 +279,7 @@
                                     <select class="form-select" aria-label="Default select example" id="agent"
                                             th:onchange="'javascript:getAgent();'">
                                         <option></option>
-                                        <option th:each="agent :${agentList}" th:value="${agent.numMatAgent}"
+                                        <option th:each="agent :${agentList}" th:value="${agent.idAgent}"
                                                 th:text="${agent.numMatAgent}"></option>
                                     </select>
                                 </div>
@@ -448,6 +440,20 @@
 
 <!-- Template Main JS File -->
 <script th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/dataTables.bootstrap5.min.js}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#tacheData').DataTable(
+            {
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.13.1/i18n/fr-FR.json"
+                }
+            }
+        );
+    });
+</script>
 <script type="text/javascript">
     var selectedCategorie = 0;
     var selectedFiche = 0;

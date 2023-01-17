@@ -1,11 +1,9 @@
 package mg.douane.intervention.controller;
 
-import mg.douane.intervention.data.domaine.Agent;
-import mg.douane.intervention.data.domaine.Categorie;
-import mg.douane.intervention.data.domaine.Role;
-import mg.douane.intervention.repository.AgentRepository;
-import mg.douane.intervention.repository.CategorieRepository;
-import mg.douane.intervention.repository.RoleRepository;
+import mg.douane.intervention.data.domaine.*;
+import mg.douane.intervention.data.dto.CategorieDto;
+import mg.douane.intervention.data.dto.HierarchieDto;
+import mg.douane.intervention.repository.*;
 import mg.douane.intervention.service.AgentServiceImpl;
 import mg.douane.intervention.service.CategorieService;
 
@@ -35,27 +33,20 @@ public class AccueilController {
     @Autowired
     CategorieRepository categorieRepository;
 
+    @Autowired
+    HierarchieRepository hierarchieRepository;
+
+    @Autowired
+    TypeHierarchieRepository typeHierarchieRepository;
+
     @RequestMapping(value = "/home")
     public String accueilPage(Model model) {
         return "home";
     }
 
-    @RequestMapping(value = "/agent")
-    public String gereAgentPage(Model model) {
-        model.addAttribute("agentList", agentService.getAllAgents());
-        model.addAttribute("roleList", roleRepository.findAll());
-        return "Admin/GererAgent";
-    }
-
-    @RequestMapping(value = "/post")
-    public String gerePostPage(Model model) {
-        model.addAttribute("agentList", agentService.getAllAgents());
-        model.addAttribute("roleList", roleRepository.findAll());
-        return "Admin/GererPoste";
-    }
 
     @RequestMapping("/addRole/{idRole}/{idAgent}")
-    public String createRole(@PathVariable Long idRole, @PathVariable String idAgent) {
+    public String createRole(@PathVariable Long idRole, @PathVariable long idAgent) {
         Optional<Agent> agent = agentRepository.findById(idAgent);
         Optional<Role> role = roleRepository.findById(idRole);
         Set<Role> roleSet = new HashSet<Role>();
@@ -66,7 +57,7 @@ public class AccueilController {
     }
 
     @RequestMapping("/getRole/{idAgent}")
-    public ResponseEntity<String> getRole(@PathVariable String idAgent) {
+    public ResponseEntity<String> getRole(@PathVariable Long idAgent) {
         Optional<Agent> agent = agentRepository.findById(idAgent);
         long roleGet = 0;
         for (Role role : agent.get().getRoles()) {
@@ -75,9 +66,16 @@ public class AccueilController {
         return ResponseEntity.ok(roleGet + "");
     }
 
+    @RequestMapping(value = "/categorie")
+    public String gereCategoriePage(Model model) {
+        model.addAttribute("categList", categorieService.getAllCategories());
+        return "Admin/GererCategorie";
+    }
+
     @RequestMapping(value = "/hierarchie")
     public String gereHierarchiePage(Model model) {
-        model.addAttribute("categList", categorieService.getAllCategories());
+        model.addAttribute("hierarListe", hierarchieRepository.findAll());
+        model.addAttribute("typeHierListe", typeHierarchieRepository.findAll());
         return "Admin/GererHierarchie";
     }
 
@@ -99,7 +97,7 @@ public class AccueilController {
             categorieRepository.save(sousCat);
         }
 
-        return "redirect:/hierarchie";
+        return "redirect:/categorie";
     }
 
     @RequestMapping("/addCat/{name}")
@@ -108,7 +106,74 @@ public class AccueilController {
         categorie.setLibelleCat(name);
         categorie.setDateDebCat(new Date());
         categorieRepository.save(categorie);
+        return "redirect:/categorie";
+    }
+
+    @RequestMapping("/addHierarchie/{name}/{type}")
+    public String addHierarchie(@PathVariable String name, @PathVariable long type) {
+        Hierarchie hierarchie = new Hierarchie();
+        hierarchie.setLibelleHier(name);
+        hierarchie.setDateDebHier(new Date());
+        Optional<TypeHierarchie> typeHierarchie = typeHierarchieRepository.findById(type);
+        hierarchie.setType(typeHierarchie.get());
+        hierarchieRepository.save(hierarchie);
         return "redirect:/hierarchie";
+    }
+
+    @GetMapping("/sousHierarchie/{id}")
+    @ResponseBody
+    public List<HierarchieDto> getSousHier(@PathVariable Long id) {
+        Optional<Hierarchie> hier = hierarchieRepository.findById(id);
+        List<Hierarchie> sousHier = hierarchieRepository.findByHier(hier.get());
+        List<HierarchieDto> hierarchieDtos = new ArrayList<>();
+        for (int i = 0; i < sousHier.size(); i++) {
+            Set<Hierarchie> ct = sousHier.get(i).getListHier();
+            List<Hierarchie> lc = new ArrayList<Hierarchie>(ct);
+            if (lc.size() > 0) {
+                HierarchieDto cdt = new HierarchieDto();
+                cdt.setIdHier(sousHier.get(i).getIdHier());
+                cdt.setLibelleHier(sousHier.get(i).getLibelleHier());
+                cdt.setIdShier((long) 0);
+                hierarchieDtos.add(cdt);
+                for (int j = 0; j < lc.size(); j++) {
+                    HierarchieDto sousHierto = new HierarchieDto();
+                    sousHierto.setIdShier(sousHier.get(i).getIdHier());
+                    sousHierto.setLibelleHier(lc.get(j).getLibelleHier());
+                    try {
+                        sousHierto.setIdHier(lc.get(j).getIdHier());
+                    } catch (Exception e) {
+                        sousHierto.setIdHier((long) 0);
+                    }
+                    hierarchieDtos.add(sousHierto);
+                    Set<Hierarchie> ctt = lc.get(j).getListHier();
+                    List<Hierarchie> lct = new ArrayList<Hierarchie>(ctt);
+                    if (lct.size() > 0) {
+                        for (int n = 0; n < lct.size(); n++) {
+                            sousHierto = new HierarchieDto();
+                            sousHierto.setIdShier(lc.get(j).getIdHier());
+                            sousHierto.setLibelleHier(lct.get(n).getLibelleHier());
+                            try {
+                                sousHierto.setIdHier(lct.get(n).getIdHier());
+                            } catch (Exception e) {
+                                sousHierto.setIdHier((long) 0);
+                            }
+                            hierarchieDtos.add(sousHierto);
+                        }
+                    }
+                }
+
+            } else {
+                HierarchieDto soushierDto = new HierarchieDto();
+                soushierDto.setIdHier(sousHier.get(i).getIdHier());
+                soushierDto.setLibelleHier(sousHier.get(i).getLibelleHier());
+                soushierDto.setIdShier((long) 0);
+                hierarchieDtos.add(soushierDto);
+
+            }
+
+        }
+        hierarchieDtos.sort(Comparator.comparing(HierarchieDto::getIdHier));
+        return hierarchieDtos;
     }
 
 }

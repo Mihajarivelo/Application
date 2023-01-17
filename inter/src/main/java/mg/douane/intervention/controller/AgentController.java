@@ -3,6 +3,7 @@ package mg.douane.intervention.controller;
 import mg.douane.intervention.data.domaine.*;
 import mg.douane.intervention.data.dto.ChangePasswordDto;
 import mg.douane.intervention.data.dto.HierarchieDto;
+import mg.douane.intervention.data.dto.PosteDto;
 import mg.douane.intervention.data.dto.QuartierDto;
 import mg.douane.intervention.repository.*;
 import mg.douane.intervention.service.AgentService;
@@ -60,23 +61,24 @@ public class AgentController {
     @Autowired
     PorteRepository porteRepository;
 
+    @Autowired
+    QuartierRepository quartierRepository;
+
     @RequestMapping(value = { "/", "/login" })
     public String index() {
         return "index";
     }
 
     // @GetMapping("/userForm")
-    @RequestMapping(value = "/agentForm")
+    @RequestMapping(value = "/agent")
     public String userForm(Model model) {
         model.addAttribute("agentForm", new Agent());
         model.addAttribute("fichePosteForm", new FichePoste());
         model.addAttribute("agentList", agentService.getAllAgents());
         model.addAttribute("typeHierarchie", typeHierarchieRepository.findAll());
-        model.addAttribute("postes", posteRepository.findAll());
         model.addAttribute("villes", villeRepository.findAll());
-        model.addAttribute("portes", porteRepository.findAll());
-        model.addAttribute("souscateg", categorieRepository.findAll());
-        return "register";
+        model.addAttribute("roleList", roleRepository.findAll());
+        return "Admin/GererAgent";
     }
 
     @GetMapping("/hierarchieList/{id}")
@@ -107,6 +109,22 @@ public class AgentController {
         return quartierDtos;
     }
 
+    @GetMapping("/postList/{id}")
+    @ResponseBody
+    public List<PosteDto> getPoste(@PathVariable Long id) {
+        Optional<Quartier> quartier = quartierRepository.findById(id);
+        List<Poste> postes = posteRepository.findByQuartier(quartier.get());
+        List<PosteDto> posteDtos = new ArrayList<>();
+        for (int i = 0; i < postes.size(); i++) {
+            PosteDto posteDto = new PosteDto();
+            posteDto.setIdPoste(postes.get(i).getIdPoste());
+            posteDto.setFonction(postes.get(i).getFonctionPoste());
+            posteDtos.add(posteDto);
+        }
+        return posteDtos;
+    }
+
+
     @PostMapping("/agentForm")
     public String createAgent(@Valid @ModelAttribute("agentForm") Agent agent,
             @ModelAttribute("fichePosteForm") FichePoste fichePoste, BindingResult result, ModelMap model) {
@@ -129,25 +147,25 @@ public class AgentController {
                 fichePosteRepository.save(fichePoste);
                 model.addAttribute("agentForm", new Agent());
                 model.addAttribute("listTab", "active");
+                model.addAttribute("agentList", agentService.getAllAgents());
+                model.addAttribute("roleList", roleRepository.findAll());
 
             } catch (Exception e) {
                 model.addAttribute("formErrorMessage", e.getMessage());
                 model.addAttribute("agentForm", agent);
                 model.addAttribute("formTab", "active");
-                model.addAttribute("agentList", agentService.getAllAgents());
-                model.addAttribute("roles", roleRepository.findAll());
             }
         }
 
         model.addAttribute("agentList", agentService.getAllAgents());
         model.addAttribute("roles", roleRepository.findAll());
         // return "agent-form/agent-view";
-        return "redirect:/login";
+        return "redirect:/agent";
     }
 
     // @GetMapping("/editAgent/{id}")
     @RequestMapping(value = "/editAgent/{id}")
-    public String getEditUserForm(Model model, @PathVariable(name = "id") String id) throws Exception {
+    public String getEditUserForm(Model model, @PathVariable(name = "id") long id) throws Exception {
         Agent userToEdit = agentService.getAgentById(id);
 
         model.addAttribute("agentForm", userToEdit);
@@ -167,7 +185,7 @@ public class AgentController {
             model.addAttribute("agentForm", agent);
             model.addAttribute("formTab", "active");
             model.addAttribute("editMode", "true");
-            model.addAttribute("passwordForm", new ChangePasswordDto(agent.getNumMatAgent()));
+            model.addAttribute("passwordForm", new ChangePasswordDto(agent.getIdAgent()));
         } else {
             try {
                 agentService.updateAgent(agent);
@@ -180,33 +198,33 @@ public class AgentController {
                 model.addAttribute("agentList", agentService.getAllAgents());
                 model.addAttribute("roles", roleRepository.findAll());
                 model.addAttribute("editMode", "true");
-                model.addAttribute("passwordForm", new ChangePasswordDto(agent.getNumMatAgent()));
+                model.addAttribute("passwordForm", new ChangePasswordDto(agent.getIdAgent()));
             }
         }
 
         model.addAttribute("agentList", agentService.getAllAgents());
         model.addAttribute("roles", roleRepository.findAll());
         // return "agent-form/agent-view";
-        return "redirect:/agentForm";
+        return "redirect:/agent";
 
     }
 
     // @GetMapping("/agentForm/cancel")
     @RequestMapping(value = "/agentForm/cancel")
     public String cancelEditAgent(ModelMap model) {
-        return "redirect:/agentForm";
+        return "redirect:/agent";
     }
 
     // @GetMapping("/deleteAgent/{id}")
     @RequestMapping(value = "/deleteAgent/{id}")
-    public String deleteUser(Model model, @PathVariable(name = "id") String id) {
+    public String deleteUser(Model model, @PathVariable(name = "id") long id) {
         try {
             agentService.deleteAgent(id);
         } catch (Exception e) {
             model.addAttribute("listErrorMessage", e.getMessage());
         }
         // return agentForm(model);
-        return "redirect:/agentForm";
+        return "redirect:/agent";
     }
 
     @PostMapping("/editAgent/changePassword")

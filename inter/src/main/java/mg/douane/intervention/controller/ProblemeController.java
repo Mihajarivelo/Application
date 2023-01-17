@@ -79,17 +79,27 @@ public class ProblemeController {
         return "SignalerProbleme";
     }
 
-    @RequestMapping(value = "/problemRecep/{userName}")
-    public String problemRecep(Model model, @PathVariable(name = "userName") String userName) {
+    @RequestMapping(value = "/problemRecep/{userName}/{filter}")
+    public String problemRecep(Model model, @PathVariable(name = "userName") String userName, @PathVariable(name = "filter") String filter) {
         model.addAttribute("problemList", problemeService.getAllProblemesByDest(userName));
-        model.addAttribute("problemListNews", problemeService.getAllProblemesByDestNews(userName));
-        model.addAttribute("problemListEnAttente", problemeService.getAllProblemesByDestEnAttente(userName));
-        model.addAttribute("problemListResolu", problemeService.getAllProblemesByDestResolu(userName));
         model.addAttribute("agentList", agentRepository.findAll());
         model.addAttribute("categori", categorieRepository.findAllCategories());
         model.addAttribute("prioriter", prioriterRepository.findAll());
         model.addAttribute("problemtForm", new Probleme());
+        model.addAttribute("problemListNews", problemeService.getAllProblemesByDestNews(userName, filter));
+        model.addAttribute("problemListEnAttente", problemeService.getAllProblemesByDestEnAttente(userName, filter));
+        model.addAttribute("problemListResolu", problemeService.getAllProblemesByDestResolu(userName, filter));
         return "Dispatch/ReceptionProblemeDispatch";
+    }
+
+    @RequestMapping(value = "/problemRepons/{userName}")
+    public String problemRepons(Model model, @PathVariable(name = "userName") String userName) {
+        model.addAttribute("reponseList", problemeService.getAllReponseByDest(userName));
+        model.addAttribute("agentList", agentRepository.findAll());
+        model.addAttribute("categori", categorieRepository.findAllCategories());
+        model.addAttribute("prioriter", prioriterRepository.findAll());
+        model.addAttribute("problemtForm", new Probleme());
+        return "Dispatch/ReceptionReponseDispatch";
     }
 
     @GetMapping("/sousCategorieListe/{id}")
@@ -111,6 +121,77 @@ public class ProblemeController {
             categorieDtos.add(categorieDto);
         }
         return categorieDtos;
+    }
+
+    @GetMapping("/getAllCategorieListe")
+    @ResponseBody
+    public List<CategorieDto> getAllCategorieListe() {
+        List<Categorie> categories = categorieRepository.findAllCategories();
+        List<CategorieDto> categorieDtos = new ArrayList<>();
+        CategorieDto categorieDto = new CategorieDto();
+        for (int i = 0; i < categories.size(); i++) {
+            if(categories.get(i).getScats().isEmpty()) {
+                categorieDto = new CategorieDto();
+                categorieDto.setIdCat(categories.get(i).getIdCat());
+                categorieDto.setLibelleCat(categories.get(i).getLibelleCat());
+                categorieDto.setIdSCat((long) 0);
+                categorieDtos.add(categorieDto);
+            } else {
+                categorieDto = new CategorieDto();
+                categorieDto.setIdCat(categories.get(i).getIdCat());
+                categorieDto.setLibelleCat(categories.get(i).getLibelleCat());
+                categorieDto.setIdSCat((long) 0);
+                categorieDtos.add(categorieDto);
+
+                Set<Categorie> cat = categories.get(i).getScats();
+                List<Categorie> catListe = new ArrayList<Categorie>(cat);
+                for(int j = 0; j < catListe.size(); j++) {
+                    if(catListe.get(j).getScats().isEmpty()) {
+                        categorieDto = new CategorieDto();
+                        categorieDto.setIdCat(catListe.get(j).getIdCat());
+                        categorieDto.setLibelleCat(catListe.get(j).getLibelleCat());
+                        categorieDto.setIdSCat(categories.get(i).getIdCat());
+                        categorieDtos.add(categorieDto);
+                    } else {
+                        categorieDto = new CategorieDto();
+                        categorieDto.setIdCat(catListe.get(j).getIdCat());
+                        categorieDto.setLibelleCat(catListe.get(j).getLibelleCat());
+                        categorieDto.setIdSCat(categories.get(i).getIdCat());
+                        categorieDtos.add(categorieDto);
+
+                        Set<Categorie> sousCat = catListe.get(i).getScats();
+                        List<Categorie> sousCatListe = new ArrayList<Categorie>(sousCat);
+                        for(int k = 0; k < sousCatListe.size(); k++) {
+                            categorieDto = new CategorieDto();
+                            categorieDto.setIdCat(sousCatListe.get(k).getIdCat());
+                            categorieDto.setLibelleCat(sousCatListe.get(k).getLibelleCat());
+                            categorieDto.setIdSCat(catListe.get(j).getIdCat());
+                            categorieDtos.add(categorieDto);
+                        }
+                    }
+                }
+            }
+        }
+        return categorieDtos;
+    }
+
+    @GetMapping("/addSCat/{name}/{idScat}")
+    @ResponseBody
+    public String addSCat(@PathVariable String name, @PathVariable Long idScat) {
+        if(idScat == 0 ) {
+            Categorie categorie = new Categorie();
+            categorie.setLibelleCat(name);
+            categorie.setDateDebCat(new Date());
+            categorieRepository.save(categorie);
+        }else {
+            Categorie categorie = new Categorie();
+            categorie.setLibelleCat(name);
+            Optional<Categorie> categorieOptional = categorieRepository.findById(idScat);
+            categorie.setCat(categorieOptional.get());
+            categorie.setDateDebCat(new Date());
+            categorieRepository.save(categorie);
+        }
+        return null;
     }
 
     @GetMapping("/sousCategorie2Liste/{id}")
@@ -174,12 +255,13 @@ public class ProblemeController {
 
     @GetMapping("/getIntervenant/{id}")
     @ResponseBody
-    public List<AgentDto> getIntervenant(@PathVariable Long id) {
+    public List<AgentDto> getIntervenant(@PathVariable long id) {
         Optional<Categorie> categorie = categorieRepository.findById(id);
         List<FichePoste> fichePostes = fichePosteRepository.findByCatFich(categorie.get());
         List<AgentDto> agentDtos = new ArrayList<>();
         for (int i = 0; i < fichePostes.size(); i++) {
             AgentDto agentDto = new AgentDto();
+            agentDto.setIdAgent(fichePostes.get(i).getAgentFich().getIdAgent());
             agentDto.setNumMatAgent(fichePostes.get(i).getAgentFich().getNumMatAgent());
             agentDto.setNomAgent(fichePostes.get(i).getAgentFich().getNomAgent());
             agentDto.setPrenomAgent(fichePostes.get(i).getAgentFich().getPrenomAgent());
@@ -189,7 +271,7 @@ public class ProblemeController {
     }
 
     @PostMapping("/addPrblm")
-    public String createPrblm(@Valid @ModelAttribute("problemtForm") Probleme probleme, @Valid @ModelAttribute("intervenant") String intervenant,
+    public String createPrblm(@Valid @ModelAttribute("problemtForm") Probleme probleme, @Valid @ModelAttribute("intervenant") long intervenant,
                               @Valid @ModelAttribute("idProbMer") long idProbMer, BindingResult result,
                               ModelMap model) {
         SecurityContext context = SecurityContextHolder.getContext();
@@ -243,7 +325,7 @@ public class ProblemeController {
     }
 
     @RequestMapping(value = "/viewPblm/{id}")
-    public String getViewPrblmForm(Model model, @PathVariable(name = "id") Long id) {
+    public String getViewPrblmForm(Model model, @PathVariable(name = "id") long id) {
         Optional<Probleme> problemToView = problemeRepository.findById(id);
         try {
             if(problemToView.get().getStatut().getIdStatut() == 1) {
@@ -335,7 +417,7 @@ public class ProblemeController {
     }
 
     @RequestMapping("/getAgent/{idAgent}")
-    public ResponseEntity<FichePosteDto> getAgent(@PathVariable String idAgent) {
+    public ResponseEntity<FichePosteDto> getAgent(@PathVariable long idAgent) {
         Optional<Agent> agentOrg = agentRepository.findById(idAgent);
         FichePoste fichePoste = fichePosteRepository.findByAgentFich(agentOrg.get());
         FichePosteDto fichePosteDto = new FichePosteDto();

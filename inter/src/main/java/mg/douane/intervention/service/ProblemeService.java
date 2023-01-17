@@ -2,6 +2,7 @@ package mg.douane.intervention.service;
 
 import mg.douane.intervention.data.domaine.Agent;
 import mg.douane.intervention.data.domaine.Probleme;
+import mg.douane.intervention.data.domaine.Reponse;
 import mg.douane.intervention.data.dto.ProblemeDto;
 
 import java.util.List;
@@ -15,11 +16,13 @@ public interface ProblemeService {
 
     public Iterable<Probleme> getAllProblemesByDest(String userName);
 
-    public Iterable<Probleme> getAllProblemesByDestNews(String userName);
+    public Iterable<Reponse> getAllReponseByDest(String userName);
 
-    public Iterable<Probleme> getAllProblemesByDestEnAttente(String userName);
+    public Iterable<Probleme> getAllProblemesByDestNews(String userName, String filter);
 
-    public Iterable<Probleme> getAllProblemesByDestResolu(String userName);
+    public Iterable<Probleme> getAllProblemesByDestEnAttente(String userName, String filter);
+
+    public Iterable<Probleme> getAllProblemesByDestResolu(String userName, String filter);
 
     public List<Agent> getIntervenant(Long id);
 

@@ -63,8 +63,8 @@
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
                         <h6>
-                            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" >Super Administrateur</span>
-                            <span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" >Administrateur</span>
+                            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" >Administrateur</span>
+                            <span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" >Dispatcher</span>
                             <span th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} OR ${#authorization.expression('hasRole(''ROLE_USER'')')}" >Utilisateur</span>
                         </h6>
                     </li>
@@ -124,7 +124,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" th:href="@{/hierarchie}">
                 <i class="bi bi-list-task"></i>
-                <span>Gérer Catégorie</span>
+                <span>Gérer Hierarchie</span>
             </a>
         </li>
 
@@ -176,12 +176,12 @@
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a th:href="@{'/problemRecep/'+${#authentication.getPrincipal().getUsername()}}">
+                    <a th:href="@{'/problemRecep/'+${#authentication.getPrincipal().getUsername()}+'/'+'all'}">
                         <i class="bi bi-circle"></i><span>Problèmes</span>
                     </a>
                 </li>
                 <li>
-                    <a href="ReceptionReponse.html">
+                    <a th:href="@{'/problemRepons/'+${#authentication.getPrincipal().getUsername()}}">
                         <i class="bi bi-circle"></i><span>Réponses</span>
                     </a>
                 </li>
@@ -196,9 +196,9 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="BoiteEnvoieDispatxh.html">
+            <a class="nav-link collapsed"  th:href="@{/categorie}">
                 <i class="bi bi-cursor-fill"></i>
-                <span>Gérer catégorie</span>
+                <span>Gérer Catégorie</span>
             </a>
         </li>
 
@@ -460,7 +460,7 @@
             .done(function (responseJson) {
                 var intervenantDropDow = $("#intervenant");
                 $.each(responseJson, function (index, agent) {
-                    var complexHtml = '<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" name="intervenant" value="' + agent.numMatAgent + '">' + agent.nomAgent + ' ' + agent.prenomAgent + '</li>';
+                    var complexHtml = '<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" name="intervenant" value="' + agent.idAgent + '">' + agent.nomAgent + ' ' + agent.prenomAgent + '</li>';
                     $('#intervenant').append(complexHtml);
                 });
             })
@@ -493,7 +493,7 @@
             .done(function (responseJson) {
                 var intervenantDropDow = $("#intervenant");
                 $.each(responseJson, function (index, agent) {
-                    var complexHtml = '<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" name="intervenant" value="' + agent.numMatAgent + '">' + agent.nomAgent + ' ' + agent.prenomAgent + '</li>';
+                    var complexHtml = '<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" name="intervenant" value="' + agent.idAgent + '">' + agent.nomAgent + ' ' + agent.prenomAgent + '</li>';
                     $('#intervenant').append(complexHtml);
                 });
             })
@@ -526,7 +526,7 @@
             .done(function (responseJson) {
                 var intervenantDropDow = $("#intervenant");
                 $.each(responseJson, function (index, agent) {
-                    var complexHtml = '<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" name="intervenant" value="' + agent.numMatAgent + '">' + agent.nomAgent + ' ' + agent.prenomAgent + '</li>';
+                    var complexHtml = '<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" name="intervenant" value="' + agent.idAgent + '">' + agent.nomAgent + ' ' + agent.prenomAgent + '</li>';
                     $('#intervenant').append(complexHtml);
                 });
             })

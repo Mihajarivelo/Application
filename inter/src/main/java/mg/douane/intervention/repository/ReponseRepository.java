@@ -16,4 +16,7 @@ public interface ReponseRepository extends CrudRepository<Reponse, Long> {
     List<Probleme> findByAgentRep(Agent agent);
 
     List<Reponse> findByProblemeRep(Probleme probleme);
+
+    @Query("SELECT r FROM Reponse r WHERE r.idRep IN (SELECT max(e.idRep) FROM Reponse e GROUP BY ?1) ORDER BY r.idRep DESC")
+    Reponse findAllByPrblme(Probleme probleme);
 }

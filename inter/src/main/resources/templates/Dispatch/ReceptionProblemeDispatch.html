@@ -64,8 +64,8 @@
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
                         <h6>
-                            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Super Administrateur</span>
-                            <span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">Administrateur</span>
+                            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Administrateur</span>
+                            <span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">Disptacher</span>
                             <span th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} OR ${#authorization.expression('hasRole(''ROLE_USER'')')}">Utilisateur</span>
                         </h6>
                     </li>
@@ -125,7 +125,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" th:href="@{/hierarchie}">
                 <i class="bi bi-list-task"></i>
-                <span>Gérer Catégorie</span>
+                <span>Gérer Hierarchie</span>
             </a>
         </li>
 
@@ -137,7 +137,7 @@
         </li>
 </aside>
 
-<aside id="sidebar" class="sidebar" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+<aside id="sidebar" class="sidebar" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" >
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -170,19 +170,19 @@
         </li>
 
 
+
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-collection-fill"></i><span>Boîte de reception</span><i
-                    class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-collection-fill"></i><span>Boîte de reception</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a th:href="@{'/problemRecep/'+${#authentication.getPrincipal().getUsername()}}">
+                    <a th:href="@{'/problemRecep/'+${#authentication.getPrincipal().getUsername()}+'/'+'all'}">
                         <i class="bi bi-circle"></i><span>Problèmes</span>
                     </a>
                 </li>
                 <li>
-                    <a href="ReceptionReponse.html">
+                    <a th:href="@{'/problemRepons/'+${#authentication.getPrincipal().getUsername()}}">
                         <i class="bi bi-circle"></i><span>Réponses</span>
                     </a>
                 </li>
@@ -197,9 +197,9 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="BoiteEnvoieDispatxh.html">
+            <a class="nav-link collapsed"  th:href="@{/categorie}">
                 <i class="bi bi-cursor-fill"></i>
-                <span>Gérer catégorie</span>
+                <span>Gérer Catégorie</span>
             </a>
         </li>
 
@@ -305,29 +305,26 @@
             <div class="tab-pane fade" id="bordered-justified-profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="d-flex mt-3">
                     <div class="form-check mx-3">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
-                               checked>
+                        <input class="form-check-input" type="radio" name="filter" id="gridRadios1" value="option1" th:onclick="'javascript:filterPrblm(\'all\');'" th:checked="${filter=='all'}">
                         <label class="form-check-label" for="gridRadios1">
                             Tout
                         </label>
                     </div>
                     <div class="form-check mx-3">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
-                               checked>
-                        <label class="form-check-label" for="gridRadios1">
+                        <input class="form-check-input" type="radio" name="filter" id="gridRadios2" value="option2" th:onclick="'javascript:filterPrblm(\'urgent\');'" th:checked="${filter=='urgent'}">
+                        <label class="form-check-label" for="gridRadios2">
                             Urgent
                         </label>
                     </div>
-                    <div class="form-check mx-3">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
-                               checked>
-                        <label class="form-check-label" for="gridRadios1">
-                            Moyenne
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filter" id="gridRadios3" value="option3" th:onclick="'javascript:filterPrblm(\'normal\');'" th:checked="${filter=='normal'}">
+                        <label class="form-check-label" for="gridRadios3">
+                            Normal
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                        <label class="form-check-label" for="gridRadios2">
+                        <input class="form-check-input" type="radio" name="filter" id="gridRadios4" value="option4" th:onclick="'javascript:filterPrblm(\'faible\');'" th:checked="${filter=='faible'}">
+                        <label class="form-check-label" for="gridRadios4">
                             Faible
                         </label>
                     </div>
@@ -361,7 +358,11 @@
                                         <span th:if="${pbm.statut.idStatut == 3}"><i class="bi bi-check-lg"></i></span>
                                     </td>
                                     <td class="text-center" th:text="${pbm.dateEnvProb}"></td>
-                                    <td class="text-center"><i class="bi bi-eye-fill"></i></td>
+                                    <td class="text-center"><a href="" th:href="@{'/viewPblm/'+ ${pbm.idProb}}">Voir</a>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#basicModal"
+                                           th:data-parameter="${pbm.idProb}"
+                                           th:onclick="getPrb(this.getAttribute('data-parameter'));">Transferer</a>
+                                    </td>
                                 </tr>
 
                                 </tbody>
@@ -376,29 +377,26 @@
             <div class="tab-pane fade" id="bordered-justified-contact" role="tabpanel" aria-labelledby="contact-tab">
                 <div class="d-flex mt-3">
                     <div class="form-check mx-3">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
-                               checked>
+                        <input class="form-check-input" type="radio" name="filter2" id="gridRadios5" value="option1" th:onclick="'javascript:filterPrblm(\'all\');'" th:checked="${filter=='all'}">
                         <label class="form-check-label" for="gridRadios1">
                             Tout
                         </label>
                     </div>
                     <div class="form-check mx-3">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
-                               checked>
-                        <label class="form-check-label" for="gridRadios1">
+                        <input class="form-check-input" type="radio" name="filter2" id="gridRadios6" value="option2" th:onclick="'javascript:filterPrblm(\'urgent\');'" th:checked="${filter=='urgent'}">
+                        <label class="form-check-label" for="gridRadios2">
                             Urgent
                         </label>
                     </div>
-                    <div class="form-check mx-3">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
-                               checked>
-                        <label class="form-check-label" for="gridRadios1">
-                            Moyenne
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filter2" id="gridRadios7" value="option3" th:onclick="'javascript:filterPrblm(\'normal\');'" th:checked="${filter=='normal'}">
+                        <label class="form-check-label" for="gridRadios3">
+                            Normal
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                        <label class="form-check-label" for="gridRadios2">
+                        <input class="form-check-input" type="radio" name="filter2" id="gridRadios8" value="option4" th:onclick="'javascript:filterPrblm(\'faible\');'" th:checked="${filter=='faible'}">
+                        <label class="form-check-label" for="gridRadios4">
                             Faible
                         </label>
                     </div>
@@ -432,7 +430,11 @@
                                         <span th:if="${pbm.statut.idStatut == 3}"><i class="bi bi-check-lg"></i></span>
                                     </td>
                                     <td class="text-center" th:text="${pbm.dateEnvProb}"></td>
-                                    <td class="text-center"><i class="bi bi-eye-fill"></i></td>
+                                    <td class="text-center"><a href="" th:href="@{'/viewPblm/'+ ${pbm.idProb}}">Voir</a>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#basicModal"
+                                           th:data-parameter="${pbm.idProb}"
+                                           th:onclick="getPrb(this.getAttribute('data-parameter'));">Transferer</a>
+                                    </td>
                                 </tr>
 
                                 </tbody>
@@ -448,29 +450,26 @@
             <div class="tab-pane fade" id="bordered-justified-Resolu" role="tabpanel" aria-labelledby="Resolu-tab">
                 <div class="d-flex mt-3">
                     <div class="form-check mx-3">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
-                               checked>
+                        <input class="form-check-input" type="radio" name="filter3" id="gridRadios9" value="option1" th:onclick="'javascript:filterPrblm(\'all\');'" th:checked="${filter=='all'}">
                         <label class="form-check-label" for="gridRadios1">
                             Tout
                         </label>
                     </div>
                     <div class="form-check mx-3">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
-                               checked>
-                        <label class="form-check-label" for="gridRadios1">
+                        <input class="form-check-input" type="radio" name="filter3" id="gridRadios10" value="option2" th:onclick="'javascript:filterPrblm(\'urgent\');'" th:checked="${filter=='urgent'}">
+                        <label class="form-check-label" for="gridRadios2">
                             Urgent
                         </label>
                     </div>
-                    <div class="form-check mx-3">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
-                               checked>
-                        <label class="form-check-label" for="gridRadios1">
-                            Moyenne
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="filter3" id="gridRadios11" value="option3" th:onclick="'javascript:filterPrblm(\'normal\');'" th:checked="${filter=='normal'}">
+                        <label class="form-check-label" for="gridRadios3">
+                            Normal
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                        <label class="form-check-label" for="gridRadios2">
+                        <input class="form-check-input" type="radio" name="filter3" id="gridRadios12" value="option4" th:onclick="'javascript:filterPrblm(\'faible\');'" th:checked="${filter=='faible'}">
+                        <label class="form-check-label" for="gridRadios4">
                             Faible
                         </label>
                     </div>
@@ -504,7 +503,11 @@
                                         <span th:if="${pbm.statut.idStatut == 3}"><i class="bi bi-check-lg"></i></span>
                                     </td>
                                     <td class="text-center" th:text="${pbm.dateEnvProb}"></td>
-                                    <td class="text-center"><i class="bi bi-eye-fill"></i></td>
+                                    <td class="text-center"><a href="" th:href="@{'/viewPblm/'+ ${pbm.idProb}}">Voir</a>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#basicModal"
+                                           th:data-parameter="${pbm.idProb}"
+                                           th:onclick="getPrb(this.getAttribute('data-parameter'));">Transferer</a>
+                                    </td>
                                 </tr>
 
                                 </tbody>
@@ -683,6 +686,10 @@
 <script type="text/javascript">
     var selectedprb = 0;
 
+    function filterPrblm(filter) {
+        window.location = "/problemRecep/[[${#authentication.getPrincipal().getUsername()}]]" + '/' + filter;
+    }
+
     function getSousCategorie() {
 
         var typeId = $("#categorie").val();
@@ -706,7 +713,7 @@
             .done(function (responseJson) {
                 var intervenantDropDow = $("#intervenant");
                 $.each(responseJson, function (index, agent) {
-                    var complexHtml = '<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" name="intervenant" value="' + agent.numMatAgent + '">' + agent.nomAgent + ' ' + agent.prenomAgent + '</li>';
+                    var complexHtml = '<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" name="intervenant" value="' + agent.idAgent + '">' + agent.nomAgent + ' ' + agent.prenomAgent + '</li>';
                     $('#intervenant').append(complexHtml);
                 });
             })
@@ -739,7 +746,7 @@
             .done(function (responseJson) {
                 var intervenantDropDow = $("#intervenant");
                 $.each(responseJson, function (index, agent) {
-                    var complexHtml = '<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" name="intervenant" value="' + agent.numMatAgent + '">' + agent.nomAgent + ' ' + agent.prenomAgent + '</li>';
+                    var complexHtml = '<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" name="intervenant" value="' + agent.idAgent + '">' + agent.nomAgent + ' ' + agent.prenomAgent + '</li>';
                     $('#intervenant').append(complexHtml);
                 });
             })
@@ -772,7 +779,7 @@
             .done(function (responseJson) {
                 var intervenantDropDow = $("#intervenant");
                 $.each(responseJson, function (index, agent) {
-                    var complexHtml = '<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" name="intervenant" value="' + agent.numMatAgent + '">' + agent.nomAgent + ' ' + agent.prenomAgent + '</li>';
+                    var complexHtml = '<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" name="intervenant" value="' + agent.idAgent + '">' + agent.nomAgent + ' ' + agent.prenomAgent + '</li>';
                     $('#intervenant').append(complexHtml);
                 });
             })

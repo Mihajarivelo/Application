@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 public class ChangePasswordDto {
 
     @NotNull
-    private String id;
+    private Long id;
 
     @NotBlank(message="Current Password must not be blank")
     private String currentPassword;
@@ -18,11 +18,11 @@ public class ChangePasswordDto {
     private String confirmPassword;
 
     public ChangePasswordDto() { }
-    public ChangePasswordDto(String id) {this.id = id;}
-    public String getId() {
+    public ChangePasswordDto(Long id) {this.id = id;}
+    public Long getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getCurrentPassword() {

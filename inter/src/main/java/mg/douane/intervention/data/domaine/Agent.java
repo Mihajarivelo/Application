@@ -2,6 +2,7 @@ package mg.douane.intervention.data.domaine;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Set;
 import javax.persistence.*;
@@ -12,7 +13,11 @@ import javax.validation.constraints.Size;
 @Setter
 @Table(name = "agent")
 public class Agent {
+    @GenericGenerator(name = "seqSc", strategy = "increment")
     @Id
+    @GeneratedValue(generator = "seqSc")
+    private Long idAgent;
+
     @Column(name = "numMatAgent", nullable = false, length = 6)
     private String numMatAgent;
 

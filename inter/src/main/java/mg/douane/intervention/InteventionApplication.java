@@ -60,7 +60,7 @@ public class InteventionApplication extends SpringBootServletInitializer {
 
         try {
             List<Priorite> priorites = Stream.of(
-                    new Priorite((long) 1, "Urgent"), new Priorite((long) 2, "Normal")
+                    new Priorite((long) 1, "Urgent"), new Priorite((long) 2, "Normal"), new Priorite((long) 3, "Faible")
             ).collect(Collectors.toList());
             prioriterRepository.saveAll(priorites);
         } catch (Exception e) {

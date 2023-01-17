@@ -11,11 +11,11 @@ public interface AgentService {
 
     public Agent createAgent(Agent agent) throws Exception;
 
-    public Agent getAgentById(String id) throws Exception;
+    public Agent getAgentById(long id) throws Exception;
 
     public Agent updateAgent(Agent agent) throws Exception;
 
-    public void deleteAgent(String id) throws Exception;
+    public void deleteAgent(long id) throws Exception;
 
     public Agent ChangePasswordDto(ChangePasswordDto form) throws Exception;
 }

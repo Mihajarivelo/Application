@@ -11,5 +11,7 @@ import java.util.List;
 public interface HierarchieRepository extends CrudRepository<Hierarchie, Long> {
 
     List<Hierarchie> findByType(TypeHierarchie typeHierarchie);
+
+    List<Hierarchie> findByHier(Hierarchie hierarchie);
 }
 
