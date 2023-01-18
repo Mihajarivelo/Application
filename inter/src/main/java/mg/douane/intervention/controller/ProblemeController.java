@@ -1,9 +1,7 @@
 package mg.douane.intervention.controller;
 
 import mg.douane.intervention.data.domaine.*;
-import mg.douane.intervention.data.dto.AgentDto;
-import mg.douane.intervention.data.dto.CategorieDto;
-import mg.douane.intervention.data.dto.FichePosteDto;
+import mg.douane.intervention.data.dto.*;
 import mg.douane.intervention.repository.*;
 import mg.douane.intervention.service.AgentService;
 import mg.douane.intervention.service.CategorieService;
@@ -21,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -475,6 +474,34 @@ public class ProblemeController {
         fichePosteRepository.save(fichePoste.get());
         return "redirect:/fichPoste";
     }
+
+    @RequestMapping(value = "/getPrblm/{idPrb}")
+    public ResponseEntity<ProblemeDto> getPrblm(@PathVariable long idPrb) {
+        SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy 'à' hh:mm:ss");
+        Optional<Probleme> problemeOptional = problemeRepository.findById(idPrb);
+        Intervenant intervenant = intervenantRepository.findByProbInt(problemeOptional.get());
+        List<Reponse> reponseView = reponseRepository.findByProblemeRep(problemeOptional.get());
+        List<ReponseDto> reponseDtos = new ArrayList<>();
+        for(int i=0; i < reponseView.size(); i++) {
+            ReponseDto reponseDto = new ReponseDto();
+            reponseDto.setDateEnvRep(formater.format(reponseView.get(i).getDateEnvRep()));
+            reponseDto.setDescriptionRep(reponseView.get(i).getDescriptionRep());
+            reponseDto.setExpediteur(reponseView.get(i).getAgentRep().getNomAgent() + " " + reponseView.get(i).getAgentRep().getPrenomAgent());
+            reponseDtos.add(reponseDto);
+        }
+
+        ProblemeDto problemeDto = new ProblemeDto();
+        problemeDto.setDateEnvProb(formater.format(problemeOptional.get().getDateEnvProb()));
+        problemeDto.setStatut(problemeOptional.get().getStatut().getLibelleStatut());
+        problemeDto.setLibelleProb(problemeOptional.get().getLibelleProb());
+        problemeDto.setIntervenant(intervenant.getAgentInt().getNomAgent() + " " + intervenant.getAgentInt().getPrenomAgent());
+        problemeDto.setDescriptionProb(problemeOptional.get().getDescriptionProb());
+        problemeDto.setReponseDtos(reponseDtos);
+
+        return ResponseEntity.ok(problemeDto);
+    }
+
+
 
 
 }
