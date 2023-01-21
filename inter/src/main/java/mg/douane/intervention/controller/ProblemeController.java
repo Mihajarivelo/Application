@@ -373,8 +373,8 @@ public class ProblemeController {
         return "Dispatch/DetailMessageDispatch";
     }
 
-    @RequestMapping("/addRep/{idProb}/{desc}")
-    public String addRep(@PathVariable long idProb, @PathVariable String desc) {
+    @RequestMapping("/addRep/{idProb}/{libelle}/{desc}")
+    public String addRep(@PathVariable long idProb, @PathVariable String libelle, @PathVariable String desc) {
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
         Optional<Agent> agent = agentRepository
@@ -382,7 +382,7 @@ public class ProblemeController {
         Optional<Probleme> prb = problemeRepository.findById(idProb);
         Reponse rep = new Reponse();
         rep.setDateEnvRep(new Date());
-        rep.setLibelleRep("libel");
+        rep.setLibelleRep(libelle);
         rep.setDescriptionRep(desc);
         rep.setProblemeRep(prb.get());
         rep.setAgentRep(agent.get());

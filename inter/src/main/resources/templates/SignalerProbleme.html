@@ -108,7 +108,7 @@
     <ul class="sidebar-nav mt-5" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="HomeDispatch.html">
+            <a class="nav-link " th:href="@{/home}">
                 <i class="bi bi-grid"></i>
                 <span>Acceuil</span>
             </a>
@@ -298,24 +298,12 @@
                                 </div>
                             </div>
 
-                            <div class="row  mb-4">
-                                <label class="col-sm-4 col-form-label">Sous-categorie 1:</label>
-                                <div class="col-sm-8">
-                                    <select class="form-select" aria-label="Default select example" id="sousCat1"
-                                            th:onchange="'javascript:getSousCategorie2();'">
-                                        <option></option>
-                                    </select>
-                                </div>
+                            <div class="row  mb-4" id="htmlSous1">
+                                
                             </div>
 
-                            <div class="row  mb-4">
-                                <label class="col-sm-4 col-form-label">Sous-categorie 2:</label>
-                                <div class="col-sm-8">
-                                    <select class="form-select" aria-label="Default select example" id="sousCat2"
-                                            th:onchange="'javascript:getSousCategorie3();'">
-                                        <option></option>
-                                    </select>
-                                </div>
+                            <div class="row  mb-4" id="htmlSous2">
+                                
                             </div>
                             <!-- <div class="row  mb-4">
                                 <label class="col-sm-4 col-form-label">Sous-categorie 2:</label>
@@ -441,6 +429,8 @@
 
         var typeId = $("#categorie").val();
         var urlString = "[[@{'/getSousCategorieListe/'}]]" + typeId;
+        $('#htmlSous1').empty();
+        $('#htmlSous1').append("<label class=\"col-sm-4 col-form-label\">Sous-categorie 1:</label><div class=\"col-sm-8\"><select class=\"form-select\" aria-label=\"Default select example\" id=\"sousCat1\" onchange=\"getSousCategorie2();\"><option></option></select></div>");
         $('#sousCat1').empty().append('<option ></option>');
 
         $.ajax({methode: "GET", url: urlString})
@@ -474,6 +464,8 @@
 
         var typeId = $("#sousCat1").val();
         var urlString = "[[@{'/getSousCategorieListe/'}]]" + typeId;
+        $('#htmlSous2').empty();
+        $('#htmlSous2').append("<label class=\"col-sm-4 col-form-label\">Sous-categorie 2:</label><div class=\"col-sm-8\"><select class=\"form-select\" aria-label=\"Default select example\" id=\"sousCat2\" onchange=\"getSousCategorie3();\"><option></option> </select></div>");
         $('#sousCat2').empty().append('<option ></option>');
 
         $.ajax({methode: "GET", url: urlString})

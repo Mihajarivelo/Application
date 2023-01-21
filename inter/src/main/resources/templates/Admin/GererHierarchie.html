@@ -400,7 +400,7 @@
     function addSousHier(idCat) {
         var sousCatId = $("#sousCat" + idCat).val();
         var name = $("#sousCatAdd" + idCat).val();
-        var urlString = "[[@{'/addSouHierarchie/'}]]" + idCat + '/'  + name;
+        var urlString = "[[@{'/addSouHierarchie/'}]]" + idCat + '/'  + sousCatId '/'  + name;
 
         $.ajax({methode: "GET", url: urlString})
             .done(function (responseJson) {

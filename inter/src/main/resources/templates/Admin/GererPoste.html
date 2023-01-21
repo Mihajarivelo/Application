@@ -445,12 +445,7 @@
 
                                 <div class="form-group pt-2">
                                     <label>Porte:</label>
-                                    <select class="form-select" aria-label="Default select example" required th:field="${posteForm.porte}">
-                                        <option value="0"></option>
-                                        <option th:each="porte :${porteListe}"
-                                                th:value="${porte.idPorte}"
-                                                th:text="${porte.libellePorte}"></option>
-                                    </select>
+                                    <input class="form-control" placeholder="Porte" required th:field="${posteForm.porte}">
                                 </div>
 
                                 <div class="form-group pt-2">

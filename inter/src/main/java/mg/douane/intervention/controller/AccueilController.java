@@ -120,16 +120,25 @@ public class AccueilController {
         return "redirect:/hierarchie";
     }
 
-    @RequestMapping("/addSouHierarchie/{idH}/{name}")
-    public String addHierarchie(@PathVariable long idH,  @PathVariable String name) {
-        Hierarchie hierarchie = new Hierarchie();
-        hierarchie.setLibelleHier(name);
-        hierarchie.setDateDebHier(new Date());
-        Optional<Hierarchie> hierarchieOptional = hierarchieRepository.findById(idH);
-        Optional<TypeHierarchie> typeHierarchie = typeHierarchieRepository.findById(hierarchieOptional.get().getType().getIdType());
-        hierarchie.setHier(hierarchieOptional.get());
-        hierarchie.setType(typeHierarchie.get());
-        hierarchieRepository.save(hierarchie);
+    @RequestMapping("/addSouHierarchie/{idH}/{idSousHier}/{name}")
+    public String addHierarchie(@PathVariable long idH, @PathVariable long idSousHier,  @PathVariable String name) {
+        Optional<Hierarchie> hier = hierarchieRepository.findById(idH);
+        if (idSousHier == 0) {
+            Hierarchie hierarchie = new Hierarchie();
+            hierarchie.setHier(hier.get());
+            hierarchie.setLibelleHier(name);
+            hierarchie.setDateDebHier(new Date());
+            hierarchie.setType(hier.get().getType());
+            hierarchieRepository.save(hierarchie);
+        } else {
+            Optional<Hierarchie> sousH = hierarchieRepository.findById(idSousHier);
+            Hierarchie hierarchie = new Hierarchie();
+            hierarchie.setHier(sousH.get());
+            hierarchie.setLibelleHier(name);
+            hierarchie.setDateDebHier(new Date());
+            hierarchie.setType(sousH.get().getType());
+            hierarchieRepository.save(hierarchie);
+        }
         return "redirect:/hierarchie";
     }
 
